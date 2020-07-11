@@ -12,3 +12,6 @@
   * method2      - done
   * competetive  - done
 * Genetic        - done
+* ant colony     - todo
+* Bat algo       - todo
+* cucukoo seach  - todo
