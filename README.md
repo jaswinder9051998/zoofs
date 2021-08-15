@@ -22,7 +22,7 @@ pip install ZooFS
 |----------|-------------|-------------|
 |  Particle Swarm Algorithm  | ParticleSwarmOptimization | Utilizes swarm behaviour |
 | Grey Wolf Algorithm | GreyWolfOptimization | Utilizes wolf hunting behaviour |
-| Genetic Algorithm Algorithm | GeneticOptimization | Utilizes genetic algorithm behaviour |
+| Genetic Algorithm Algorithm | GeneticOptimization | Utilizes genetic mutation behaviour |
 | Dragon Fly Algorithm | DragonFlyOptimization | Utilizes dragonfly swarm behaviour |
 | Gravitational Algorithm | GravitationalOptimization | Utilizes newtons gravitational behaviour |
 
