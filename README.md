@@ -1,4 +1,4 @@
-# FSZOO
+# ZooFS
 * dragonfly algo 
   * linear       - done
   * random       - done
