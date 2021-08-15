@@ -14,7 +14,7 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install zoofs.
 [![PyPi Version]()]()
 
 ```bash
-pip install ZooFS
+pip install zoofs
 ```
 
 ## Available Algorithms 
@@ -28,9 +28,6 @@ pip install ZooFS
 
 * [Try It Now?](cause where is the fun in reading documentation XD) [![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)]() 
 
-```python
-from modellogger.modellogger import ModelLogger
-```
 ## Usage
 Define your own objective function for optimization !
 ```python
