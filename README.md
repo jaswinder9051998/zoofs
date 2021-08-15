@@ -20,11 +20,11 @@ pip install ZooFS
 ## Available Algorithms 
 | Algorithm Name | Class Name | Description |
 |----------|-------------|-------------|
-|  Particle Swarm  | ParticleSwarmOptimization | Utilizes swarm behaviour |
-| Grey Wolf | GreyWolfOptimization | Utilizes wolf hunting behaviour |
-| Genetic Algorithm | GeneticOptimization | Utilizes genetic algorithm behaviour |
-| Dragon Fly | DragonFlyOptimization | Utilizes dragonfly swarm behaviour |
-| Gravitational Optimization | GravitationalOptimization | Utilizes newtons gravitational behaviour |
+|  Particle Swarm Algorithm  | ParticleSwarmOptimization | Utilizes swarm behaviour |
+| Grey Wolf Algorithm | GreyWolfOptimization | Utilizes wolf hunting behaviour |
+| Genetic Algorithm Algorithm | GeneticOptimization | Utilizes genetic algorithm behaviour |
+| Dragon Fly Algorithm | DragonFlyOptimization | Utilizes dragonfly swarm behaviour |
+| Gravitational Algorithm | GravitationalOptimization | Utilizes newtons gravitational behaviour |
 
 * [Try It Now?](cause where is the fun in reading documentation XD) [![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)]() 
 
