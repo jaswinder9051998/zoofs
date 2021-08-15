@@ -1,14 +1,14 @@
 # zoofs
 
 
-``ZooFS`` is a Python library for performing feature selection using an array of nature inspired wrapper algorithms. The algorithms range from swarm-intelligence to physics based to Evolutionary. 
+``zoofs`` is a Python library for performing feature selection using an array of nature inspired wrapper algorithms. The algorithms range from swarm-intelligence to physics based to Evolutionary. 
 It's easy to use ,flexible and powerful tool to reduce your feature size.  
 
 ## Installation
 
 ### Using pip
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install model-loger.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install zoofs.
 
 [![PyPi Downloads]()]()
 [![PyPi Version]()]()
