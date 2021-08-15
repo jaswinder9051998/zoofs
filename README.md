@@ -19,7 +19,7 @@ pip install ZooFS
 
 ## Available Algorithms 
 | Algorithm Name | Class Name | Description |
-|----------|-------------|
+|----------|-------------|-------------|
 |  Particle Swarm  | ParticleSwarmOptimization | Utilizes swarm behaviour |
 | Grey Wolf | GreyWolfOptimization | Utilizes wolf hunting behaviour |
 | Genetic Algorithm | GeneticOptimization | Utilizes genetic algorithm behaviour |
