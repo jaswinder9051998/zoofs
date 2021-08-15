@@ -1,5 +1,5 @@
 import plotly.graph_objects as go
-from ZooFS.baseoptimizationalgorithm import BaseOptimizationAlgorithm
+from zoofs.baseoptimizationalgorithm import BaseOptimizationAlgorithm
 import numpy as np 
 import pandas as pd
 class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
