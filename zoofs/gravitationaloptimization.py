@@ -2,6 +2,7 @@ import plotly.graph_objects as go
 from zoofs.baseoptimizationalgorithm import BaseOptimizationAlgorithm
 import numpy as np 
 import pandas as pd
+import logging as log
 class GravitationalOptimization(BaseOptimizationAlgorithm):
     
     def __init__(self,objective_function,n_iteration=50,population_size=50,g0=100,eps=0.5,minimize=True):
