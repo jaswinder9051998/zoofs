@@ -42,7 +42,8 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 # import an algorithm !  
 from zoofs import ParticleSwarmOptimization
 # create object of algorithm
-algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,population_size=20,minimize=True) 
+algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,
+                                       population_size=20,minimize=True) 
 # fit the algorithm
 algo_object.fit(tryxg,X_train, y_train, X_test, y_test,verbose=True)
 #plot your results
@@ -96,7 +97,8 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 # import an algorithm !  
 from zoofs import ParticleSwarmOptimization
 # create object of algorithm
-algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,population_size=20,minimize=True,c1=2,c2=2,w=0.9) 
+algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,
+                                       population_size=20,minimize=True,c1=2,c2=2,w=0.9) 
 # fit the algorithm
 algo_object.fit(tryxg,X_train, y_train, X_test, y_test,verbose=True)
 #plot your results
@@ -146,7 +148,8 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 # import an algorithm !  
 from zoofs import GreyWolfOptimization
 # create object of algorithm
-algo_object=GreyWolfOptimization(objective_function_topass,n_iteration=20,population_size=20,minimize=True) 
+algo_object=GreyWolfOptimization(objective_function_topass,n_iteration=20,
+                                    population_size=20,minimize=True) 
 # fit the algorithm
 algo_object.fit(tryxg,X_train, y_train, X_test, y_test,method=1,verbose=True)
 #plot your results
@@ -196,7 +199,8 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 # import an algorithm !  
 from zoofs import DragonFlyOptimization
 # create object of algorithm
-algo_object=DragonFlyOptimization(objective_function_topass,n_iteration=20,population_size=20,minimize=True) 
+algo_object=DragonFlyOptimization(objective_function_topass,n_iteration=20,
+                                    population_size=20,minimize=True) 
 # fit the algorithm
 algo_object.fit(tryxg,X_train, y_train, X_test, y_test, method='sinusoidal', verbose=True)
 #plot your results
@@ -246,7 +250,9 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 # import an algorithm !  
 from zoofs import GeneticOptimization
 # create object of algorithm
-algo_object=GeneticOptimization(objective_function_topass,n_iteration=20,population_size=20,selective_pressure=2,elitism=2,mutation_rate=0.05,minimize=True) 
+algo_object=GeneticOptimization(objective_function_topass,n_iteration=20,
+                            population_size=20,selective_pressure=2,elitism=2,
+                            mutation_rate=0.05,minimize=True) 
 # fit the algorithm
 algo_object.fit(tryxg,X_train, y_train, X_test, y_test, verbose=True)
 #plot your results
@@ -293,7 +299,8 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 # import an algorithm !  
 from zoofs import GravitationalOptimization
 # create object of algorithm
-algo_object=GravitationalOptimization(objective_function,n_iteration=50,population_size=50,g0=100,eps=0.5,minimize=True) 
+algo_object=GravitationalOptimization(objective_function,n_iteration=50,
+                                population_size=50,g0=100,eps=0.5,minimize=True) 
 # fit the algorithm
 algo_object.fit(tryxg,X_train, y_train, X_test, y_test, verbose=True)
 #plot your results
