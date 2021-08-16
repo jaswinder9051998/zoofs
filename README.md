@@ -57,29 +57,11 @@ algo_object.plot_history()
 ------------------------------------------
 #### zoofs.ParticleSwarmOptimization
 ------------------------------------------
-#### Parameters
-- ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/>
- <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl>
 
-- ``n_iteration ``: int, default=50 <br/>
-<dl> <dd> Number of time the algorithm will run  </dd> </dl>
-
-- ``population_size`` : int, default=50 <br/>
-<dl> <dd> Total size of the population  </dd> </dl>
-
-- ``c1`` : float, default=2.0 <br/>
-<dl> <dd> first acceleration coefficient of particle swarm  </dd> </dl>
-
-- ``c2`` : float, default=2.0 <br/>
-<dl> <dd> second acceleration coefficient of particle swarm  </dd> </dl> 
-
-- `w` : float, default=0.9 <br/>
-<dl> <dd> weight parameter  </dd> </dl>
-
-#### Attributes
-
-- ``best_feature_list`` :  array-like <br/>
-<dl> <dd> Final best set of features  </dd> </dl>
+|  |  |
+|----------|-------------|
+|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration ``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``c1`` : float, default=2.0 <br/> <dl> <dd> first acceleration coefficient of particle swarm  </dd> </dl>    ``c2`` : float, default=2.0 <br/> <dl> <dd> second acceleration coefficient of particle swarm  </dd> </dl> `w` : float, default=0.9 <br/> <dl> <dd> weight parameter  </dd> </dl>| 
+| Attributes | ``best_feature_list`` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### Methods
 
