@@ -51,9 +51,10 @@ algo_object.plot_history()
 
 ## Algorithms 
 
-### Particle Swarm - ParticleSwarmOptimization
+### Particle Swarm 
 ![Particle Swarm](https://media.giphy.com/media/tBRQNyh6fKBpSy2oif/giphy.gif)
 
+####zoofs.ParticleSwarmOptimization
 #### Parameters
 ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'.
 The function must return a value, that needs to be minimized/maximized.  
