@@ -54,22 +54,25 @@ algo_object.plot_history()
 ### Particle Swarm 
 ![Particle Swarm](https://media.giphy.com/media/tBRQNyh6fKBpSy2oif/giphy.gif)
 
-####zoofs.ParticleSwarmOptimization
+#### zoofs.ParticleSwarmOptimization
+------------------------------------
 #### Parameters
 ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'.
 The function must return a value, that needs to be minimized/maximized.  
 
-``model_name ``: Give a unique name to your model.
+``n_iteration ``: Number of time the algorithm will run
 
-``columns`` :Columns used for tranning the model.
+``columns`` : Columns used for tranning the model.
 
-``accuracy`` : Scores to measure the performance eg. rmse , mse , logloss or a custom function that returns a metric.
-           Ideally same factor across all models will help gaining insights from summary.
+``c1`` : first acceleration coefficient of particle swarm
 
-``Flag`` : If true than will print out the contents of the db.   
+``c2`` : second acceleration coefficient of particle swarm 
 
-`model-logger` currently stores the following attribute:
+`w` : weight parameter
 
+#### zoofs.ParticleSwarmOptimization.fit
+------------------------------------
+#### Parameters
 
 #### Example
 
