@@ -30,8 +30,6 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
     w: float, default=0.9
         Velocity weight factor
             
-    Examples
-    --------
     """
     def __init__(self,objective_function,n_iteration=50,population_size=50,minimize=True,
                  c1=2,c2=2,w=0.9):
@@ -80,9 +78,12 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
             The target values (class labels in classification, real numbers in
             regression).
             
+        verbose : bool,default=True
+            Print results for iterations
+            
         Attributes
         ----------
-        best_dim: ndarray of shape (n_features)
+        best_feature_list : ndarray of shape (n_features)
             list of features with the best result of the entire run
         
         """       
