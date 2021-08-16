@@ -60,15 +60,20 @@ algo_object.plot_history()
 ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'.
 The function must return a value, that needs to be minimized/maximized.  
 
-``n_iteration ``: Number of time the algorithm will run
+``n_iteration ``: int, default=50
+Number of time the algorithm will run
 
-``columns`` : Columns used for tranning the model.
+``population_size`` : int, default=50
+Total size of the population 
 
-``c1`` : first acceleration coefficient of particle swarm
+``c1`` : float, default=2.0
+first acceleration coefficient of particle swarm
 
-``c2`` : second acceleration coefficient of particle swarm 
+``c2`` : float, default=2.0
+second acceleration coefficient of particle swarm 
 
-`w` : weight parameter
+`w` : float, default=0.9
+weight parameter
 
 #### zoofs.ParticleSwarmOptimization.fit
 ------------------------------------
