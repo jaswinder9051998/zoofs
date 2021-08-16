@@ -17,6 +17,9 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
         
     n_iteration: int, default=50
         Number of time the Particle Swarm Optimization algorithm will run
+    
+    minimize : bool, default=True
+        Defines if the objective value is to be maximized or minimized
         
     c1: float, default=2.0
         First acceleration constant used in particle swarm optimization
