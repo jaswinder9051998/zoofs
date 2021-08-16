@@ -77,9 +77,9 @@ The function must return a value, that needs to be minimized/maximized.
 #### Example
 
 
-## Support `model-logger`
+## Support `zoofs`
 
-The development of ``model-logger`` relies completely on contributions.
+The development of ``zoofs`` relies completely on contributions.
 
 #### Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
@@ -87,7 +87,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## First roll out 
-*, 2021 💘*
+*, 2021 �*
 
 ## License
 [apache-2.0](https://choosealicense.com/licenses/apache-2.0/)
