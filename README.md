@@ -55,7 +55,7 @@ algo_object.plot_history()
 ![Particle Swarm](https://media.giphy.com/media/tBRQNyh6fKBpSy2oif/giphy.gif)
 
 ------------------------------------------
-#### zoofs.ParticleSwarmOptimization
+#### zoofs.ParticleSwarmOptimization(objective_function,n_iteration=50,population_size=50,minimize=True c1=2,c2=2,w=0.9)
 ------------------------------------------
 
 |  |  |
@@ -69,22 +69,16 @@ algo_object.plot_history()
 |----------|-------------|
 |  fit  | Run the algorithm  | 
 | plot_history | Plot results achieved across iteration |
+ Run the algorithm
+#### fit(model,X_train, y_train, X_test, y_test,verbose=True)
 
-#### fit(model,X_train, y_train, X_test, y_test,verbose=True))
-- ``model`` :   <br/>
-<dl> <dd> machine learning model's object </dd> </dl>
+|  |  |
+|----------|-------------|
+|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> | 
+| Returns  | ``best_feature_list `` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
-- ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/>
-<dl> <dd> Training input samples to be used for machine learning model </dd> </dl>
-
-- ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/>
-<dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl>
-
-- ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/>
-<dl> <dd> Validation input samples </dd> </dl>
-
-- ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/>
-<dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl>
+#### plot_history()
+Plot results across iterations
 #### Example
 
 
