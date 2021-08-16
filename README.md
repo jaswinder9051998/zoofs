@@ -51,7 +51,7 @@ algo_object.plot_history()
 
 ## Algorithms 
 
-### Particle Swarm
+### Particle Swarm - ParticleSwarmOptimization
 ![Particle Swarm](https://media.giphy.com/media/tBRQNyh6fKBpSy2oif/giphy.gif)
 
 #### Parameters
