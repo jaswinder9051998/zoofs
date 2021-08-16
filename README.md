@@ -54,42 +54,54 @@ algo_object.plot_history()
 ### Particle Swarm 
 ![Particle Swarm](https://media.giphy.com/media/tBRQNyh6fKBpSy2oif/giphy.gif)
 
+------------------------------------------
 #### zoofs.ParticleSwarmOptimization
-------------------------------------
+------------------------------------------
 #### Parameters
-``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/>
-<dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl>
+- ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/>
+ <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl>
 
-``n_iteration ``: int, default=50 <br/>
+- ``n_iteration ``: int, default=50 <br/>
 <dl> <dd> Number of time the algorithm will run  </dd> </dl>
 
-``population_size`` : int, default=50 <br/>
+- ``population_size`` : int, default=50 <br/>
 <dl> <dd> Total size of the population  </dd> </dl>
 
-``c1`` : float, default=2.0 <br/>
+- ``c1`` : float, default=2.0 <br/>
 <dl> <dd> first acceleration coefficient of particle swarm  </dd> </dl>
 
-``c2`` : float, default=2.0 <br/>
+- ``c2`` : float, default=2.0 <br/>
 <dl> <dd> second acceleration coefficient of particle swarm  </dd> </dl> 
 
-`w` : float, default=0.9 <br/>
+- `w` : float, default=0.9 <br/>
 <dl> <dd> weight parameter  </dd> </dl>
 
-#### zoofs.ParticleSwarmOptimization.fit
-------------------------------------
-``model`` :   <br/>
+#### Attributes
+
+- ``best_feature_list`` :  array-like <br/>
+<dl> <dd> Final best set of features  </dd> </dl>
+
+#### Methods
+
+| Methods | Class Name |
+|----------|-------------|
+|  fit  | Run the algorithm  | 
+| plot_history | Plot results achieved across iteration |
+
+#### fit(model,X_train, y_train, X_test, y_test,verbose=True))
+- ``model`` :   <br/>
 <dl> <dd> machine learning model's object </dd> </dl>
 
-``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/>
+- ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/>
 <dl> <dd> Training input samples to be used for machine learning model </dd> </dl>
 
-``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/>
+- ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/>
 <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl>
 
-``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/>
+- ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/>
 <dl> <dd> Validation input samples </dd> </dl>
 
-``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/>
+- ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/>
 <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl>
 #### Example
 
