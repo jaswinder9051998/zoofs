@@ -32,7 +32,8 @@ pip install zoofs
 Define your own objective function for optimization !
 ```python
 from sklearn.metrics import log_loss
-# define your own objective function, make sure the function receives four parameters, fit your model and return the objective value ! 
+# define your own objective function, make sure the function receives four parameters,
+  fit your model and return the objective value ! 
 def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
     model.fit(X_train,y_train)  
     P=log_loss(y_valid,model.predict_proba(X_valid))
@@ -85,7 +86,8 @@ Plot results across iterations
 #### Example 
 ```python
 from sklearn.metrics import log_loss
-# define your own objective function, make sure the function receives four parameters, fit your model and return the objective value ! 
+# define your own objective function, make sure the function receives four parameters,
+  fit your model and return the objective value ! 
 def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
     model.fit(X_train,y_train)  
     P=log_loss(y_valid,model.predict_proba(X_valid))
@@ -134,7 +136,8 @@ Plot results across iterations
 #### Example 
 ```python
 from sklearn.metrics import log_loss
-# define your own objective function, make sure the function receives four parameters, fit your model and return the objective value ! 
+# define your own objective function, make sure the function receives four parameters,
+  fit your model and return the objective value ! 
 def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
     model.fit(X_train,y_train)  
     P=log_loss(y_valid,model.predict_proba(X_valid))
@@ -183,7 +186,8 @@ Plot results across iterations
 #### Example 
 ```python
 from sklearn.metrics import log_loss
-# define your own objective function, make sure the function receives four parameters, fit your model and return the objective value ! 
+# define your own objective function, make sure the function receives four parameters,
+  fit your model and return the objective value ! 
 def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
     model.fit(X_train,y_train)  
     P=log_loss(y_valid,model.predict_proba(X_valid))
