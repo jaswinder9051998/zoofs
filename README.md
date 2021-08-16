@@ -1,7 +1,7 @@
 # zoofs
 
 
-``zoofs`` is a Python library for performing feature selection using an array of nature inspired wrapper algorithms. The algorithms range from swarm-intelligence to physics based to Evolutionary. 
+``zoofs`` is a Python library for performing feature selection using an variety of nature inspired wrapper algorithms. The algorithms range from swarm-intelligence to physics based to Evolutionary. 
 It's easy to use ,flexible and powerful tool to reduce your feature size.  
 
 ## Installation
