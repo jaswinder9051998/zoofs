@@ -4,6 +4,29 @@ import numpy as np
 import pandas as pd
 import logging as log
 class DragonFlyOptimization(BaseOptimizationAlgorithm):
+    """
+    Dragon Fly Optimization
+    
+    Parameters
+    ----------
+    objective_function: user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'
+        User defined function that returns the objective value 
+        
+    population_size: int, default=50
+        Total size of the population 
+        
+    n_iteration: int, default=50
+        Number of time the Particle Swarm Optimization algorithm will run
+    
+    minimize : bool, default=True
+        Defines if the objective value is to be maximized or minimized
+    
+    Attributes
+    ----------
+    best_feature_list : ndarray of shape (n_features)
+        list of features with the best result of the entire run
+        
+    """
     def __init__(self,objective_function,n_iteration=50,population_size=50,minimize=True):
         super().__init__(objective_function,n_iteration,population_size,minimize)
 
@@ -32,6 +55,33 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
             raise ValueError(f"method accepts only linear,random,quadraic types ")
 
     def fit(self,model,X_train,y_train,X_valid,y_valid,method='sinusoidal',verbose=True):
+        """
+        Dragon Fly Optimization
+    
+        Parameters
+        ----------
+        model :
+           machine learning model's object
+                
+        X_train : pandas.core.frame.DataFrame of shape (n_samples, n_features)
+           Training input samples to be used for machine learning model
+                
+        y_train : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
+           The target values (class labels in classification, real numbers in regression).
+                
+         X_valid : pandas.core.frame.DataFrame of shape (n_samples, n_features)
+           Validation input samples
+                
+         y_valid : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
+            The target values (class labels in classification, real numbers in regression).
+                
+         method : {'linear','random','quadraic','sinusoidal'}, default='sinusoidal'
+            Choose the between the three methods of Dragon Fly optimization
+                
+         verbose : bool,default=True
+             Print results for iterations
+
+        """
         self._check_params(model,X_train,y_train,X_valid,y_valid,method) 
 
         kbest=self.population_size-1
