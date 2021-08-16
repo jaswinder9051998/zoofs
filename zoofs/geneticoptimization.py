@@ -3,6 +3,7 @@ from zoofs.baseoptimizationalgorithm import BaseOptimizationAlgorithm
 import numpy as np 
 import pandas as pd
 import scipy
+import logging as log
 
 class GeneticOptimization(BaseOptimizationAlgorithm):
     def __init__(self,objective_function,n_iteration=20,population_size=20,selective_pressure=2,elitism=2,mutation_rate=0.05,
