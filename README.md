@@ -32,15 +32,16 @@ pip install zoofs
 Define your own objective function for optimization !
 ```python
 from sklearn.metrics import accuracy_score
-def score_model(model,X_train, y_train, X_valid, y_valid):      
+# define your own objective function, make sure the function receives fpur parameters, fit your model and return the objective value ! 
+def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
     model.fit(X_train,y_train)  
     P=log_loss(y_valid,model.predict_proba(X_valid))
     return P
     
 # import an algorithm !  
 from zoofs import ParticleSwarmOptimization
-# define object of algorithm
-algo_object=ParticleSwarmOptimization(score_model,n_iteration=20,population_size=20,minimize=True) 
+# create object of algorithm
+algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,population_size=20,minimize=True) 
 # fit the algorithm
 algo_object.fit(tryxg,X_train, y_train, X_test, y_test,verbose=True)
 #plot your results
@@ -51,8 +52,9 @@ algo_object.plot_history()
 ### Particle Swarm
 ![Particle Swarm](https://media.giphy.com/media/tBRQNyh6fKBpSy2oif/giphy.gif)
 
-``save_pickle`` : let's you save the model as a pickle file with model_name as the
-file name . Uses joblib for pickling ,to use it later use joblib.load('name').
+#### Parameters
+``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'.
+The function must return a value, that needs to be minimized/maximized.  
 
 ``model_name ``: Give a unique name to your model.
 
