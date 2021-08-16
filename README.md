@@ -48,7 +48,9 @@ algo_object.fit(tryxg,X_train, y_train, X_test, y_test,verbose=True)
 algo_object.plot_history()
    
 ```
-
+ <br/>
+ <br/>
+ 
 ## Algorithms 
 
 ### _Particle Swarm_
@@ -80,6 +82,26 @@ algo_object.plot_history()
 #### plot_history()
 Plot results across iterations
 
+#### Example 
+```python
+from sklearn.metrics import log_loss
+# define your own objective function, make sure the function receives four parameters, fit your model and return the objective value ! 
+def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
+    model.fit(X_train,y_train)  
+    P=log_loss(y_valid,model.predict_proba(X_valid))
+    return P
+    
+# import an algorithm !  
+from zoofs import ParticleSwarmOptimization
+# create object of algorithm
+algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,population_size=20,minimize=True,c1=2,c2=2,w=0.9) 
+# fit the algorithm
+algo_object.fit(tryxg,X_train, y_train, X_test, y_test,verbose=True)
+#plot your results
+algo_object.plot_history()
+```  
+<br/>
+<br/>
 
 ### _Grey Wolf_
 ![Grey Wolf](https://media.giphy.com/media/CvgezXSuQTMTC/giphy.gif)
@@ -109,7 +131,26 @@ Plot results across iterations
 #### plot_history()
 Plot results across iterations
 
-
+#### Example 
+```python
+from sklearn.metrics import log_loss
+# define your own objective function, make sure the function receives four parameters, fit your model and return the objective value ! 
+def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
+    model.fit(X_train,y_train)  
+    P=log_loss(y_valid,model.predict_proba(X_valid))
+    return P
+    
+# import an algorithm !  
+from zoofs import GreyWolfOptimization
+# create object of algorithm
+algo_object=GreyWolfOptimization(objective_function_topass,n_iteration=20,population_size=20,minimize=True) 
+# fit the algorithm
+algo_object.fit(tryxg,X_train, y_train, X_test, y_test,method=1,verbose=True)
+#plot your results
+algo_object.plot_history()
+```  
+<br/>
+<br/>
 
 
 ## Support `zoofs`
