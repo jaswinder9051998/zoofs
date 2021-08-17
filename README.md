@@ -45,7 +45,7 @@ from zoofs import ParticleSwarmOptimization
 algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,
                                        population_size=20,minimize=True) 
 # fit the algorithm
-algo_object.fit(tryxg,X_train, y_train, X_test, y_test,verbose=True)
+algo_object.fit(tryxg,X_train, y_train, X_valid, y_valid,verbose=True)
 #plot your results
 algo_object.plot_history()
    
@@ -78,7 +78,7 @@ algo_object.plot_history()
 
 |  |  |
 |----------|-------------|
-|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>| 
+|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The Validation target values . </dd> </dl> ``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>| 
 | Returns  | ``best_feature_list `` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### plot_history()
@@ -100,7 +100,7 @@ from zoofs import ParticleSwarmOptimization
 algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,
                                        population_size=20,minimize=True,c1=2,c2=2,w=0.9) 
 # fit the algorithm
-algo_object.fit(tryxg,X_train, y_train, X_test, y_test,verbose=True)
+algo_object.fit(tryxg,X_train, y_train, X_valid, y_valid,verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
@@ -129,7 +129,7 @@ algo_object.plot_history()
 
 |  |  |
 |----------|-------------|
-|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``method`` : {1, 2}, default=1 <br/> <dl> <dd> Choose the between the two methods of grey wolf optimization </dd> </dl>``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>| 
+|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The Validation target values . </dd> </dl> ``method`` : {1, 2}, default=1 <br/> <dl> <dd> Choose the between the two methods of grey wolf optimization </dd> </dl>``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>| 
 | Returns  | ``best_feature_list `` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### plot_history()
@@ -151,7 +151,7 @@ from zoofs import GreyWolfOptimization
 algo_object=GreyWolfOptimization(objective_function_topass,n_iteration=20,
                                     population_size=20,minimize=True) 
 # fit the algorithm
-algo_object.fit(tryxg,X_train, y_train, X_test, y_test,method=1,verbose=True)
+algo_object.fit(tryxg,X_train, y_train, X_valid, y_valid,method=1,verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
@@ -180,7 +180,7 @@ algo_object.plot_history()
 
 |  |  |
 |----------|-------------|
-|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``method`` : {'linear','random','quadraic','sinusoidal'}, default='sinusoidal' <br/> <dl> <dd> Choose the between the three methods of Dragon Fly optimization </dd> </dl>``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>| 
+|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The Validation target values . </dd> </dl> ``method`` : {'linear','random','quadraic','sinusoidal'}, default='sinusoidal' <br/> <dl> <dd> Choose the between the three methods of Dragon Fly optimization </dd> </dl>``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>| 
 | Returns  | ``best_feature_list `` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### plot_history()
@@ -202,7 +202,7 @@ from zoofs import DragonFlyOptimization
 algo_object=DragonFlyOptimization(objective_function_topass,n_iteration=20,
                                     population_size=20,minimize=True) 
 # fit the algorithm
-algo_object.fit(tryxg,X_train, y_train, X_test, y_test, method='sinusoidal', verbose=True)
+algo_object.fit(tryxg,X_train, y_train, X_valid, y_valid, method='sinusoidal', verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
@@ -231,7 +231,7 @@ algo_object.plot_history()
 
 |  |  |
 |----------|-------------|
-|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>| 
+|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The Validation target values . </dd> </dl> ``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>| 
 | Returns  | ``best_feature_list `` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### plot_history()
@@ -254,7 +254,7 @@ algo_object=GeneticOptimization(objective_function_topass,n_iteration=20,
                             population_size=20,selective_pressure=2,elitism=2,
                             mutation_rate=0.05,minimize=True) 
 # fit the algorithm
-algo_object.fit(tryxg,X_train, y_train, X_test, y_test, verbose=True)
+algo_object.fit(tryxg,X_train, y_train,X_valid, y_valid, verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
@@ -280,7 +280,7 @@ algo_object.plot_history()
 
 |  |  |
 |----------|-------------|
-|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>| 
+|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The Validation target values . </dd> </dl> ``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>| 
 | Returns  | ``best_feature_list `` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### plot_history()
@@ -302,7 +302,7 @@ from zoofs import GravitationalOptimization
 algo_object=GravitationalOptimization(objective_function,n_iteration=50,
                                 population_size=50,g0=100,eps=0.5,minimize=True) 
 # fit the algorithm
-algo_object.fit(tryxg,X_train, y_train, X_test, y_test, verbose=True)
+algo_object.fit(tryxg,X_train, y_train, X_valid, y_valid, verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
