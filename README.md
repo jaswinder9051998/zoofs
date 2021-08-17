@@ -43,9 +43,11 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 from zoofs import ParticleSwarmOptimization
 # create object of algorithm
 algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,
-                                       population_size=20,minimize=True) 
+                                       population_size=20,minimize=True)
+import lightgbm as lgb
+lgb_model = lgb.LGBMClassifier()                                       
 # fit the algorithm
-algo_object.fit(tryxg,X_train, y_train, X_valid, y_valid,verbose=True)
+algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,verbose=True)
 #plot your results
 algo_object.plot_history()
    
@@ -98,9 +100,11 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 from zoofs import ParticleSwarmOptimization
 # create object of algorithm
 algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,
-                                       population_size=20,minimize=True,c1=2,c2=2,w=0.9) 
+                                       population_size=20,minimize=True,c1=2,c2=2,w=0.9)
+import lightgbm as lgb
+lgb_model = lgb.LGBMClassifier()                      
 # fit the algorithm
-algo_object.fit(tryxg,X_train, y_train, X_valid, y_valid,verbose=True)
+algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
@@ -149,9 +153,11 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 from zoofs import GreyWolfOptimization
 # create object of algorithm
 algo_object=GreyWolfOptimization(objective_function_topass,n_iteration=20,
-                                    population_size=20,minimize=True) 
+                                    population_size=20,minimize=True)
+import lightgbm as lgb
+lgb_model = lgb.LGBMClassifier()                                       
 # fit the algorithm
-algo_object.fit(tryxg,X_train, y_train, X_valid, y_valid,method=1,verbose=True)
+algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,method=1,verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
@@ -200,9 +206,11 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 from zoofs import DragonFlyOptimization
 # create object of algorithm
 algo_object=DragonFlyOptimization(objective_function_topass,n_iteration=20,
-                                    population_size=20,minimize=True) 
+                                    population_size=20,minimize=True)
+import lightgbm as lgb
+lgb_model = lgb.LGBMClassifier()                                     
 # fit the algorithm
-algo_object.fit(tryxg,X_train, y_train, X_valid, y_valid, method='sinusoidal', verbose=True)
+algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid, method='sinusoidal', verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
@@ -252,9 +260,11 @@ from zoofs import GeneticOptimization
 # create object of algorithm
 algo_object=GeneticOptimization(objective_function_topass,n_iteration=20,
                             population_size=20,selective_pressure=2,elitism=2,
-                            mutation_rate=0.05,minimize=True) 
+                            mutation_rate=0.05,minimize=True)
+import lightgbm as lgb
+lgb_model = lgb.LGBMClassifier()                            
 # fit the algorithm
-algo_object.fit(tryxg,X_train, y_train,X_valid, y_valid, verbose=True)
+algo_object.fit(lgb_model,X_train, y_train,X_valid, y_valid, verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
@@ -301,8 +311,10 @@ from zoofs import GravitationalOptimization
 # create object of algorithm
 algo_object=GravitationalOptimization(objective_function,n_iteration=50,
                                 population_size=50,g0=100,eps=0.5,minimize=True) 
+import lightgbm as lgb
+lgb_model = lgb.LGBMClassifier()                                
 # fit the algorithm
-algo_object.fit(tryxg,X_train, y_train, X_valid, y_valid, verbose=True)
+algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid, verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
