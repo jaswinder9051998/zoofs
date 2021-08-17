@@ -132,5 +132,5 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
             
             self.iteration_objective_score_monitor(i)
             self.verbose_results(verbose,i)
-            elf.best_feature_list=list(self.feature_list[np.where(self.best_dim)[0]])
+            self.best_feature_list=list(self.feature_list[np.where(self.best_dim)[0]])
         return self.best_feature_list 
