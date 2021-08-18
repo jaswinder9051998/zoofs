@@ -49,6 +49,9 @@ algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,verbose=True)
 algo_object.plot_history()
    
 ```
+### objective score plot
+![objective score Header](https://github.com/jaswinder9051998/zoofs/blob/master/asserts/p2.PNG)
+
  <br/>
  <br/>
  
