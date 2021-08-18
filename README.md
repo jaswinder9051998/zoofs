@@ -23,7 +23,7 @@ pip install zoofs
 | Genetic Algorithm Algorithm | GeneticOptimization | Utilizes genetic mutation behaviour |
 | Gravitational Algorithm | GravitationalOptimization | Utilizes newtons gravitational behaviour |
 
-* [Try It Now?] [![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)]() 
+* [Try It Now?] [![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/12LYc67hIuy7PKSa8J_75bQUZ62EBJz4J?usp=sharing) 
 
 ## Usage
 Define your own objective function for optimization !
