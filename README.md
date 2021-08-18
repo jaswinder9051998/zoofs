@@ -328,7 +328,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## First roll out 
-*18,08,2021 *
+18,08,2021
 
 ## License
 [apache-2.0](https://choosealicense.com/licenses/apache-2.0/)
