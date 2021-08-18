@@ -8,10 +8,7 @@ It's easy to use ,flexible and powerful tool to reduce your feature size.
 
 ### Using pip
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install zoofs.
-
-[![PyPi Downloads]()]()
-[![PyPi Version]()]()
+Use the package manager to install zoofs.
 
 ```bash
 pip install zoofs
