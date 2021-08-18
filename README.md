@@ -5,7 +5,7 @@
 It's easy to use ,flexible and powerful tool to reduce your feature size.  
 
 ## Installation
-
+[![PyPI version](https://badge.fury.io/py/zoofs.svg)](https://badge.fury.io/py/zoofs) <br/>
 ### Using pip
 
 Use the package manager to install zoofs.
