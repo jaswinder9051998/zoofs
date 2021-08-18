@@ -9,7 +9,7 @@ setup(name='zoofs',
       packages=['zoofs'],
       zip_safe=True,
 	description="zoofs is a Python library for performing feature selection using an variety of nature inspired wrapper algorithms..",
-      long_description=open("README.rst").read(),
+      long_description=open("README.md").read(),
 	  install_requires=[
 		"pandas",
 		"numpy",
