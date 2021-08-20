@@ -15,14 +15,15 @@ pip install zoofs
 ```
 
 ## Available Algorithms 
-| Algorithm Name | Class Name | Description |
-|----------|-------------|-------------|
-| Particle Swarm Algorithm  | ParticleSwarmOptimization | Utilizes swarm behaviour |
-| Grey Wolf Algorithm | GreyWolfOptimization | Utilizes wolf hunting behaviour |
-| Dragon Fly Algorithm | DragonFlyOptimization | Utilizes dragonfly swarm behaviour |
-| Genetic Algorithm Algorithm | GeneticOptimization | Utilizes genetic mutation behaviour |
-| Gravitational Algorithm | GravitationalOptimization | Utilizes newtons gravitational behaviour |
+| Algorithm Name | Class Name | Description | References doi |
+|----------|-------------|-------------|-------------|
+| Particle Swarm Algorithm  | ParticleSwarmOptimization | Utilizes swarm behaviour | 10.1007/978-3-319-13563-2_51 |
+| Grey Wolf Algorithm | GreyWolfOptimization | Utilizes wolf hunting behaviour | https://doi.org/10.1016/j.neucom.2015.06.083 |
+| Dragon Fly Algorithm | DragonFlyOptimization | Utilizes dragonfly swarm behaviour | 10.1016/j.knosys.2020.106131 |
+| Genetic Algorithm Algorithm | GeneticOptimization | Utilizes genetic mutation behaviour | 10.1109/ICDAR.2001.953980 |
+| Gravitational Algorithm | GravitationalOptimization | Utilizes newtons gravitational behaviour | 10.1109/ICASSP.2011.5946916 |
 
+More algos soon, stay tuned !
 * [Try It Now?] [![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/12LYc67hIuy7PKSa8J_75bQUZ62EBJz4J?usp=sharing) 
 
 ## Usage
