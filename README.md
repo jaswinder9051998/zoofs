@@ -49,6 +49,12 @@ algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,verbose=True)
 algo_object.plot_history()
    
 ```
+### Suggestions for Usage
+- As available algorithms are wrapper algos. It is better to use ml models that build quicker, e.g lightgbm, catboost.
+- Take sufficient amount for 'population_size' , as this will determine the extent of exploration and exploitation of the algo.
+- Ensure that your ml model has its hyperparamters optimized before passing it to zoofs algos.
+
+
 ### objective score plot
 ![objective score Header](https://github.com/jaswinder9051998/zoofs/blob/master/asserts/p2.PNG)
 
