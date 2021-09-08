@@ -1,25 +1,41 @@
 import plotly.graph_objects as go
-from zoofs.baseoptimizationalgorithm import BaseOptimizationAlgorithm
+from baseoptimizationalgorithm import BaseOptimizationAlgorithm
 import numpy as np 
 import pandas as pd
 import logging as log
 class GravitationalOptimization(BaseOptimizationAlgorithm):
-    
+    """
+        Parameters
+        ----------
+        objective_function : user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'
+            The function must return a value, that needs to be minimized/maximized.
+
+        n_iteration : int, default=50
+            Number of time the Optimization algorithm will run
+
+        population_size : int, default=50
+            Total size of the population
+
+        g0 : float, default=100
+            gravitational strength constant
+
+        eps : float, default=0.5
+            distance constant
+
+        minimize : bool, default=True
+            Defines if the objective value is to be maximized or minimized
+
+        Attributes
+        ----------
+        best_feature_list : ndarray of shape (n_features)
+            list of features with the best result of the entire run
+    """
     def __init__(self,objective_function,n_iteration=50,population_size=50,g0=100,eps=0.5,minimize=True):
         super().__init__(objective_function,n_iteration,population_size,minimize)
         self.g0=g0
         self.eps=eps
 
-    def evaluate_fitness(self,model,X_train,y_train,X_valid,y_valid):
-        """
-        Evaluate fitness for the entire population
-        
-        Returns
-        -------
-        scores: ndarray of shape (population_size)
-            Array containing objective scores of the population
-        
-        """
+    def _evaluate_fitness(self,model,X_train,y_train,X_valid,y_valid):
         scores =  []
         for i,individual in enumerate(self.individuals):
             chosen_features = [index for index in range(X_train.shape[1]) if individual[index]==1]
@@ -36,6 +52,27 @@ class GravitationalOptimization(BaseOptimizationAlgorithm):
     
             
     def fit(self,model,X_train,y_train,X_valid,y_valid,verbose=True):
+        """
+        Parameters
+        ----------      
+        model :
+           machine learning model's object
+                
+        X_train : pandas.core.frame.DataFrame of shape (n_samples, n_features)
+           Training input samples to be used for machine learning model
+                
+        y_train : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
+           The target values (class labels in classification, real numbers in regression).
+                
+        X_valid : pandas.core.frame.DataFrame of shape (n_samples, n_features)
+           Validation input samples
+                
+        y_valid : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
+            The target values (class labels in classification, real numbers in regression).
+                
+        verbose : bool,default=True
+             Print results for iterations
+        """
         
         self._check_params(model,X_train,y_train,X_valid,y_valid)
         
@@ -50,7 +87,7 @@ class GravitationalOptimization(BaseOptimizationAlgorithm):
         kbest=sorted([int(x) for x in np.linspace(1,self.population_size-1,self.n_iteration)],reverse=True)
 
         for iteration in range(self.n_iteration):
-            self.fitness_scores=self.evaluate_fitness(model,X_train,y_train,X_valid,y_valid)  
+            self.fitness_scores=self._evaluate_fitness(model,X_train,y_train,X_valid,y_valid)  
             
             self.iteration_objective_score_monitor(iteration)
             

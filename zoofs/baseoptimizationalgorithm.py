@@ -18,16 +18,7 @@ class BaseOptimizationAlgorithm(ABC):
     def sigmoid(self,x):
         return 1/(1+np.exp(-x))
     
-    def evaluate_fitness(self,model,X_train,y_train,X_valid,y_valid):
-        """
-        Evaluate fitness for the entire population
-        
-        Returns
-        -------
-        scores: ndarray of shape (population_size)
-            Array containing objective scores of the population
-        
-        """
+    def _evaluate_fitness(self,model,X_train,y_train,X_valid,y_valid):
         scores =  []
         for i,individual in enumerate(self.individuals):
             chosen_features = [index for index in range(X_train.shape[1]) if individual[index]==1]
@@ -43,15 +34,6 @@ class BaseOptimizationAlgorithm(ABC):
         return scores
     
     def iteration_objective_score_monitor(self,i):
-        """
-        Recording the performance at ith iteration
-        
-        Parameters
-        ----------
-        i: int
-            number of iteration
-        
-        """
         if self.minimize:           
             self.best_results_per_iteration[i]={'best_score':self.best_score,
                                                 'objective_score':np.array(self.fitness_scores).min(),
@@ -64,21 +46,9 @@ class BaseOptimizationAlgorithm(ABC):
                                                  np.where(self.individuals[np.array(self.fitness_scores).argmin()])[0]]) }
             
     def initialize_population(self,X):
-        """
-        Initialize population for the algorithm according to the number 
-        of features size present in X
-        
-        Parameters
-        ----------
-        X:  pandas.core.frame.DataFrame of shape (n_samples, n_features)
-            dataframe to be used to initialize population for the algorithm
-        """
         self.individuals =  np.random.randint(0,2,size=(self.population_size,X.shape[1]))
     
     def _check_params(self,model,X_train,y_train,X_valid,y_valid):
-        """
-        Perfrom validation of parameters for the algorithm
-        """
         if (self.n_iteration <= 0):
             raise ValueError(f"n_init should be > 0, got {self.n_iteration} instead.")
             
@@ -144,17 +114,6 @@ class BaseOptimizationAlgorithm(ABC):
                                                                  self.individuals[self.individuals.sum(axis=1)==0].shape[1]))
         
     def verbose_results(self,verbose,i):
-        """
-        Verbose results
-        
-        Parameters
-        ----------
-        verbose: boolean 
-            Result for verbosity
-        
-        i: int
-            number of iteration
-        """
         if verbose:
             if i==0:
                 print("\t\t Best value of metric across iteration \t Best value of metric across population  ")

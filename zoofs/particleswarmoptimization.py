@@ -1,5 +1,5 @@
 import plotly.graph_objects as go
-from zoofs.baseoptimizationalgorithm import BaseOptimizationAlgorithm
+from baseoptimizationalgorithm import BaseOptimizationAlgorithm
 import numpy as np 
 import pandas as pd
 import logging as log
@@ -29,6 +29,11 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
         
     w: float, default=0.9
         Velocity weight factor
+    
+    Attributes
+    ----------
+    best_feature_list : ndarray of shape (n_features)
+        list of features with the best result of the entire run
             
     """
     def __init__(self,objective_function,n_iteration=50,population_size=50,minimize=True,
@@ -38,7 +43,7 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
         self.c2=c2
         self.w=w
 
-    def evaluate_fitness(self,model,X_train,y_train,X_valid,y_valid):
+    def _evaluate_fitness(self,model,X_train,y_train,X_valid,y_valid):
         scores =  []
         for i,individual in enumerate(self.individuals):
             chosen_features = [index for index in range(X_train.shape[1]) if individual[index]==1]
@@ -81,10 +86,6 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
         verbose : bool,default=True
             Print results for iterations
             
-        Attributes
-        ----------
-        best_feature_list : ndarray of shape (n_features)
-            list of features with the best result of the entire run
         
         """       
         self._check_params(model,X_train,y_train,X_valid,y_valid)
@@ -107,7 +108,7 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
             self._check_individuals()
              
             
-            self.fitness_scores =self.evaluate_fitness(model,X_train,y_train,X_valid,y_valid)
+            self.fitness_scores =self._evaluate_fitness(model,X_train,y_train,X_valid,y_valid)
             #if not(self.minimize):
             #    self.fitness_scores=list(-np.array(self.fitness_scores))
             

@@ -1,11 +1,33 @@
 import plotly.graph_objects as go
-from zoofs.baseoptimizationalgorithm import BaseOptimizationAlgorithm
+from baseoptimizationalgorithm import BaseOptimizationAlgorithm
 import numpy as np 
 import pandas as pd
 import logging as log
 
 class GreyWolfOptimization(BaseOptimizationAlgorithm):
+    """
+        Parameters
+        ----------
+        objective_function : user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'
+            The function must return a value, that needs to be minimized/maximized.
+
+        n_iteration : int, default=50
+            Number of time the Optimization algorithm will run
+
+        population_size : int, default=50
+            Total size of the population
+
+        minimize : bool, default=True
+            Defines if the objective value is to be maximized or minimized
+        
+        Attributes
+        ----------
+        best_feature_list : ndarray of shape (n_features)
+            list of features with the best result of the entire run
+
+    """
     def __init__(self,objective_function,n_iteration=50,population_size=50,minimize=True):
+
         super().__init__(objective_function,n_iteration,population_size,minimize)
         
     def _check_params(self,model,X_train,y_train,X_valid,y_valid,method):
@@ -14,6 +36,30 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
             raise ValueError(f"method accepts only 1,2 ")
         
     def fit(self,model,X_train,y_train,X_valid,y_valid,method=1,verbose=True):
+        """
+        Parameters
+        ----------      
+        model :
+           machine learning model's object
+                
+        X_train : pandas.core.frame.DataFrame of shape (n_samples, n_features)
+           Training input samples to be used for machine learning model
+                
+        y_train : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
+           The target values (class labels in classification, real numbers in regression).
+                
+        X_valid : pandas.core.frame.DataFrame of shape (n_samples, n_features)
+           Validation input samples
+                
+        y_valid : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
+            The target values (class labels in classification, real numbers in regression).
+                
+        method : {1, 2}, default=1
+            Choose the between the two methods of grey wolf optimization
+                
+        verbose : bool,default=True
+             Print results for iterations
+        """
         self._check_params(model,X_train,y_train,X_valid,y_valid,method)
         
         self.feature_list=np.array(list(X_train.columns))
@@ -32,7 +78,7 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
         for i in range(self.n_iteration):
             a=2-2*((i+1)/self.n_iteration)
             
-            self.fitness_scores=self.evaluate_fitness(model,X_train,y_train,X_valid,y_valid)                        
+            self.fitness_scores=self._evaluate_fitness(model,X_train,y_train,X_valid,y_valid)                        
             #if not(self.minimize):
             #    self.fitness_scores=list(-np.array(self.fitness_scores))
             

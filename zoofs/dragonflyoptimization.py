@@ -1,5 +1,5 @@
 import plotly.graph_objects as go
-from zoofs.baseoptimizationalgorithm import BaseOptimizationAlgorithm
+from baseoptimizationalgorithm import BaseOptimizationAlgorithm
 import numpy as np 
 import pandas as pd
 import logging as log
@@ -16,7 +16,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
         Total size of the population 
         
     n_iteration: int, default=50
-        Number of time the Particle Swarm Optimization algorithm will run
+        Number of time the Optimization algorithm will run
     
     minimize : bool, default=True
         Defines if the objective value is to be maximized or minimized
@@ -30,7 +30,10 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
     def __init__(self,objective_function,n_iteration=50,population_size=50,minimize=True):
         super().__init__(objective_function,n_iteration,population_size,minimize)
 
-    def evaluate_fitness(self,model,X_train,y_train,X_valid,y_valid):
+        
+        
+
+    def _evaluate_fitness(self,model,X_train,y_train,X_valid,y_valid):
         scores =  []
         for i,individual in enumerate(self.individuals):
             chosen_features = [index for index in range(X_train.shape[1]) if individual[index]==1]
@@ -56,8 +59,6 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
 
     def fit(self,model,X_train,y_train,X_valid,y_valid,method='sinusoidal',verbose=True):
         """
-        Dragon Fly Optimization
-    
         Parameters
         ----------
         model :
@@ -69,16 +70,16 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
         y_train : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
            The target values (class labels in classification, real numbers in regression).
                 
-         X_valid : pandas.core.frame.DataFrame of shape (n_samples, n_features)
+        X_valid : pandas.core.frame.DataFrame of shape (n_samples, n_features)
            Validation input samples
                 
-         y_valid : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
+        y_valid : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
             The target values (class labels in classification, real numbers in regression).
                 
-         method : {'linear','random','quadraic','sinusoidal'}, default='sinusoidal'
+        method : {'linear','random','quadraic','sinusoidal'}, default='sinusoidal'
             Choose the between the three methods of Dragon Fly optimization
                 
-         verbose : bool,default=True
+        verbose : bool,default=True
              Print results for iterations
 
         """
@@ -101,7 +102,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
             
             self._check_individuals()
             
-            self.fitness_scores=self.evaluate_fitness(model,X_train,y_train,X_valid,y_valid)                        
+            self.fitness_scores=self._evaluate_fitness(model,X_train,y_train,X_valid,y_valid)                        
             #if not(self.minimize):
             #    self.fitness_scores=list(-np.array(self.fitness_scores))
             

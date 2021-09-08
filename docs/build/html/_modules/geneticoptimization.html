@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>geneticoptimization &mdash; Zoo Feature Selection 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Zoo Feature Selection
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">zoofs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Zoo Feature Selection</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>geneticoptimization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for geneticoptimization</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+<span class="kn">from</span> <span class="nn">baseoptimizationalgorithm</span> <span class="kn">import</span> <span class="n">BaseOptimizationAlgorithm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">logging</span> <span class="k">as</span> <span class="nn">log</span>
+
+<div class="viewcode-block" id="GeneticOptimization"><a class="viewcode-back" href="../zoofs.html#geneticoptimization.GeneticOptimization">[docs]</a><span class="k">class</span> <span class="nc">GeneticOptimization</span><span class="p">(</span><span class="n">BaseOptimizationAlgorithm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        objective_function : [user made function of the signature &#39;func(model,X_train,y_train,X_test,y_test)&#39;.</span>
+<span class="sd">            The function must return a value, that needs to be minimized/maximized.</span>
+
+<span class="sd">        n_iteration : int, default=50</span>
+<span class="sd">            Number of time the Optimization algorithm will run</span>
+
+<span class="sd">        population_size : int, default=50</span>
+<span class="sd">            Total size of the population</span>
+
+<span class="sd">        selective_pressure : int, default=2</span>
+<span class="sd">            measure of reproductive opportunities for each organism in the population</span>
+
+<span class="sd">        elitism : int, default=2</span>
+<span class="sd">            number of top individuals to be considered as elites</span>
+
+<span class="sd">        mutation_rate :  float, default=0.05</span>
+<span class="sd">            rate of mutation in the population&#39;s gene</span>
+
+<span class="sd">        minimize : bool, default=True</span>
+<span class="sd">            Defines if the objective value is to be maximized or minimized</span>
+
+<span class="sd">        Attributes</span>
+<span class="sd">        ----------</span>
+<span class="sd">        best_feature_list : ndarray of shape (n_features)</span>
+<span class="sd">            list of features with the best result of the entire run</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">objective_function</span><span class="p">,</span><span class="n">n_iteration</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">population_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">selective_pressure</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">elitism</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">mutation_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+                                                     <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">objective_function</span><span class="p">,</span><span class="n">n_iteration</span><span class="p">,</span><span class="n">population_size</span><span class="p">,</span><span class="n">minimize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_generations</span> <span class="o">=</span> <span class="n">n_iteration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selective_pressure</span> <span class="o">=</span> <span class="n">selective_pressure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elitism</span> <span class="o">=</span> <span class="n">elitism</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mutation_rate</span> <span class="o">=</span> <span class="n">mutation_rate</span>
+
+    <span class="k">def</span> <span class="nf">_evaluate_fitness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">X_valid</span><span class="p">,</span><span class="n">y_valid</span><span class="p">):</span>
+        <span class="n">scores</span> <span class="o">=</span>  <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">:</span>
+            <span class="n">chosen_features</span> <span class="o">=</span> <span class="p">[</span><span class="n">index</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="n">individual</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">X_train_copy</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">chosen_features</span><span class="p">]</span>
+            <span class="n">X_valid_copy</span> <span class="o">=</span> <span class="n">X_valid</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">chosen_features</span><span class="p">]</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">objective_function</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">X_train_copy</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">X_valid_copy</span><span class="p">,</span><span class="n">y_valid</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">minimize</span><span class="p">:</span>
+                <span class="n">score</span><span class="o">=-</span><span class="n">score</span>
+            <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitness_scores</span> <span class="o">=</span> <span class="n">scores</span>
+        <span class="n">current_best_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_scores</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">current_best_score</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_score</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">best_score</span> <span class="o">=</span> <span class="n">current_best_score</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">best_feature_set</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_scores</span><span class="p">),:]</span>
+
+        <span class="n">ranks</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">rankdata</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;average&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitness_ranks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selective_pressure</span> <span class="o">*</span> <span class="n">ranks</span>
+
+    <span class="k">def</span> <span class="nf">_select_individuals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evaluate_fitness</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">)</span>
+
+        <span class="n">sorted_individuals_fitness</span>  <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_ranks</span><span class="p">),</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">elite_individuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">individual</span> <span class="k">for</span> <span class="n">individual</span><span class="p">,</span><span class="n">fitness</span> <span class="ow">in</span> <span class="n">sorted_individuals_fitness</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">elitism</span><span class="p">]])</span>
+
+        <span class="n">non_elite_individuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">individual</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="n">sorted_individuals_fitness</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">elitism</span><span class="p">:]])</span>
+
+        <span class="n">non_elite_individuals_fitness</span> <span class="o">=</span> <span class="p">[</span><span class="n">individual</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="n">sorted_individuals_fitness</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">elitism</span><span class="p">:]]</span>
+        <span class="n">selection_probability</span> <span class="o">=</span> <span class="n">non_elite_individuals_fitness</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">non_elite_individuals_fitness</span><span class="p">)</span>
+
+        <span class="n">selected_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">non_elite_individuals</span><span class="p">)),</span><span class="bp">self</span><span class="o">.</span><span class="n">population_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">selection_probability</span><span class="p">)</span>
+        <span class="n">selected_individuals</span> <span class="o">=</span> <span class="n">non_elite_individuals</span><span class="p">[</span><span class="n">selected_indices</span><span class="p">,:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit_individuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">elite_individuals</span><span class="p">,</span><span class="n">selected_individuals</span><span class="p">))</span>
+
+    <span class="c1">#Make me a mutant!</span>
+    <span class="k">def</span> <span class="nf">_mutate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">array</span><span class="p">):</span>
+        <span class="n">mutated_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">gene</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mutation_rate</span><span class="p">:</span>
+                <span class="n">array</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">gene</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="n">mutated_array</span>
+
+    <span class="k">def</span> <span class="nf">_produce_next_generation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">new_population</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">population_size</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">population_size</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">parents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_individuals</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fit_individuals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="p">:]</span>
+            <span class="n">crossover_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="n">new_population</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="n">crossover_index</span><span class="p">],</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">crossover_index</span><span class="p">:]))</span>
+            <span class="n">new_population</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">][:</span><span class="n">crossover_index</span><span class="p">],</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">crossover_index</span><span class="p">:]))</span>
+
+            <span class="n">new_population</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mutate</span><span class="p">(</span><span class="n">new_population</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">new_population</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">_mutate</span><span class="p">(</span><span class="n">new_population</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">individuals</span> <span class="o">=</span> <span class="n">new_population</span>
+
+    <span class="k">def</span> <span class="nf">_verbose_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">verbose</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2"> Best value of metric across iteration </span><span class="se">\t</span><span class="s2"> Best value of metric across population  &quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">minimize</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iteration </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> </span><span class="se">\t</span><span class="s2"> </span><span class="si">{</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_scores</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2"> </span><span class="se">\t\t\t\t\t</span><span class="s2"> </span><span class="si">{</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">best_score</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iteration </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> </span><span class="se">\t</span><span class="s2"> </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_scores</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2"> </span><span class="se">\t\t\t\t\t</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">best_score</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">)</span>
+                
+    <span class="k">def</span> <span class="nf">_iteration_objective_score_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">minimize</span><span class="p">:</span>           
+            <span class="bp">self</span><span class="o">.</span><span class="n">best_results_per_iteration</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;best_score&#39;</span><span class="p">:</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">best_score</span><span class="p">,</span>
+                                                <span class="s1">&#39;objective_score&#39;</span><span class="p">:</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_scores</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+                                                <span class="s1">&#39;selected_features&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">feature_list</span><span class="p">[</span>\
+                                                <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_scores</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()])[</span><span class="mi">0</span><span class="p">]])</span> <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">best_results_per_iteration</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;best_score&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">best_score</span><span class="p">,</span>
+                                                <span class="s1">&#39;objective_score&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_scores</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+                                                <span class="s1">&#39;selected_features&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">feature_list</span><span class="p">[</span>\
+                                                 <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_scores</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()])[</span><span class="mi">0</span><span class="p">]])</span> <span class="p">}</span>
+
+<div class="viewcode-block" id="GeneticOptimization.fit"><a class="viewcode-back" href="../zoofs.html#geneticoptimization.GeneticOptimization.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">X_valid</span><span class="p">,</span><span class="n">y_valid</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------      </span>
+<span class="sd">        model :</span>
+<span class="sd">           machine learning model&#39;s object</span>
+<span class="sd">                </span>
+<span class="sd">        X_train : pandas.core.frame.DataFrame of shape (n_samples, n_features)</span>
+<span class="sd">           Training input samples to be used for machine learning model</span>
+<span class="sd">                </span>
+<span class="sd">        y_train : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)</span>
+<span class="sd">           The target values (class labels in classification, real numbers in regression).</span>
+<span class="sd">                </span>
+<span class="sd">        X_valid : pandas.core.frame.DataFrame of shape (n_samples, n_features)</span>
+<span class="sd">           Validation input samples</span>
+<span class="sd">                </span>
+<span class="sd">        y_valid : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)</span>
+<span class="sd">            The target values (class labels in classification, real numbers in regression).</span>
+<span class="sd">                </span>
+<span class="sd">        method : {&#39;linear&#39;,&#39;random&#39;,&#39;quadraic&#39;,&#39;sinusoidal&#39;}, default=&#39;sinusoidal&#39;</span>
+<span class="sd">            Choose the between the three methods of Dragon Fly optimization</span>
+<span class="sd">                </span>
+<span class="sd">        verbose : bool,default=True</span>
+<span class="sd">             Print results for iterations</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_params</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">X_valid</span><span class="p">,</span><span class="n">y_valid</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">feature_list</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_results_per_iteration</span><span class="o">=</span><span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_score</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_dim</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> 
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_population</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_score</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_scores</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_generations</span><span class="p">):</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">_select_individuals</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">X_valid</span><span class="p">,</span><span class="n">y_valid</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_produce_next_generation</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">best_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_score</span><span class="p">)</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">_iteration_objective_score_monitor</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_verbose_results</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">best_feature_list</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">feature_list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_dim</span><span class="p">)[</span><span class="mi">0</span><span class="p">]])</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_feature_list</span> </div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Jaswinder Singh.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
