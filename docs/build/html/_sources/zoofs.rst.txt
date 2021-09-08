@@ -4,42 +4,50 @@ zoofs package
 Submodules
 ----------
 
-dragonflyoptimization module
+zoofs.baseoptimizationalgorithm module
+--------------------------------------
+
+.. automodule:: zoofs.baseoptimizationalgorithm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zoofs.dragonflyoptimization module
 ----------------------------------
 
-.. automodule:: dragonflyoptimization
+.. automodule:: zoofs.dragonflyoptimization
    :members:
    :undoc-members:
    :show-inheritance:
 
-geneticoptimization module
+zoofs.geneticoptimization module
 --------------------------------
 
-.. automodule:: geneticoptimization
+.. automodule:: zoofs.geneticoptimization
    :members:
    :undoc-members:
    :show-inheritance:
 
-gravitationaloptimization module
+zoofs.gravitationaloptimization module
 --------------------------------------
 
-.. automodule:: gravitationaloptimization
+.. automodule:: zoofs.gravitationaloptimization
    :members:
    :undoc-members:
    :show-inheritance:
 
-greywolfoptimization module
+zoofs.greywolfoptimization module
 ---------------------------------
 
-.. automodule:: greywolfoptimization
+.. automodule:: zoofs.greywolfoptimization
    :members:
    :undoc-members:
    :show-inheritance:
 
-particleswarmoptimization module
+zoofs.particleswarmoptimization module
 --------------------------------------
 
-.. automodule:: particleswarmoptimization
+.. automodule:: zoofs.particleswarmoptimization
    :members:
    :undoc-members:
    :show-inheritance:

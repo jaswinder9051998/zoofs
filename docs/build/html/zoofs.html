@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>zoofs package &mdash; Zoo Feature Selection 0.1.0 documentation</title>
+  <title>zoofs package &mdash; zoo feature selection 0.1.0 documentation</title>
   
 
   
@@ -55,7 +55,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Zoo Feature Selection
+            <a href="index.html" class="icon icon-home"> zoo feature selection
           
 
           
@@ -91,12 +91,13 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">zoofs</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">zoofs package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-dragonflyoptimization">dragonflyoptimization module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-geneticoptimization">geneticoptimization module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-gravitationaloptimization">gravitationaloptimization module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-greywolfoptimization">greywolfoptimization module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-particleswarmoptimization">particleswarmoptimization module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zoofs.baseoptimizationalgorithm">zoofs.baseoptimizationalgorithm module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zoofs.dragonflyoptimization">zoofs.dragonflyoptimization module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zoofs.geneticoptimization">zoofs.geneticoptimization module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zoofs.gravitationaloptimization">zoofs.gravitationaloptimization module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zoofs.greywolfoptimization">zoofs.greywolfoptimization module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zoofs.particleswarmoptimization">zoofs.particleswarmoptimization module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zoofs">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -116,7 +117,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Zoo Feature Selection</a>
+          <a href="index.html">zoo feature selection</a>
         
       </nav>
 
@@ -175,11 +176,51 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-dragonflyoptimization">
-<span id="dragonflyoptimization-module"></span><h2>dragonflyoptimization module<a class="headerlink" href="#module-dragonflyoptimization" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-zoofs.baseoptimizationalgorithm">
+<span id="zoofs-baseoptimizationalgorithm-module"></span><h2>zoofs.baseoptimizationalgorithm module<a class="headerlink" href="#module-zoofs.baseoptimizationalgorithm" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="dragonflyoptimization.DragonFlyOptimization">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">dragonflyoptimization.</span></span><span class="sig-name descname"><span class="pre">DragonFlyOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iteration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonflyoptimization.html#DragonFlyOptimization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dragonflyoptimization.DragonFlyOptimization" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">zoofs.baseoptimizationalgorithm.</span></span><span class="sig-name descname"><span class="pre">BaseOptimizationAlgorithm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iteration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/baseoptimizationalgorithm.html#BaseOptimizationAlgorithm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.fit">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/baseoptimizationalgorithm.html#BaseOptimizationAlgorithm.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.fit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.initialize_population">
+<span class="sig-name descname"><span class="pre">initialize_population</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/baseoptimizationalgorithm.html#BaseOptimizationAlgorithm.initialize_population"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.initialize_population" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.iteration_objective_score_monitor">
+<span class="sig-name descname"><span class="pre">iteration_objective_score_monitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/baseoptimizationalgorithm.html#BaseOptimizationAlgorithm.iteration_objective_score_monitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.iteration_objective_score_monitor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.plot_history">
+<span class="sig-name descname"><span class="pre">plot_history</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/baseoptimizationalgorithm.html#BaseOptimizationAlgorithm.plot_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.plot_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot objective score history</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.sigmoid">
+<span class="sig-name descname"><span class="pre">sigmoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/baseoptimizationalgorithm.html#BaseOptimizationAlgorithm.sigmoid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.sigmoid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.verbose_results">
+<span class="sig-name descname"><span class="pre">verbose_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/baseoptimizationalgorithm.html#BaseOptimizationAlgorithm.verbose_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.verbose_results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-zoofs.dragonflyoptimization">
+<span id="zoofs-dragonflyoptimization-module"></span><h2>zoofs.dragonflyoptimization module<a class="headerlink" href="#module-zoofs.dragonflyoptimization" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="zoofs.dragonflyoptimization.DragonFlyOptimization">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">zoofs.dragonflyoptimization.</span></span><span class="sig-name descname"><span class="pre">DragonFlyOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iteration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/dragonflyoptimization.html#DragonFlyOptimization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.dragonflyoptimization.DragonFlyOptimization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">baseoptimizationalgorithm.BaseOptimizationAlgorithm</span></code></p>
 <p>Dragon Fly Optimization</p>
 <dl class="field-list simple">
@@ -187,7 +228,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>objective_function</strong> (<em>user made function of the signature 'func</em><em>(</em><em>model</em><em>,</em><em>X_train</em><em>,</em><em>y_train</em><em>,</em><em>X_test</em><em>,</em><em>y_test</em><em>)</em><em>'</em>) – User defined function that returns the objective value</p></li>
 <li><p><strong>population_size</strong> (<em>int</em><em>, </em><em>default=50</em>) – Total size of the population</p></li>
-<li><p><strong>n_iteration</strong> (<em>int</em><em>, </em><em>default=50</em>) – Number of time the Particle Swarm Optimization algorithm will run</p></li>
+<li><p><strong>n_iteration</strong> (<em>int</em><em>, </em><em>default=50</em>) – Number of time the Optimization algorithm will run</p></li>
 <li><p><strong>minimize</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Defines if the objective value is to be maximized or minimized</p></li>
 </ul>
 </dd>
@@ -196,8 +237,8 @@
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="dragonflyoptimization.DragonFlyOptimization.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sinusoidal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonflyoptimization.html#DragonFlyOptimization.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dragonflyoptimization.DragonFlyOptimization.fit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zoofs.dragonflyoptimization.DragonFlyOptimization.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sinusoidal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/dragonflyoptimization.html#DragonFlyOptimization.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.dragonflyoptimization.DragonFlyOptimization.fit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -216,16 +257,16 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-geneticoptimization">
-<span id="geneticoptimization-module"></span><h2>geneticoptimization module<a class="headerlink" href="#module-geneticoptimization" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-zoofs.geneticoptimization">
+<span id="zoofs-geneticoptimization-module"></span><h2>zoofs.geneticoptimization module<a class="headerlink" href="#module-zoofs.geneticoptimization" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="geneticoptimization.GeneticOptimization">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">geneticoptimization.</span></span><span class="sig-name descname"><span class="pre">GeneticOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iteration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selective_pressure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elitism</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutation_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geneticoptimization.html#GeneticOptimization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#geneticoptimization.GeneticOptimization" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zoofs.geneticoptimization.GeneticOptimization">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">zoofs.geneticoptimization.</span></span><span class="sig-name descname"><span class="pre">GeneticOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iteration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selective_pressure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elitism</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutation_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/geneticoptimization.html#GeneticOptimization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.geneticoptimization.GeneticOptimization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">baseoptimizationalgorithm.BaseOptimizationAlgorithm</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>objective_function</strong> (<em>[</em><em>user made function of the signature 'func</em><em>(</em><em>model</em><em>,</em><em>X_train</em><em>,</em><em>y_train</em><em>,</em><em>X_test</em><em>,</em><em>y_test</em><em>)</em><em>'.</em>) – The function must return a value, that needs to be minimized/maximized.</p></li>
+<li><p><strong>objective_function</strong> (<em>user made function of the signature 'func</em><em>(</em><em>model</em><em>,</em><em>X_train</em><em>,</em><em>y_train</em><em>,</em><em>X_test</em><em>,</em><em>y_test</em><em>)</em><em>'</em>) – The function must return a value, that needs to be minimized/maximized.</p></li>
 <li><p><strong>n_iteration</strong> (<em>int</em><em>, </em><em>default=50</em>) – Number of time the Optimization algorithm will run</p></li>
 <li><p><strong>population_size</strong> (<em>int</em><em>, </em><em>default=50</em>) – Total size of the population</p></li>
 <li><p><strong>selective_pressure</strong> (<em>int</em><em>, </em><em>default=2</em>) – measure of reproductive opportunities for each organism in the population</p></li>
@@ -239,8 +280,8 @@
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="geneticoptimization.GeneticOptimization.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geneticoptimization.html#GeneticOptimization.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#geneticoptimization.GeneticOptimization.fit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zoofs.geneticoptimization.GeneticOptimization.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/geneticoptimization.html#GeneticOptimization.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.geneticoptimization.GeneticOptimization.fit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -249,7 +290,6 @@
 <li><p><strong>y_train</strong> (<em>pandas.core.frame.DataFrame</em><em> or </em><em>pandas.core.series.Series of shape</em><em> (</em><em>n_samples</em><em>)</em>) – The target values (class labels in classification, real numbers in regression).</p></li>
 <li><p><strong>X_valid</strong> (<em>pandas.core.frame.DataFrame of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Validation input samples</p></li>
 <li><p><strong>y_valid</strong> (<em>pandas.core.frame.DataFrame</em><em> or </em><em>pandas.core.series.Series of shape</em><em> (</em><em>n_samples</em><em>)</em>) – The target values (class labels in classification, real numbers in regression).</p></li>
-<li><p><strong>method</strong> (<em>{'linear'</em><em>,</em><em>'random'</em><em>,</em><em>'quadraic'</em><em>,</em><em>'sinusoidal'}</em><em>, </em><em>default='sinusoidal'</em>) – Choose the between the three methods of Dragon Fly optimization</p></li>
 <li><p><strong>verbose</strong> (<em>bool</em><em>,</em><em>default=True</em>) – Print results for iterations</p></li>
 </ul>
 </dd>
@@ -259,16 +299,16 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-gravitationaloptimization">
-<span id="gravitationaloptimization-module"></span><h2>gravitationaloptimization module<a class="headerlink" href="#module-gravitationaloptimization" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-zoofs.gravitationaloptimization">
+<span id="zoofs-gravitationaloptimization-module"></span><h2>zoofs.gravitationaloptimization module<a class="headerlink" href="#module-zoofs.gravitationaloptimization" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="gravitationaloptimization.GravitationalOptimization">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gravitationaloptimization.</span></span><span class="sig-name descname"><span class="pre">GravitationalOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iteration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gravitationaloptimization.html#GravitationalOptimization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gravitationaloptimization.GravitationalOptimization" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zoofs.gravitationaloptimization.GravitationalOptimization">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">zoofs.gravitationaloptimization.</span></span><span class="sig-name descname"><span class="pre">GravitationalOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iteration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/gravitationaloptimization.html#GravitationalOptimization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.gravitationaloptimization.GravitationalOptimization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">baseoptimizationalgorithm.BaseOptimizationAlgorithm</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>objective_function</strong> (<em>ser made function of the signature 'func</em><em>(</em><em>model</em><em>,</em><em>X_train</em><em>,</em><em>y_train</em><em>,</em><em>X_test</em><em>,</em><em>y_test</em><em>)</em><em>'</em>) – The function must return a value, that needs to be minimized/maximized.</p></li>
+<li><p><strong>objective_function</strong> (<em>user made function of the signature 'func</em><em>(</em><em>model</em><em>,</em><em>X_train</em><em>,</em><em>y_train</em><em>,</em><em>X_test</em><em>,</em><em>y_test</em><em>)</em><em>'</em>) – The function must return a value, that needs to be minimized/maximized.</p></li>
 <li><p><strong>n_iteration</strong> (<em>int</em><em>, </em><em>default=50</em>) – Number of time the Optimization algorithm will run</p></li>
 <li><p><strong>population_size</strong> (<em>int</em><em>, </em><em>default=50</em>) – Total size of the population</p></li>
 <li><p><strong>g0</strong> (<em>float</em><em>, </em><em>default=100</em>) – gravitational strength constant</p></li>
@@ -281,8 +321,8 @@
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="gravitationaloptimization.GravitationalOptimization.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gravitationaloptimization.html#GravitationalOptimization.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gravitationaloptimization.GravitationalOptimization.fit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zoofs.gravitationaloptimization.GravitationalOptimization.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/gravitationaloptimization.html#GravitationalOptimization.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.gravitationaloptimization.GravitationalOptimization.fit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -291,7 +331,6 @@
 <li><p><strong>y_train</strong> (<em>pandas.core.frame.DataFrame</em><em> or </em><em>pandas.core.series.Series of shape</em><em> (</em><em>n_samples</em><em>)</em>) – The target values (class labels in classification, real numbers in regression).</p></li>
 <li><p><strong>X_valid</strong> (<em>pandas.core.frame.DataFrame of shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Validation input samples</p></li>
 <li><p><strong>y_valid</strong> (<em>pandas.core.frame.DataFrame</em><em> or </em><em>pandas.core.series.Series of shape</em><em> (</em><em>n_samples</em><em>)</em>) – The target values (class labels in classification, real numbers in regression).</p></li>
-<li><p><strong>method</strong> (<em>{'linear'</em><em>,</em><em>'random'</em><em>,</em><em>'quadraic'</em><em>,</em><em>'sinusoidal'}</em><em>, </em><em>default='sinusoidal'</em>) – Choose the between the three methods of Dragon Fly optimization</p></li>
 <li><p><strong>verbose</strong> (<em>bool</em><em>,</em><em>default=True</em>) – Print results for iterations</p></li>
 </ul>
 </dd>
@@ -301,11 +340,11 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-greywolfoptimization">
-<span id="greywolfoptimization-module"></span><h2>greywolfoptimization module<a class="headerlink" href="#module-greywolfoptimization" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-zoofs.greywolfoptimization">
+<span id="zoofs-greywolfoptimization-module"></span><h2>zoofs.greywolfoptimization module<a class="headerlink" href="#module-zoofs.greywolfoptimization" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="greywolfoptimization.GreyWolfOptimization">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">greywolfoptimization.</span></span><span class="sig-name descname"><span class="pre">GreyWolfOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iteration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/greywolfoptimization.html#GreyWolfOptimization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#greywolfoptimization.GreyWolfOptimization" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zoofs.greywolfoptimization.GreyWolfOptimization">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">zoofs.greywolfoptimization.</span></span><span class="sig-name descname"><span class="pre">GreyWolfOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iteration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/greywolfoptimization.html#GreyWolfOptimization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.greywolfoptimization.GreyWolfOptimization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">baseoptimizationalgorithm.BaseOptimizationAlgorithm</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -316,10 +355,13 @@
 <li><p><strong>minimize</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Defines if the objective value is to be maximized or minimized</p></li>
 </ul>
 </dd>
+<dt class="field-even">Variables</dt>
+<dd class="field-even"><p><strong>best_feature_list</strong> (<em>ndarray of shape</em><em> (</em><em>n_features</em><em>)</em>) – list of features with the best result of the entire run</p>
+</dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="greywolfoptimization.GreyWolfOptimization.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/greywolfoptimization.html#GreyWolfOptimization.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#greywolfoptimization.GreyWolfOptimization.fit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zoofs.greywolfoptimization.GreyWolfOptimization.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/greywolfoptimization.html#GreyWolfOptimization.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.greywolfoptimization.GreyWolfOptimization.fit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -338,11 +380,11 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-particleswarmoptimization">
-<span id="particleswarmoptimization-module"></span><h2>particleswarmoptimization module<a class="headerlink" href="#module-particleswarmoptimization" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-zoofs.particleswarmoptimization">
+<span id="zoofs-particleswarmoptimization-module"></span><h2>zoofs.particleswarmoptimization module<a class="headerlink" href="#module-zoofs.particleswarmoptimization" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="particleswarmoptimization.ParticleSwarmOptimization">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">particleswarmoptimization.</span></span><span class="sig-name descname"><span class="pre">ParticleSwarmOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iteration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/particleswarmoptimization.html#ParticleSwarmOptimization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#particleswarmoptimization.ParticleSwarmOptimization" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zoofs.particleswarmoptimization.ParticleSwarmOptimization">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">zoofs.particleswarmoptimization.</span></span><span class="sig-name descname"><span class="pre">ParticleSwarmOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iteration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/particleswarmoptimization.html#ParticleSwarmOptimization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.particleswarmoptimization.ParticleSwarmOptimization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">baseoptimizationalgorithm.BaseOptimizationAlgorithm</span></code></p>
 <p>Particle Swarm Optimization</p>
 <dl class="field-list simple">
@@ -362,8 +404,8 @@
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="particleswarmoptimization.ParticleSwarmOptimization.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/particleswarmoptimization.html#ParticleSwarmOptimization.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#particleswarmoptimization.ParticleSwarmOptimization.fit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zoofs.particleswarmoptimization.ParticleSwarmOptimization.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zoofs/particleswarmoptimization.html#ParticleSwarmOptimization.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zoofs.particleswarmoptimization.ParticleSwarmOptimization.fit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -383,8 +425,8 @@ regression).</p></li>
 </dd></dl>
 
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-zoofs">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zoofs" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
