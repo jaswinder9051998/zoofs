@@ -1,0 +1,6 @@
+Babel
+Sphinx
+pandas
+numpy
+scipy
+plotly
