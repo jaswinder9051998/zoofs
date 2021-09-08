@@ -10,7 +10,7 @@ Welcome to zoo feature selection's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   zoofs
+modules
 
 
 
