@@ -1,4 +1,5 @@
 Babel
+bluepy
 Sphinx
 pandas
 numpy
