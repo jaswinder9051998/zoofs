@@ -30,12 +30,11 @@ release = '0.1.0'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc','sphinx.ext.viewcode','sphinx.ext.napoleon','sphinx.ext.todo'
-]
-autodoc_mock_imports=["pandas",
-		"numpy",
-		"scipy",
-            "plotly"]
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest',
+              'sphinx.ext.intersphinx', 'sphinx.ext.todo',
+              'sphinx.ext.ifconfig', 'sphinx.ext.viewcode',
+              'sphinx.ext.inheritance_diagram','sphinx.ext.autosummary','sphinx.ext.napoleon']
+
 napoleon_use_ivar = True
 master_doc = 'index'
 # Add any paths that contain templates here, relative to this directory.

@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
 
   
   
@@ -87,7 +88,7 @@
             
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../source/modules.html">zoofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">zoofs</a></li>
 </ul>
 
             
@@ -159,7 +160,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">logging</span> <span class="k">as</span> <span class="nn">log</span>
-<div class="viewcode-block" id="BaseOptimizationAlgorithm"><a class="viewcode-back" href="../../source/zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm">[docs]</a><span class="k">class</span> <span class="nc">BaseOptimizationAlgorithm</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseOptimizationAlgorithm"><a class="viewcode-back" href="../../zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm">[docs]</a><span class="k">class</span> <span class="nc">BaseOptimizationAlgorithm</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">objective_function</span><span class="p">,</span><span class="n">n_iteration</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">objective_function</span><span class="o">=</span><span class="n">objective_function</span>
@@ -167,11 +168,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">population_size</span> <span class="o">=</span> <span class="n">population_size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="o">=</span><span class="n">n_iteration</span>
         
-<div class="viewcode-block" id="BaseOptimizationAlgorithm.fit"><a class="viewcode-back" href="../../source/zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.fit">[docs]</a>    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="BaseOptimizationAlgorithm.fit"><a class="viewcode-back" href="../../zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.fit">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
     
-<div class="viewcode-block" id="BaseOptimizationAlgorithm.sigmoid"><a class="viewcode-back" href="../../source/zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.sigmoid">[docs]</a>    <span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseOptimizationAlgorithm.sigmoid"><a class="viewcode-back" href="../../zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.sigmoid">[docs]</a>    <span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span></div>
     
     <span class="k">def</span> <span class="nf">_evaluate_fitness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">X_valid</span><span class="p">,</span><span class="n">y_valid</span><span class="p">):</span>
@@ -189,7 +190,7 @@
             <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">scores</span>
     
-<div class="viewcode-block" id="BaseOptimizationAlgorithm.iteration_objective_score_monitor"><a class="viewcode-back" href="../../source/zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.iteration_objective_score_monitor">[docs]</a>    <span class="k">def</span> <span class="nf">iteration_objective_score_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseOptimizationAlgorithm.iteration_objective_score_monitor"><a class="viewcode-back" href="../../zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.iteration_objective_score_monitor">[docs]</a>    <span class="k">def</span> <span class="nf">iteration_objective_score_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">minimize</span><span class="p">:</span>           
             <span class="bp">self</span><span class="o">.</span><span class="n">best_results_per_iteration</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;best_score&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">best_score</span><span class="p">,</span>
                                                 <span class="s1">&#39;objective_score&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_scores</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
@@ -201,7 +202,7 @@
                                                 <span class="s1">&#39;selected_features&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">feature_list</span><span class="p">[</span>\
                                                  <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_scores</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()])[</span><span class="mi">0</span><span class="p">]])</span> <span class="p">}</span></div>
             
-<div class="viewcode-block" id="BaseOptimizationAlgorithm.initialize_population"><a class="viewcode-back" href="../../source/zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.initialize_population">[docs]</a>    <span class="k">def</span> <span class="nf">initialize_population</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">X</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseOptimizationAlgorithm.initialize_population"><a class="viewcode-back" href="../../zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.initialize_population">[docs]</a>    <span class="k">def</span> <span class="nf">initialize_population</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">X</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">individuals</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">population_size</span><span class="p">,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span></div>
     
     <span class="k">def</span> <span class="nf">_check_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">X_valid</span><span class="p">,</span><span class="n">y_valid</span><span class="p">):</span>
@@ -243,7 +244,7 @@
         <span class="k">if</span> <span class="p">(</span> <span class="ow">not</span> <span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">return_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="nb">float</span><span class="p">))</span> <span class="p">)</span> <span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;objective_function should return int/float value , got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">return_val</span><span class="p">)</span><span class="si">}</span><span class="s2"> instead.&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="BaseOptimizationAlgorithm.plot_history"><a class="viewcode-back" href="../../source/zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.plot_history">[docs]</a>    <span class="k">def</span> <span class="nf">plot_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseOptimizationAlgorithm.plot_history"><a class="viewcode-back" href="../../zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.plot_history">[docs]</a>    <span class="k">def</span> <span class="nf">plot_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot objective score history</span>
 <span class="sd">        &quot;&quot;&quot;</span>       
@@ -269,7 +270,7 @@
                                                                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>\
                                                                  <span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
         
-<div class="viewcode-block" id="BaseOptimizationAlgorithm.verbose_results"><a class="viewcode-back" href="../../source/zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.verbose_results">[docs]</a>    <span class="k">def</span> <span class="nf">verbose_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">verbose</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseOptimizationAlgorithm.verbose_results"><a class="viewcode-back" href="../../zoofs.html#zoofs.baseoptimizationalgorithm.BaseOptimizationAlgorithm.verbose_results">[docs]</a>    <span class="k">def</span> <span class="nf">verbose_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">verbose</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2"> Best value of metric across iteration </span><span class="se">\t</span><span class="s2"> Best value of metric across population  &quot;</span><span class="p">)</span>
