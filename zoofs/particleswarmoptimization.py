@@ -1,43 +1,43 @@
 import plotly.graph_objects as go
-from baseoptimizationalgorithm import BaseOptimizationAlgorithm
+from zoofs.baseoptimizationalgorithm import BaseOptimizationAlgorithm
 import numpy as np 
 import pandas as pd
 import logging as log
+
 class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
-    """
-    Particle Swarm Optimization
-    
-    Parameters
-    ----------
-    objective_function: user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'
-        User defined function that returns the objective value 
-        
-    population_size: int, default=50
-        Total size of the population 
-        
-    n_iteration: int, default=50
-        Number of time the Particle Swarm Optimization algorithm will run
-    
-    minimize : bool, default=True
-        Defines if the objective value is to be maximized or minimized
-        
-    c1: float, default=2.0
-        First acceleration constant used in particle swarm optimization
-        
-    c2: float, default=2.0
-        Second acceleration constant used in particle swarm optimization
-        
-    w: float, default=0.9
-        Velocity weight factor
-    
+    """  
     Attributes
     ----------
     best_feature_list : ndarray of shape (n_features)
         list of features with the best result of the entire run
-            
+
     """
-    def __init__(self,objective_function,n_iteration=50,population_size=50,minimize=True,
+    def __init__(self,objective_function,n_iteration:int=50,population_size=50,minimize=True,
                  c1=2,c2=2,w=0.9):
+        """       
+        Parameters
+        ----------
+        objective_function: user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'
+            User defined function that returns the objective value 
+            
+        population_size: int, default=50
+            Total size of the population , default=50
+            
+        n_iteration: int = 50
+            Number of time the Particle Swarm Optimization algorithm will run
+        
+        minimize : bool, default=True
+            Defines if the objective value is to be maximized or minimized
+            
+        c1: float, default=2.0
+            First acceleration constant used in particle swarm optimization
+            
+        c2: float, default=2.0
+            Second acceleration constant used in particle swarm optimization
+            
+        w: float, default=0.9
+            Velocity weight factor
+        """
         super().__init__(objective_function,n_iteration,population_size,minimize)
         self.c1=c1
         self.c2=c2

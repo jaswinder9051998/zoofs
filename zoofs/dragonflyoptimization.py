@@ -1,26 +1,10 @@
 import plotly.graph_objects as go
-from baseoptimizationalgorithm import BaseOptimizationAlgorithm
+from zoofs.baseoptimizationalgorithm import BaseOptimizationAlgorithm
 import numpy as np 
 import pandas as pd
 import logging as log
 class DragonFlyOptimization(BaseOptimizationAlgorithm):
     """
-    Dragon Fly Optimization
-    
-    Parameters
-    ----------
-    objective_function: user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'
-        User defined function that returns the objective value 
-        
-    population_size: int, default=50
-        Total size of the population 
-        
-    n_iteration: int, default=50
-        Number of time the Optimization algorithm will run
-    
-    minimize : bool, default=True
-        Defines if the objective value is to be maximized or minimized
-    
     Attributes
     ----------
     best_feature_list : ndarray of shape (n_features)
@@ -28,10 +12,23 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
         
     """
     def __init__(self,objective_function,n_iteration=50,population_size=50,minimize=True):
+        """ 
+        Parameters
+        ----------
+        objective_function: user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'
+            User defined function that returns the objective value 
+            
+        population_size: int, default=50
+            Total size of the population 
+            
+        n_iteration: int, default=50
+            Number of time the Optimization algorithm will run
+        
+        minimize : bool, default=True
+            Defines if the objective value is to be maximized or minimized
+        """
         super().__init__(objective_function,n_iteration,population_size,minimize)
-
-        
-        
+  
 
     def _evaluate_fitness(self,model,X_train,y_train,X_valid,y_valid):
         scores =  []

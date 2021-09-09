@@ -1,11 +1,19 @@
 import plotly.graph_objects as go
-from baseoptimizationalgorithm import BaseOptimizationAlgorithm
+from zoofs.baseoptimizationalgorithm import BaseOptimizationAlgorithm
 import numpy as np 
 import pandas as pd
 import logging as log
 
 class GreyWolfOptimization(BaseOptimizationAlgorithm):
+    """      
+        Attributes
+        ----------
+        best_feature_list : ndarray of shape (n_features)
+            list of features with the best result of the entire run
+
     """
+    def __init__(self,objective_function,n_iteration=50,population_size=50,minimize=True):
+        """
         Parameters
         ----------
         objective_function : user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'
@@ -19,15 +27,7 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
 
         minimize : bool, default=True
             Defines if the objective value is to be maximized or minimized
-        
-        Attributes
-        ----------
-        best_feature_list : ndarray of shape (n_features)
-            list of features with the best result of the entire run
-
-    """
-    def __init__(self,objective_function,n_iteration=50,population_size=50,minimize=True):
-
+        """
         super().__init__(objective_function,n_iteration,population_size,minimize)
         
     def _check_params(self,model,X_train,y_train,X_valid,y_valid,method):
