@@ -4,6 +4,8 @@
 ``zoofs`` is a Python library for performing feature selection using a variety of nature inspired wrapper algorithms. The algorithms range from swarm-intelligence to physics based to Evolutionary.
 It's an easy to use, flexible and powerful tool to reduce your feature size.  
 
+## Documentation
+https://jaswinder9051998.github.io/zoofs/
 ## Installation
 [![PyPI version](https://badge.fury.io/py/zoofs.svg)](https://badge.fury.io/py/zoofs) <br/>
 ### Using pip
