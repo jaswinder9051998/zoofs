@@ -13,7 +13,5 @@ jobs:
         with:
           python-version: 3.x
       - run: git+https://github.com/jaswinder9051998/zoofs
-      - run: pip install mkdocs-material
-      - run: pip install mkdocstrings 
-      - run: pip install pytkdocs 
+      - run: pip install -r docs/requirements.txt
       - run: mkdocs gh-deploy --force

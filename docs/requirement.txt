@@ -1,0 +1,4 @@
+git+https://github.com/jaswinder9051998/zoofs@main
+mkdocs-material
+mkdocstrings 
+pytkdocs 
