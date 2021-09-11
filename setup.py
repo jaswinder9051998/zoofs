@@ -2,7 +2,7 @@ from setuptools import setup
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 setup(name='zoofs',
-      version='0.1.0',
+      version='0.1.1',
       url='https://github.com/jaswinder9051998/zoofs',
       author='JaswinderSingh',
       author_email='jaswinder9051998@gmail.com',
