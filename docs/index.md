@@ -18,7 +18,7 @@ zoofs is a Python library for performing feature selection using a variety of na
 
 ## Available Algorithms
 
-* [Particle Swarm Optimization](Particle Swarm Optimization Class.md)
+* [Particle Swarm Optimization](Particle_Swarm_Optimization Class.md)
 * [Grey Wolf Optimization](Grey Wolf Optimization Class.md)
 * [Dragon Fly Optimization](Dragon Fly Optimization Class.md)
 * [Genetic Optimization](Genetic Optimization Class.md)
