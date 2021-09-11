@@ -1,6 +1,8 @@
 from zoofs.baseoptimizationalgorithm import BaseOptimizationAlgorithm
 import numpy as np 
 import scipy
+import plotly.graph_objects as go
+import scipy
 
 class GeneticOptimization(BaseOptimizationAlgorithm):
     """
