@@ -1,5 +1,9 @@
-# zoofs ( Zoo Feature Selection )
 ![zoofs Logo Header](https://github.com/jaswinder9051998/zoofs/blob/master/asserts/zoofsedited.png)
+
+# zoofs ( Zoo Feature Selection )
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=security_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 
 ``zoofs`` is a Python library for performing feature selection using a variety of nature inspired wrapper algorithms. The algorithms range from swarm-intelligence to physics based to Evolutionary.
 It's an easy to use, flexible and powerful tool to reduce your feature size.  
@@ -13,6 +17,7 @@ https://jaswinder9051998.github.io/zoofs/
  
 ## Installation
 [![PyPi version](https://badgen.net/pypi/v/zoofs/)](https://pypi.com/project/zoofs)
+
 ### Using pip
 
 Use the package manager to install zoofs.
