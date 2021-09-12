@@ -44,8 +44,8 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
         """
         super().__init__(objective_function, n_iteration, timeout, population_size, minimize)
 
-    def _check_params(self, model, X_train, y_train, X_valid, y_valid, method):
-        super()._check_params(model, X_train, y_train, X_valid, y_valid)
+    def _check_params(self, model, x_train, y_train, x_valid, y_valid, method=1):
+        super()._check_params(model, x_train, y_train, x_valid, y_valid)
         if method not in [1, 2]:
             raise ValueError(f"method accepts only 1,2 ")
 
@@ -105,8 +105,6 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
 
             self.fitness_scores = self._evaluate_fitness(
                 model, X_train, y_train, X_valid, y_valid)
-            # if not(self.minimize):
-            #    self.fitness_scores=list(-np.array(self.fitness_scores))
 
             self.iteration_objective_score_monitor(i)
 
@@ -134,7 +132,6 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
                 if ((fit > self.beta_wolf_fitness) & (fit < self.delta_wolf_fitness)):
                     self.delta_wolf_fitness = fit
                     self.delta_wolf_dimension = dim
-                    continue
 
             if (method == 1) | (method == 2):
                 C1 = 2 * \
@@ -142,35 +139,35 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
                 A1 = 2*a * \
                     np.random.random(
                         (self.population_size, X_train.shape[1]))-a
-                D_alpha = abs(C1*self.alpha_wolf_dimension - self.individuals)
+                d_alpha = abs(C1*self.alpha_wolf_dimension - self.individuals)
 
                 C2 = 2 * \
                     np.random.random((self.population_size, X_train.shape[1]))
                 A2 = 2*a * \
                     np.random.random(
                         (self.population_size, X_train.shape[1]))-a
-                D_beta = abs(C2*self.beta_wolf_dimension - self.individuals)
+                d_beta = abs(C2*self.beta_wolf_dimension - self.individuals)
 
                 C3 = 2 * \
                     np.random.random((self.population_size, X_train.shape[1]))
                 A3 = 2*a * \
                     np.random.random(
                         (self.population_size, X_train.shape[1]))-a
-                D_delta = abs(C3*self.delta_wolf_dimension - self.individuals)
+                d_delta = abs(C3*self.delta_wolf_dimension - self.individuals)
 
             if method == 2:
-                X1 = abs(self.alpha_wolf_dimension - A1*D_alpha)
-                X2 = abs(self.beta_wolf_dimension - A2*D_beta)
-                X3 = abs(self.delta_wolf_dimension - A3*D_delta)
+                X1 = abs(self.alpha_wolf_dimension - A1*d_alpha)
+                X2 = abs(self.beta_wolf_dimension - A2*d_beta)
+                X3 = abs(self.delta_wolf_dimension - A3*d_delta)
                 self.individuals = np.where(np.random.uniform(size=(
                     self.population_size, X_train.shape[1])) <= self.sigmoid((X1+X2+X3)/3), 1, 0)
 
             if method == 1:
-                Y1 = np.where((self.alpha_wolf_dimension + np.where(self.sigmoid(A1*D_alpha) >
+                Y1 = np.where((self.alpha_wolf_dimension + np.where(self.sigmoid(A1*d_alpha) >
                               np.random.uniform(size=(self.population_size, X_train.shape[1])), 1, 0)) >= 1, 1, 0)
-                Y2 = np.where((self.beta_wolf_dimension + np.where(self.sigmoid(A1*D_beta) >
+                Y2 = np.where((self.beta_wolf_dimension + np.where(self.sigmoid(A1*d_beta) >
                               np.random.uniform(size=(self.population_size, X_train.shape[1])), 1, 0)) >= 1, 1, 0)
-                Y3 = np.where((self.delta_wolf_dimension + np.where(self.sigmoid(A1*D_delta) >
+                Y3 = np.where((self.delta_wolf_dimension + np.where(self.sigmoid(A1*d_delta) >
                               np.random.uniform(size=(self.population_size, X_train.shape[1])), 1, 0)) >= 1, 1, 0)
                 r = np.random.uniform(
                     size=(self.population_size, X_train.shape[1]))

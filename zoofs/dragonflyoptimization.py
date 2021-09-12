@@ -43,20 +43,20 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
         """
         super().__init__(objective_function, n_iteration, timeout, population_size, minimize)
 
-    def _evaluate_fitness(self, model, X_train, y_train, X_valid, y_valid):
+    def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid):
         scores = []
         for i, individual in enumerate(self.individuals):
             chosen_features = [index for index in range(
-                X_train.shape[1]) if individual[index] == 1]
-            X_train_copy = X_train.iloc[:, chosen_features]
-            X_valid_copy = X_valid.iloc[:, chosen_features]
+                x_train.shape[1]) if individual[index] == 1]
+            x_train_copy = x_train.iloc[:, chosen_features]
+            x_valid_copy = x_valid.iloc[:, chosen_features]
             feature_hash = '_*_'.join(
                 sorted(self.feature_list[chosen_features]))
             if feature_hash in self.feature_score_hash.keys():
                 score = self.feature_score_hash[feature_hash]
             else:
                 score = self.objective_function(
-                    model, X_train_copy, y_train, X_valid_copy, y_valid)
+                    model, x_train_copy, y_train, x_valid_copy, y_valid)
                 self.feature_score_hash[feature_hash] = score
 
             if not(self.minimize):
@@ -71,8 +71,8 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
             scores.append(score)
         return scores
 
-    def _check_params(self, model, X_train, y_train, X_valid, y_valid, method):
-        super()._check_params(model, X_train, y_train, X_valid, y_valid)
+    def _check_params(self, model, x_train, y_train, x_valid, y_valid, method):
+        super()._check_params(model, x_train, y_train, x_valid, y_valid)
         if method not in ['linear', 'random', 'quadraic', 'sinusoidal']:
             raise ValueError(
                 f"method accepts only linear,random,quadraic types ")
@@ -133,8 +133,6 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
 
             self.fitness_scores = self._evaluate_fitness(
                 model, X_train, y_train, X_valid, y_valid)
-            # if not(self.minimize):
-            #    self.fitness_scores=list(-np.array(self.fitness_scores))
 
             self.iteration_objective_score_monitor(i)
 
@@ -181,23 +179,23 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
                                * (4*np.pi-beta*np.pi)))
 
             temp = individuals = self.individuals
-            temp_2 = (((temp.reshape(temp.shape[0], 1, temp.shape[1])-temp.reshape(
-                1, temp.shape[0], temp.shape[1])).reshape(temp.shape[0]**2, temp.shape[1])**2))
+            temp_2 = ((temp.reshape(temp.shape[0], 1, temp.shape[1])-temp.reshape(
+                1, temp.shape[0], temp.shape[1])).reshape(temp.shape[0]**2, temp.shape[1])**2)
             temp_3 = temp_2.reshape(
                 temp.shape[0], temp.shape[0], temp.shape[1]).sum(axis=2)
             zz = np.argsort(temp_3)
             cc = [list(iter1[iter1 != iter2])
                   for iter1, iter2 in zip(zz, np.arange(temp.shape[0]))]
 
-            Si = -(np.repeat(individuals, kbest, axis=0).reshape(
+            si = -(np.repeat(individuals, kbest, axis=0).reshape(
                 individuals.shape[0], kbest, individuals.shape[1])-individuals[np.array(cc)[:, :kbest]]).sum(axis=1)
-            Ai = delta_x[np.array(cc)[:, :kbest]].sum(axis=1)/kbest
-            Ci = (individuals[np.array(cc)[:, :kbest]].sum(
+            ai = delta_x[np.array(cc)[:, :kbest]].sum(axis=1)/kbest
+            ci = (individuals[np.array(cc)[:, :kbest]].sum(
                 axis=1)/kbest)-individuals
-            Fi = self.best_score_dimension-self.individuals
-            Ei = self.individuals+self.worst_dim
+            fi = self.best_score_dimension-self.individuals
+            ei = self.individuals+self.worst_dim
 
-            delta_x = s*Si+a*Ai+c*Ci+f*Fi+e*Ei+w*delta_x
+            delta_x = s*si+a*ai+c*ci+f*fi+e*ei+w*delta_x
             delta_x = np.where(delta_x > 6, 6, delta_x)
             delta_x = np.where(delta_x < -6, -6, delta_x)
             T = abs(delta_x/np.sqrt(1+delta_x**2))

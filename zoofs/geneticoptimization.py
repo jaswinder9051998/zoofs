@@ -59,20 +59,20 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
         self.elitism = elitism
         self.mutation_rate = mutation_rate
 
-    def _evaluate_fitness(self, model, X_train, y_train, X_valid, y_valid):
+    def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid):
         scores = []
         for individual in self.individuals:
             chosen_features = [index for index in range(
-                X_train.shape[1]) if individual[index] == 1]
-            X_train_copy = X_train.iloc[:, chosen_features]
-            X_valid_copy = X_valid.iloc[:, chosen_features]
+                x_train.shape[1]) if individual[index] == 1]
+            x_train_copy = x_train.iloc[:, chosen_features]
+            x_valid_copy = x_valid.iloc[:, chosen_features]
             feature_hash = '_*_'.join(
                 sorted(self.feature_list[chosen_features]))
             if feature_hash in self.feature_score_hash.keys():
                 score = self.feature_score_hash[feature_hash]
             else:
                 score = self.objective_function(
-                    model, X_train_copy, y_train, X_valid_copy, y_valid)
+                    model, x_train_copy, y_train, x_valid_copy, y_valid)
                 self.feature_score_hash[feature_hash] = score
 
             if self.minimize:
@@ -89,8 +89,8 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
         ranks = scipy.stats.rankdata(scores, method='average')
         self.fitness_ranks = self.selective_pressure * ranks
 
-    def _select_individuals(self, model, X_train, y_train, X_valid, y_valid):
-        self._evaluate_fitness(model, X_train, y_train, X_valid, y_valid)
+    def _select_individuals(self, model, x_train, y_train, x_valid, y_valid):
+        self._evaluate_fitness(model, x_train, y_train, x_valid, y_valid)
 
         sorted_individuals_fitness = sorted(
             zip(self.individuals, self.fitness_ranks), key=lambda x: x[1], reverse=True)

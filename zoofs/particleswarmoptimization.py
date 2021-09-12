@@ -59,13 +59,13 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
         self.c2 = c2
         self.w = w
 
-    def _evaluate_fitness(self, model, X_train, y_train, X_valid, y_valid):
+    def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid):
         scores = []
         for i, individual in enumerate(self.individuals):
             chosen_features = [index for index in range(
-                X_train.shape[1]) if individual[index] == 1]
-            X_train_copy = X_train.iloc[:, chosen_features]
-            X_valid_copy = X_valid.iloc[:, chosen_features]
+                x_train.shape[1]) if individual[index] == 1]
+            X_train_copy = x_train.iloc[:, chosen_features]
+            X_valid_copy = x_valid.iloc[:, chosen_features]
             feature_hash = '_*_'.join(
                 sorted(self.feature_list[chosen_features]))
             if feature_hash in self.feature_score_hash.keys():
@@ -141,8 +141,6 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
 
             self.fitness_scores = self._evaluate_fitness(
                 model, X_train, y_train, X_valid, y_valid)
-            # if not(self.minimize):
-            #    self.fitness_scores=list(-np.array(self.fitness_scores))
 
             self.gbest_individual = self.best_dim
 

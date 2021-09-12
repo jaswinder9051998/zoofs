@@ -53,13 +53,13 @@ class GravitationalOptimization(BaseOptimizationAlgorithm):
         self.g0 = g0
         self.eps = eps
 
-    def _evaluate_fitness(self, model, X_train, y_train, X_valid, y_valid):
+    def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid):
         scores = []
         for i, individual in enumerate(self.individuals):
             chosen_features = [index for index in range(
-                X_train.shape[1]) if individual[index] == 1]
-            X_train_copy = X_train.iloc[:, chosen_features]
-            X_valid_copy = X_valid.iloc[:, chosen_features]
+                x_train.shape[1]) if individual[index] == 1]
+            X_train_copy = x_train.iloc[:, chosen_features]
+            X_valid_copy = x_valid.iloc[:, chosen_features]
             feature_hash = '_*_'.join(
                 sorted(self.feature_list[chosen_features]))
             if feature_hash in self.feature_score_hash.keys():
@@ -127,14 +127,12 @@ class GravitationalOptimization(BaseOptimizationAlgorithm):
 
             self.iteration_objective_score_monitor(iteration)
 
-            # self.gi=self.g0*(np.exp(-20*(iteration+1)/self.n_iteration))
             self.gi = self.g0*(1-((iteration+1)/self.n_iteration))
             self.fitness_scores_numpy = np.array(self.fitness_scores)
             self.qi = np.array(self.fitness_scores_numpy-self.fitness_scores_numpy.max())/(
                 self.fitness_scores_numpy.min()-self.fitness_scores_numpy.max())
             self.Mi = self.qi/self.qi.sum()
 
-            # int(np.tan(np.pi-np.arctan((self.population_size-1)/self.n_iteration))*iteration+self.population_size)
             kbest_v = kbest[iteration]
             best_iteration_individuals = self.individuals[np.argsort(self.fitness_scores)[
                 :kbest_v]]
@@ -145,7 +143,6 @@ class GravitationalOptimization(BaseOptimizationAlgorithm):
             for single_individual, single_individual_mass in zip(best_iteration_individuals, best_iteration_individuals_masses):
                 self.interim_acc = np.random.random()*(self.individuals-single_individual)*(self.gi*single_individual_mass) * np.repeat((1 /
                                                                                                                                          (((self.individuals-single_individual)**2).sum(axis=1)**(0.5)+self.eps)), X_train.shape[1]).reshape(self.population_size, X_train.shape[1])
-                #self.interim_acc+=(self.individuals-single_individual)*( self.gi*single_individual_mass )* np.repeat( ( 1/( ((self.individuals-single_individual)**2).sum(axis=1)+self.eps ) ),X_train.shape[1]).reshape(self.population_size,X_train.shape[1])
 
             self.velocities = self.interim_acc+self.velocities * \
                 np.random.random((self.population_size, 1))
