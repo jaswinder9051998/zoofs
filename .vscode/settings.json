@@ -1,0 +1,4 @@
+{
+    "autoDocstring.docstringFormat": "numpy",
+    "autoDocstring.includeExtendedSummary": true
+}
