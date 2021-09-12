@@ -25,6 +25,7 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
                  c1=2,
                  c2=2,
                  w=0.9):
+
         """       
         Parameters
         ----------
