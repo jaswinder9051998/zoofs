@@ -6,3 +6,8 @@
 ::: zoofs.geneticoptimization.GeneticOptimization
     selection:
         docstring_style : numpy
+        inherited_members: true
+        members:
+        - __init__
+        - fit
+        - plot_history
