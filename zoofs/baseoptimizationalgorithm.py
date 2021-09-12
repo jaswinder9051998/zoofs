@@ -10,7 +10,7 @@ class BaseOptimizationAlgorithm(ABC):
 
     def __init__(self,
                  objective_function,
-                 n_iteration=50,
+                 n_iteration: int = 1000,
                  timeout: int = None,
                  population_size=50,
                  minimize=True):

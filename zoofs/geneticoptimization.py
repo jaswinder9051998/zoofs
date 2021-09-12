@@ -17,7 +17,7 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
 
     def __init__(self,
                  objective_function,
-                 n_iteration=20,
+                 n_iteration: int = 1000,
                  timeout: int = None,
                  population_size=20,
                  selective_pressure=2,
@@ -30,7 +30,7 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
         objective_function : user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'
             The function must return a value, that needs to be minimized/maximized.
 
-        n_iteration : int, default=50
+        n_iteration : int, default=1000
             Number of time the Optimization algorithm will run
 
         timeout: int = None

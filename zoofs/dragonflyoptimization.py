@@ -18,7 +18,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
 
     def __init__(self,
                  objective_function,
-                 n_iteration=50,
+                 n_iteration: int = 1000,
                  timeout: int = None,
                  population_size=50,
                  minimize=True):
@@ -31,7 +31,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
         population_size: int, default=50
             Total size of the population 
 
-        n_iteration: int, default=50
+        n_iteration: int, default=1000
             Number of time the Optimization algorithm will run
 
         timeout: int = None
