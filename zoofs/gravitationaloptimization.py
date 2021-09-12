@@ -115,6 +115,8 @@ class GravitationalOptimization(BaseOptimizationAlgorithm):
 
         if (self.timeout is not None):
             timeout_upper_limit = time.time() + self.timeout
+        else:
+            timeout_upper_limit = time.time()
         for iteration in range(self.n_iteration):
 
             if (self.timeout is not None) & (time.time() > timeout_upper_limit):

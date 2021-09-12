@@ -196,6 +196,8 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
 
         if (self.timeout is not None):
             timeout_upper_limit = time.time() + self.timeout
+        else:
+            timeout_upper_limit = time.time()
         for i in range(self.n_generations):
 
             if (self.timeout is not None) & (time.time() > timeout_upper_limit):
