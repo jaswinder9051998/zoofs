@@ -6,8 +6,13 @@ It's an easy to use, flexible and powerful tool to reduce your feature size.
 
 ## Documentation
 https://jaswinder9051998.github.io/zoofs/
+
+## Whats new in V0.1.1
+- now you can pass ``timeout`` as a parameter to stop operation after the given number of second(s). An amazing alternative to passing number of iterations
+- Feature score hashing of visited feature sets to increase the overall performance
+ 
 ## Installation
-[![PyPI version](https://badge.fury.io/py/zoofs.svg)](https://badge.fury.io/py/zoofs) <br/>
+[![PyPi version](https://badgen.net/pypi/v/zoofs/)](https://pypi.com/project/zoofs)
 ### Using pip
 
 Use the package manager to install zoofs.
@@ -19,11 +24,11 @@ pip install zoofs
 ## Available Algorithms
 | Algorithm Name | Class Name | Description | References doi |
 |----------|-------------|-------------|-------------|
-| Particle Swarm Algorithm  | ParticleSwarmOptimization | Utilizes swarm behaviour | 10.1007/978-3-319-13563-2_51 |
-| Grey Wolf Algorithm | GreyWolfOptimization | Utilizes wolf hunting behaviour | https://doi.org/10.1016/j.neucom.2015.06.083 |
-| Dragon Fly Algorithm | DragonFlyOptimization | Utilizes dragonfly swarm behaviour | 10.1016/j.knosys.2020.106131 |
-| Genetic Algorithm Algorithm | GeneticOptimization | Utilizes genetic mutation behaviour | 10.1109/ICDAR.2001.953980 |
-| Gravitational Algorithm | GravitationalOptimization | Utilizes newtons gravitational behaviour | 10.1109/ICASSP.2011.5946916 |
+| Particle Swarm Algorithm  | ParticleSwarmOptimization | Utilizes swarm behaviour | [https://doi.org/10.1007/978-3-319-13563-2_51](https://doi.org/10.1007/978-3-319-13563-2_51) |
+| Grey Wolf Algorithm | GreyWolfOptimization | Utilizes wolf hunting behaviour |  [https://doi.org/10.1016/j.neucom.2015.06.083](https://doi.org/10.1016/j.neucom.2015.06.083) |
+| Dragon Fly Algorithm | DragonFlyOptimization | Utilizes dragonfly swarm behaviour | [https://doi.org/10.1016/j.knosys.2020.106131](https://doi.org/10.1016/j.knosys.2020.106131) |
+| Genetic Algorithm Algorithm | GeneticOptimization | Utilizes genetic mutation behaviour | [https://doi.org/10.1109/ICDAR.2001.953980](https://doi.org/10.1109/ICDAR.2001.953980) |
+| Gravitational Algorithm | GravitationalOptimization | Utilizes newtons gravitational behaviour | [https://doi.org/10.1109/ICASSP.2011.5946916](https://doi.org/10.1109/ICASSP.2011.5946916) |
 
 More algos soon, stay tuned !
 * [Try It Now?] [![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/12LYc67hIuy7PKSa8J_75bQUZ62EBJz4J?usp=sharing)
@@ -75,7 +80,7 @@ algo_object.plot_history()
 
 |  |  |
 |----------|-------------|
-|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration ``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``minimize ``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl> ``c1`` : float, default=2.0 <br/> <dl> <dd> first acceleration coefficient of particle swarm  </dd> </dl>    ``c2`` : float, default=2.0 <br/> <dl> <dd> second acceleration coefficient of particle swarm  </dd> </dl> `w` : float, default=0.9 <br/> <dl> <dd> weight parameter  </dd> </dl>|
+|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration ``: int, default=1000 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``timeout``: int = None <br/> <dl> <dd> Stop operation after the given number of second(s). If this argument is set to None, the operation is executed without time limitation and n_iteration is followed </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``minimize ``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl> ``c1`` : float, default=2.0 <br/> <dl> <dd> first acceleration coefficient of particle swarm  </dd> </dl>    ``c2`` : float, default=2.0 <br/> <dl> <dd> second acceleration coefficient of particle swarm  </dd> </dl> `w` : float, default=0.9 <br/> <dl> <dd> weight parameter  </dd> </dl>|
 | Attributes | ``best_feature_list`` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### Methods
@@ -128,7 +133,7 @@ algo_object.plot_history()
 ------------------------------------------
 |  |  |
 |----------|-------------|
-|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration ``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``minimize ``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl>|
+|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration ``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``timeout``: int = None <br/> <dl> <dd> Stop operation after the given number of second(s). If this argument is set to None, the operation is executed without time limitation and n_iteration is followed </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``minimize ``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl>|
 | Attributes | ``best_feature_list`` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### Methods
@@ -181,7 +186,7 @@ algo_object.plot_history()
 ------------------------------------------
 |  |  |
 |----------|-------------|
-|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration ``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``minimize ``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl>|
+|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration ``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``timeout``: int = None <br/> <dl> <dd> Stop operation after the given number of second(s). If this argument is set to None, the operation is executed without time limitation and n_iteration is followed </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``minimize ``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl>|
 | Attributes | ``best_feature_list`` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### Methods
@@ -234,7 +239,7 @@ algo_object.plot_history()
 ------------------------------------------
 |  |  |
 |----------|-------------|
-|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``selective_pressure``: int, default=2 <br/> <dl> <dd>measure of reproductive opportunities for each organism in the population </dd> </dl> ``elitism``: int, default=2 <br/> <dl> <dd> number of top individuals to be considered as elites </dd> </dl> ``mutation_rate``: float, default=0.05 <br/> <dl> <dd> rate of mutation in the population's gene </dd> </dl> ``minimize``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl>|
+|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``timeout``: int = None <br/> <dl> <dd> Stop operation after the given number of second(s). If this argument is set to None, the operation is executed without time limitation and n_iteration is followed </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``selective_pressure``: int, default=2 <br/> <dl> <dd>measure of reproductive opportunities for each organism in the population </dd> </dl> ``elitism``: int, default=2 <br/> <dl> <dd> number of top individuals to be considered as elites </dd> </dl> ``mutation_rate``: float, default=0.05 <br/> <dl> <dd> rate of mutation in the population's gene </dd> </dl> ``minimize``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl>|
 | Attributes | ``best_feature_list`` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### Methods
@@ -285,7 +290,7 @@ algo_object.plot_history()
 ------------------------------------------
 |  |  |
 |----------|-------------|
-|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``g0``: float, default=100 <br/> <dl> <dd> gravitational strength constant </dd> </dl> ``eps``: float, default=0.5 <br/> <dl> <dd> distance constant </dd> </dl>``minimize``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl>|
+|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``timeout``: int = None <br/> <dl> <dd> Stop operation after the given number of second(s). If this argument is set to None, the operation is executed without time limitation and n_iteration is followed </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``g0``: float, default=100 <br/> <dl> <dd> gravitational strength constant </dd> </dl> ``eps``: float, default=0.5 <br/> <dl> <dd> distance constant </dd> </dl>``minimize``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl>|
 | Attributes | ``best_feature_list`` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### Methods
