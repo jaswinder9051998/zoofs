@@ -329,7 +329,7 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 # import an algorithm !  
 from zoofs import GravitationalOptimization
 # create object of algorithm
-algo_object=GravitationalOptimization(objective_function,n_iteration=50,
+algo_object=GravitationalOptimization(objective_function_topass,n_iteration=50,
                                 population_size=50,g0=100,eps=0.5,minimize=True)
 import lightgbm as lgb
 lgb_model = lgb.LGBMClassifier()                                
