@@ -73,10 +73,11 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
             else:
                 score = self.objective_function(
                     model, x_train_copy, y_train, x_valid_copy, y_valid)
+                if self.minimize:
+                    score = -score
                 self.feature_score_hash[feature_hash] = score
 
-            if self.minimize:
-                score = -score
+            
             scores.append(score)
 
         self.fitness_scores = scores

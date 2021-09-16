@@ -12,6 +12,9 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.x
-      - run: git+https://github.com/jaswinder9051998/zoofs
+      - run: pip install pandas
+      - run: pip install numpy
+      - run: pip install scipy
+      - run: pip install plotly
       - run: pip install -r docs/requirements.txt
       - run: mkdocs gh-deploy --force

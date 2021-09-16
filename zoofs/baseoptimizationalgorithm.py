@@ -42,9 +42,10 @@ class BaseOptimizationAlgorithm(ABC):
             else:
                 score = self.objective_function(
                     model, x_train_copy, y_train, x_valid_copy, y_valid)
+                if not(self.minimize):
+                    score = -score
                 self.feature_score_hash[feature_hash] = score
-            if not(self.minimize):
-                score = -score
+
             if score < self.best_score:
                 self.best_score = score
                 self.best_dim = individual

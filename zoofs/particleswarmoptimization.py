@@ -73,9 +73,10 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
             else:
                 score = self.objective_function(
                     model, X_train_copy, y_train, X_valid_copy, y_valid)
+                if not(self.minimize):
+                    score = -score
                 self.feature_score_hash[feature_hash] = score
-            if not(self.minimize):
-                score = -score
+            
             if score < self.current_best_scores[i]:
                 self.current_best_scores[i] = score
                 self.current_best_individual_score_dimensions[i] = individual
