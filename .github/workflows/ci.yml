@@ -16,5 +16,12 @@ jobs:
       - run: pip install numpy
       - run: pip install scipy
       - run: pip install plotly
-      - run: pip install -r docs/requirements.txt
+      - run: pip install mkdocs-material
+      - run: pip install mkdocstrings
+      - run: pip install mkdocstrings
+      - run: pip install pytkdocs 
+      - run: pip install mkdocs-jupyter
+      - run: pip install mkdocs-meta-descriptions-plugin
+      - run: pip install jupyter_contrib_nbextensions
       - run: mkdocs gh-deploy --force
+
