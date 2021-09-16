@@ -18,7 +18,7 @@ https://jaswinder9051998.github.io/zoofs/
 - Feature score hashing of visited feature sets to increase the overall performance
  
 ## Installation
-
+[![PyPi version](https://badgen.net/pypi/v/zoofs/)](https://pypi.com/project/zoofs)
 
 ### Using pip
 
