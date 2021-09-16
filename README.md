@@ -4,6 +4,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=security_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
+[![DOI](https://zenodo.org/badge/278821412.svg)](https://zenodo.org/badge/latestdoi/278821412)
 
 ``zoofs`` is a Python library for performing feature selection using a variety of nature inspired wrapper algorithms. The algorithms range from swarm-intelligence to physics based to Evolutionary.
 It's an easy to use, flexible and powerful tool to reduce your feature size.  
@@ -328,7 +329,7 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 # import an algorithm !  
 from zoofs import GravitationalOptimization
 # create object of algorithm
-algo_object=GravitationalOptimization(objective_function,n_iteration=50,
+algo_object=GravitationalOptimization(objective_function_topass,n_iteration=50,
                                 population_size=50,g0=100,eps=0.5,minimize=True)
 import lightgbm as lgb
 lgb_model = lgb.LGBMClassifier()                                
