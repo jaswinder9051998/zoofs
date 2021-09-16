@@ -1,0 +1,6 @@
+mkdocs-material
+mkdocstrings 
+pytkdocs 
+mkdocs-jupyter
+mkdocs-meta-descriptions-plugin
+jupyter_contrib_nbextensions
