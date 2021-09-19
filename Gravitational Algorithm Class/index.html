@@ -333,6 +333,23 @@
     <div class="doc doc-contents first">
 
 
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>best_feature_list</code></td>
+        <td><code>ndarray of shape (n_features)</code></td>
+        <td><p>list of features with the best result of the entire run</p></td>
+      </tr>
+  </tbody>
+</table>
 
 
 
@@ -362,8 +379,64 @@
     <div class="doc doc-contents ">
 
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>objective_function</code></td>
+        <td><code>user made function of the signature &#39;func(model,X_train,y_train,X_test,y_test)&#39;</code></td>
+        <td><p>The function must return a value, that needs to be minimized/maximized.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>n_iteration</code></td>
+        <td><code>int</code></td>
+        <td><p>Number of time the Optimization algorithm will run</p></td>
+        <td><code>1000</code></td>
+      </tr>
+      <tr>
+        <td><code>timeout</code></td>
+        <td><code>int</code></td>
+        <td><p>Stop operation after the given number of second(s).
+If this argument is set to None, the operation is executed without time limitation and n_iteration is followed</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>population_size</code></td>
+        <td><code>int, default=50</code></td>
+        <td><p>Total size of the population</p></td>
+        <td><code>50</code></td>
+      </tr>
+      <tr>
+        <td><code>g0</code></td>
+        <td><code>float, default=100</code></td>
+        <td><p>gravitational strength constant</p></td>
+        <td><code>100</code></td>
+      </tr>
+      <tr>
+        <td><code>eps</code></td>
+        <td><code>float, default=0.5</code></td>
+        <td><p>distance constant</p></td>
+        <td><code>0.5</code></td>
+      </tr>
+      <tr>
+        <td><code>minimize</code></td>
+        <td><code>bool, default=True</code></td>
+        <td><p>Defines if the objective value is to be maximized or minimized</p></td>
+        <td><code>True</code></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
-          <summary>Source code in <code>zoofs/gravitationaloptimization.py</code></summary>
+          <summary>Source code in <code>zoofs\gravitationaloptimization.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
              <span class="n">objective_function</span><span class="p">,</span>
              <span class="n">n_iteration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
@@ -421,8 +494,57 @@
     <div class="doc doc-contents ">
 
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>model</code></td>
+        <td><code>machine learning model&#39;s object</code></td>
+        <td><p>machine learning model's object</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>X_train</code></td>
+        <td><code>pandas.core.frame.DataFrame of shape (n_samples, n_features)</code></td>
+        <td><p>Training input samples to be used for machine learning model</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>y_train</code></td>
+        <td><code>pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)</code></td>
+        <td><p>The target values (class labels in classification, real numbers in regression).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>X_valid</code></td>
+        <td><code>pandas.core.frame.DataFrame of shape (n_samples, n_features)</code></td>
+        <td><p>Validation input samples</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>y_valid</code></td>
+        <td><code>pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)</code></td>
+        <td><p>The target values (class labels in classification, real numbers in regression).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>verbose</code></td>
+        <td><code>bool,default=True</code></td>
+        <td><p>Print results for iterations</p></td>
+        <td><code>True</code></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
-          <summary>Source code in <code>zoofs/gravitationaloptimization.py</code></summary>
+          <summary>Source code in <code>zoofs\gravitationaloptimization.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters</span>
@@ -526,9 +648,10 @@
 
     <div class="doc doc-contents ">
 
+      <p>Plot objective score history</p>
 
         <details class="quote">
-          <summary>Source code in <code>zoofs/gravitationaloptimization.py</code></summary>
+          <summary>Source code in <code>zoofs\gravitationaloptimization.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot objective score history</span>
