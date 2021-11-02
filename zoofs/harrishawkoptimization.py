@@ -75,26 +75,11 @@ class HarrisHawkOptimization(BaseOptimizationAlgorithm):
         self.individuals[q_greater_indexes]=np.where(np.random.random(q_greater_individuals.shape)<X_update,1,0)
 
     def _temporary_evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid,target_individuals):
-        scores = []
-        for i, individual in enumerate(target_individuals):
-            chosen_features = [index for index in range(
-                x_train.shape[1]) if individual[index] == 1]
-            x_train_copy = x_train.iloc[:, chosen_features]
-            x_valid_copy = x_valid.iloc[:, chosen_features]
-
-            feature_hash = '_*_'.join(
-                sorted(self.feature_list[chosen_features]))
-            if feature_hash in self.feature_score_hash.keys():
-                score = self.feature_score_hash[feature_hash]
-            else:
-                score = self.objective_function(
-                    model, x_train_copy, y_train, x_valid_copy, y_valid)
-                if not(self.minimize):
-                    score = -score
-                self.feature_score_hash[feature_hash] = score
-
-            scores.append(score)
-        return scores
+        _temp=self.individuals
+        self.individuals=target_individuals
+        res=super()._evaluate_fitness(model, x_train, y_train, x_valid, y_valid,0,0)
+        self.individuals=_temp
+        return res
 
     def _levy_walk(self,soft_besiege_with_dives_indexes):
         nume  = math.gamma(1 + self.beta) * np.sin(np.pi * self.beta / 2)
@@ -254,4 +239,3 @@ class HarrisHawkOptimization(BaseOptimizationAlgorithm):
             self.best_feature_list = list(
                 self.feature_list[np.where(self.best_dim)[0]])
         return self.best_feature_list
-
