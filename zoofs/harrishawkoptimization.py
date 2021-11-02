@@ -210,11 +210,6 @@ class HarrisHawkOptimization(BaseOptimizationAlgorithm):
 
         self.initialize_population(X_train)
 
-        self.current_best_individual_score_dimensions = self.individuals
-        self.current_best_scores = [np.inf]*self.population_size
-        self.gbest_individual = self.best_dim
-        self.v = np.zeros((self.population_size, X_train.shape[1]))
-
         if (self.timeout is not None):
             timeout_upper_limit = time.time() + self.timeout
         else:
