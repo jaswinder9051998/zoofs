@@ -43,34 +43,8 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
         """
         super().__init__(objective_function, n_iteration, timeout, population_size, minimize)
 
-    def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid):
-        scores = []
-        for i, individual in enumerate(self.individuals):
-            chosen_features = [index for index in range(
-                x_train.shape[1]) if individual[index] == 1]
-            x_train_copy = x_train.iloc[:, chosen_features]
-            x_valid_copy = x_valid.iloc[:, chosen_features]
-            feature_hash = '_*_'.join(
-                sorted(self.feature_list[chosen_features]))
-            if feature_hash in self.feature_score_hash.keys():
-                score = self.feature_score_hash[feature_hash]
-            else:
-                score = self.objective_function(
-                    model, x_train_copy, y_train, x_valid_copy, y_valid)
-                if not(self.minimize):
-                    score = -score
-                self.feature_score_hash[feature_hash] = score
-
-            
-            if score < self.best_score:
-                self.best_score = score
-                self.best_score_dimension = individual
-                self.best_dim = individual
-            if score > self.worst_score:
-                self.worst_score = score
-                self.worst_dim = individual
-            scores.append(score)
-        return scores
+    def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid,particle_swarm_flag=0,dragon_fly_flag=0):
+        return super()._evaluate_fitness(model, x_train, y_train, x_valid, y_valid,particle_swarm_flag,dragon_fly_flag)
 
     def _check_params(self, model, x_train, y_train, x_valid, y_valid, method):
         super()._check_params(model, x_train, y_train, x_valid, y_valid)
@@ -133,7 +107,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
             self._check_individuals()
 
             self.fitness_scores = self._evaluate_fitness(
-                model, X_train, y_train, X_valid, y_valid)
+                model, X_train, y_train, X_valid, y_valid,0,1)
 
             self.iteration_objective_score_monitor(i)
 
@@ -208,3 +182,21 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
                 self.feature_list[np.where(self.best_dim)[0]])
         return self.best_feature_list
 
+# from sklearn.datasets import load_breast_cancer
+# import pandas as pd
+# data = load_breast_cancer()
+# X_train=pd.DataFrame(data['data'],columns=data['feature_names'])
+# y_train=pd.Series(data['target'])
+# from sklearn.metrics import log_loss
+# def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
+#     model.fit(X_train,y_train)  
+#     P=log_loss(y_valid,model.predict_proba(X_valid))
+#     return P
+    
+# algo_object=DragonFlyOptimization(objective_function_topass,n_iteration=20,
+#                                        population_size=20,minimize=True)
+# import lightgbm as lgb
+# lgb_model = lgb.LGBMClassifier()                                       
+# # fit the algorithm
+# algo_object.fit(lgb_model,X_train, y_train, X_train, y_train,verbose=True)
+# #plot your results

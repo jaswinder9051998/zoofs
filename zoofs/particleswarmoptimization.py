@@ -59,8 +59,8 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
         self.c2 = c2
         self.w = w
 
-    def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid,particle_swarm_flag=0):
-        return super()._evaluate_fitness(model, x_train, y_train, x_valid, y_valid,particle_swarm_flag)
+    def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid,particle_swarm_flag=0,dragon_fly_flag=0):
+        return super()._evaluate_fitness(model, x_train, y_train, x_valid, y_valid,particle_swarm_flag,dragon_fly_flag)
 
     def fit(self, model, X_train, y_train, X_valid, y_valid, verbose=True):
         """
@@ -117,7 +117,7 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
             self._check_individuals()
 
             self.fitness_scores = self._evaluate_fitness(
-                model, X_train, y_train, X_valid, y_valid,1)
+                model, X_train, y_train, X_valid, y_valid,1,0)
 
             self.gbest_individual = self.best_dim
 
@@ -141,21 +141,3 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
                 self.feature_list[np.where(self.best_dim)[0]])
         return self.best_feature_list
 
-# from sklearn.datasets import load_breast_cancer
-# import pandas as pd
-# data = load_breast_cancer()
-# X_train=pd.DataFrame(data['data'],columns=data['feature_names'])
-# y_train=pd.Series(data['target'])
-# from sklearn.metrics import log_loss
-# def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
-#     model.fit(X_train,y_train)  
-#     P=log_loss(y_valid,model.predict_proba(X_valid))
-#     return P
-    
-# algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,
-#                                        population_size=20,minimize=True)
-# import lightgbm as lgb
-# lgb_model = lgb.LGBMClassifier()                                       
-# # fit the algorithm
-# algo_object.fit(lgb_model,X_train, y_train, X_train, y_train,verbose=True)
-# #plot your results
