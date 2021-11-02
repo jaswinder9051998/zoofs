@@ -9,23 +9,45 @@ import warnings
 import math
 
 class HarrisHawkOptimization(BaseOptimizationAlgorithm):
+    """      
+        Attributes
+        ----------
+        best_feature_list : ndarray of shape (n_features)
+            list of features with the best result of the entire run
 
+    """
     def __init__(self,
                  objective_function,
                  n_iteration: int = 1000,
                  timeout: int = None,
                  population_size=50,
                  minimize=True,
-                 beta=0.5,
-                 c1=2,
-                 c2=2,
-                 w=0.9):
+                 beta=0.5):
+        """       
+        Parameters
+        ----------
+        objective_function: user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'
+            User defined function that returns the objective value 
 
+        population_size: int, default=50
+            Total size of the population , default=50
+
+        n_iteration: int, default=1000
+            Number of time the Particle Swarm Optimization algorithm will run
+
+        timeout: int = None
+            Stop operation after the given number of second(s).
+            If this argument is set to None, the operation is executed without time limitation and n_iteration is followed
+
+        minimize : bool, default=True
+            Defines if the objective value is to be maximized or minimized
+
+        beta: float, default=0.5
+            beta value for random levy walk
+
+        """
         super().__init__(objective_function, n_iteration, timeout, population_size, minimize)
         self.beta=beta
-        self.c1 = c1
-        self.c2 = c2
-        self.w = w
 
     def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid):
         scores = []
@@ -180,7 +202,30 @@ class HarrisHawkOptimization(BaseOptimizationAlgorithm):
 
 
     def fit(self, model, X_train, y_train, X_valid, y_valid, verbose=True):
+        """
+        Parameters
+        ----------   
+        model: machine learning model's object
+            The object to be used for fitting on train data
 
+        X_train: pandas.core.frame.DataFrame of shape (n_samples, n_features)
+            Training input samples to be used for machine learning model
+
+        y_train: pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
+            The target values (class labels in classification, real numbers in
+            regression).
+
+        X_valid: pandas.core.frame.DataFrame of shape (n_samples, n_features)
+            Validation input samples
+
+        y_valid: pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
+            The target values (class labels in classification, real numbers in
+            regression).
+
+        verbose : bool,default=True
+            Print results for iterations
+
+        """
         self._check_params(model, X_train, y_train, X_valid, y_valid)
 
         self.feature_score_hash = {}
