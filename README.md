@@ -4,6 +4,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=security_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
+[![<Sonarcloud quality gate>](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=alert_status)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5638846.svg)](https://doi.org/10.5281/zenodo.5638846)
 [![PyPI version](https://badge.fury.io/py/zoofs.svg)](https://badge.fury.io/py/zoofs)
 
