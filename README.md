@@ -4,7 +4,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=security_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5512921.svg)](https://doi.org/10.5281/zenodo.5512921)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5638846.svg)](https://doi.org/10.5281/zenodo.5638846)
 [![PyPI version](https://badge.fury.io/py/zoofs.svg)](https://badge.fury.io/py/zoofs)
 
 ``zoofs`` is a Python library for performing feature selection using a variety of nature inspired wrapper algorithms. The algorithms range from swarm-intelligence to physics based to Evolutionary.
@@ -13,7 +13,8 @@ It's an easy to use, flexible and powerful tool to reduce your feature size.
 ## Documentation
 https://jaswinder9051998.github.io/zoofs/
 
-## Whats new in V0.1.2
+## Whats new in V0.1.4
+- added harris hawk algorithm
 - now you can pass ``timeout`` as a parameter to stop operation after the given number of second(s). An amazing alternative to passing number of iterations
 - Feature score hashing of visited feature sets to increase the overall performance
  
@@ -34,6 +35,7 @@ pip install zoofs
 | Particle Swarm Algorithm  | ParticleSwarmOptimization | Utilizes swarm behaviour | [https://doi.org/10.1007/978-3-319-13563-2_51](https://doi.org/10.1007/978-3-319-13563-2_51) |
 | Grey Wolf Algorithm | GreyWolfOptimization | Utilizes wolf hunting behaviour |  [https://doi.org/10.1016/j.neucom.2015.06.083](https://doi.org/10.1016/j.neucom.2015.06.083) |
 | Dragon Fly Algorithm | DragonFlyOptimization | Utilizes dragonfly swarm behaviour | [https://doi.org/10.1016/j.knosys.2020.106131](https://doi.org/10.1016/j.knosys.2020.106131) |
+| Harris Hawk Algorithm | DragonFlyOptimization | Utilizes hawk hunting behaviour | [https://link.springer.com/chapter/10.1007/978-981-32-9990-0_12](https://link.springer.com/chapter/10.1007/978-981-32-9990-0_12) |
 | Genetic Algorithm Algorithm | GeneticOptimization | Utilizes genetic mutation behaviour | [https://doi.org/10.1109/ICDAR.2001.953980](https://doi.org/10.1109/ICDAR.2001.953980) |
 | Gravitational Algorithm | GravitationalOptimization | Utilizes newtons gravitational behaviour | [https://doi.org/10.1109/ICASSP.2011.5946916](https://doi.org/10.1109/ICASSP.2011.5946916) |
 
@@ -232,6 +234,60 @@ import lightgbm as lgb
 lgb_model = lgb.LGBMClassifier()                                     
 # fit the algorithm
 algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid, method='sinusoidal', verbose=True)
+#plot your results
+algo_object.plot_history()
+```  
+<br/>
+<br/>
+
+### _Harris Hawk Optimization_
+![Harris Hawk](https://media.giphy.com/media/lq2hmYpAAomgT3dyh3/giphy.gif)
+
+------------------------------------------
+#### class zoofs.HarrisHawkOptimization(objective_function,n_iteration=50,population_size=50,minimize=True,beta=0.5)
+------------------------------------------
+
+|  |  |
+|----------|-------------|
+|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration ``: int, default=1000 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``timeout``: int = None <br/> <dl> <dd> Stop operation after the given number of second(s). If this argument is set to None, the operation is executed without time limitation and n_iteration is followed </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``minimize ``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl> ``beta`` : float, default=0.5 <br/> <dl> <dd> value for levy random walk  </dd> </dl> |
+| Attributes | ``best_feature_list`` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
+
+#### Methods
+
+| Methods | Class Name |
+|----------|-------------|
+|  fit  | Run the algorithm  |
+| plot_history | Plot results achieved across iteration |
+
+#### fit(model,X_train, y_train, X_test, y_test,verbose=True)
+
+|  |  |
+|----------|-------------|
+|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The Validation target values . </dd> </dl> ``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>|
+| Returns  | ``best_feature_list `` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
+
+#### plot_history()
+Plot results across iterations
+
+#### Example
+```python
+from sklearn.metrics import log_loss
+# define your own objective function, make sure the function receives four parameters,
+#  fit your model and return the objective value !
+def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
+    model.fit(X_train,y_train)  
+    P=log_loss(y_valid,model.predict_proba(X_valid))
+    return P
+
+# import an algorithm !  
+from zoofs import HarrisHawkOptimization
+# create object of algorithm
+algo_object=HarrisHawkOptimization(objective_function_topass,n_iteration=20,
+                                       population_size=20,minimize=True)
+import lightgbm as lgb
+lgb_model = lgb.LGBMClassifier()                      
+# fit the algorithm
+algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
