@@ -9,6 +9,7 @@ import warnings
 import math
 
 class HarrisHawkOptimization(BaseOptimizationAlgorithm):
+    
     """      
         Attributes
         ----------
