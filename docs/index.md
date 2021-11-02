@@ -42,7 +42,7 @@ zoofs is a Python library for performing feature selection using a variety of na
 | Particle Swarm Algorithm  | [Particle Swarm Optimization](Particle Swarm Optimization Class.md) | Utilizes swarm behaviour | [https://doi.org/10.1007/978-3-319-13563-2_51](https://doi.org/10.1007/978-3-319-13563-2_51) |
 | Grey Wolf Algorithm | [Grey Wolf Optimization](Grey Wolf Optimization Class.md) | Utilizes wolf hunting behaviour | [https://doi.org/10.1016/j.neucom.2015.06.083](https://doi.org/10.1016/j.neucom.2015.06.083) |
 | Dragon Fly Algorithm | [Dragon Fly Optimization](Dragon Fly Optimization Class.md) | Utilizes dragonfly swarm behaviour | [https://doi.org/10.1016/j.knosys.2020.106131](https://doi.org/10.1016/j.knosys.2020.106131)|
-| Harris Hawk Algorithm | DragonFlyOptimization | Utilizes hawk hunting behaviour | [https://link.springer.com/chapter/10.1007/978-981-32-9990-0_12](https://link.springer.com/chapter/10.1007/978-981-32-9990-0_12) |
+| Harris Hawk Algorithm | [Harris Hawk Optimization](Harris Hawk Optimization.md) | Utilizes hawk hunting behaviour | [https://link.springer.com/chapter/10.1007/978-981-32-9990-0_12](https://link.springer.com/chapter/10.1007/978-981-32-9990-0_12) |
 | Genetic Algorithm Algorithm | [Genetic Optimization](Genetic Optimization Class.md) | Utilizes genetic mutation behaviour | [https://doi.org/10.1109/ICDAR.2001.953980](https://doi.org/10.1109/ICDAR.2001.953980) |
 | Gravitational Algorithm | [Gravitational Algorithm](Gravitational Algorithm Class.md) | Utilizes newtons gravitational behaviour | [https://doi.org/10.1109/ICASSP.2011.5946916](https://doi.org/10.1109/ICASSP.2011.5946916) |
 
