@@ -9,7 +9,7 @@ import warnings
 import math
 
 class HarrisHawkOptimization(BaseOptimizationAlgorithm):
-    
+
     """      
         Attributes
         ----------
@@ -49,33 +49,6 @@ class HarrisHawkOptimization(BaseOptimizationAlgorithm):
         """
         super().__init__(objective_function, n_iteration, timeout, population_size, minimize)
         self.beta=beta
-
-    def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid):
-        scores = []
-        for i, individual in enumerate(self.individuals):
-            chosen_features = [index for index in range(
-                x_train.shape[1]) if individual[index] == 1]
-            X_train_copy = x_train.iloc[:, chosen_features]
-            X_valid_copy = x_valid.iloc[:, chosen_features]
-            feature_hash = '_*_'.join(
-                sorted(self.feature_list[chosen_features]))
-            if feature_hash in self.feature_score_hash.keys():
-                score = self.feature_score_hash[feature_hash]
-            else:
-                score = self.objective_function(
-                    model, X_train_copy, y_train, X_valid_copy, y_valid)
-                if not(self.minimize):
-                    score = -score
-                self.feature_score_hash[feature_hash] = score
-            
-            if score < self.current_best_scores[i]:
-                self.current_best_scores[i] = score
-                self.current_best_individual_score_dimensions[i] = individual
-            if score < self.best_score:
-                self.best_score = score
-                self.best_dim = individual
-            scores.append(score)
-        return scores
 
     def _exploration_phase(self):
 
