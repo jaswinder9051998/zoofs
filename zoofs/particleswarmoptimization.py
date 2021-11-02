@@ -60,31 +60,7 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
         self.w = w
 
     def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid):
-        scores = []
-        for i, individual in enumerate(self.individuals):
-            chosen_features = [index for index in range(
-                x_train.shape[1]) if individual[index] == 1]
-            X_train_copy = x_train.iloc[:, chosen_features]
-            X_valid_copy = x_valid.iloc[:, chosen_features]
-            feature_hash = '_*_'.join(
-                sorted(self.feature_list[chosen_features]))
-            if feature_hash in self.feature_score_hash.keys():
-                score = self.feature_score_hash[feature_hash]
-            else:
-                score = self.objective_function(
-                    model, X_train_copy, y_train, X_valid_copy, y_valid)
-                if not(self.minimize):
-                    score = -score
-                self.feature_score_hash[feature_hash] = score
-            
-            if score < self.current_best_scores[i]:
-                self.current_best_scores[i] = score
-                self.current_best_individual_score_dimensions[i] = individual
-            if score < self.best_score:
-                self.best_score = score
-                self.best_dim = individual
-            scores.append(score)
-        return scores
+        return super()._evaluate_fitness(model, x_train, y_train, x_valid, y_valid,1)
 
     def fit(self, model, X_train, y_train, X_valid, y_valid, verbose=True):
         """
@@ -165,3 +141,21 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
                 self.feature_list[np.where(self.best_dim)[0]])
         return self.best_feature_list
 
+from sklearn.datasets import load_breast_cancer
+import pandas as pd
+data = load_breast_cancer()
+X_train=pd.DataFrame(data['data'],columns=data['feature_names'])
+y_train=pd.Series(data['target'])
+from sklearn.metrics import log_loss
+def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
+    model.fit(X_train,y_train)  
+    P=log_loss(y_valid,model.predict_proba(X_valid))
+    return P
+    
+algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,
+                                       population_size=20,minimize=True)
+import lightgbm as lgb
+lgb_model = lgb.LGBMClassifier()                                       
+# fit the algorithm
+algo_object.fit(lgb_model,X_train, y_train, X_train, y_train,verbose=True)
+#plot your results

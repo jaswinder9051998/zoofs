@@ -27,7 +27,7 @@ class BaseOptimizationAlgorithm(ABC):
     def sigmoid(self, x):
         return 1/(1+np.exp(-x))
 
-    def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid):
+    def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid,particle_swarm_flag=0):
         scores = []
         for i, individual in enumerate(self.individuals):
             chosen_features = [index for index in range(
@@ -49,6 +49,10 @@ class BaseOptimizationAlgorithm(ABC):
             if score < self.best_score:
                 self.best_score = score
                 self.best_dim = individual
+            if particle_swarm_flag:
+                if score < self.current_best_scores[i]:
+                    self.current_best_scores[i] = score
+                    self.current_best_individual_score_dimensions[i] = individual
             scores.append(score)
         return scores
 
