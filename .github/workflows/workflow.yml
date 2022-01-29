@@ -16,6 +16,7 @@ jobs:
       run: |
         pip install coverage
         pip install numpy
+        pip install pandas
         pip install scipy
         pip install plotly
         pip install mkdocs-material
