@@ -1,6 +1,6 @@
 ![zoofs Logo Header](https://github.com/jaswinder9051998/zoofs/blob/master/asserts/zoofsedited.png)
 
-# zoofs ( Zoo Feature Selection )
+# 🐾 zoofs ( Zoo Feature Selection )
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=security_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
