@@ -15,6 +15,16 @@ jobs:
     - name: 'generate report'
       run: |
         pip install coverage
+        pip install numpy
+        pip install scipy
+        pip install plotly
+        pip install mkdocs-material
+        pip install mkdocstrings
+        pip install mkdocstrings
+        pip install pytkdocs 
+        pip install mkdocs-jupyter
+        pip install mkdocs-meta-descriptions-plugin
+        pip install jupyter_contrib_nbextensions
         coverage run -m unittest
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
