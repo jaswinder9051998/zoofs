@@ -25,6 +25,7 @@ jobs:
         pip install pytkdocs 
         pip install mkdocs-jupyter
         pip install pytest
+        pip install scikit-learn
         pip install mkdocs-meta-descriptions-plugin
         pip install jupyter_contrib_nbextensions
         coverage run -m unittest
