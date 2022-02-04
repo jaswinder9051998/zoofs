@@ -1,5 +1,46 @@
 ![harris hawk](https://media.giphy.com/media/lq2hmYpAAomgT3dyh3/giphy.gif)
 
+## Import
+```py
+from zoofs import HarrisHawkOptimization
+```
+
+## Example
+```py
+from sklearn.metrics import log_loss
+"""
+define your own objective function,
+make sure the function receives four parameters,
+fit your model and return the objective value !
+"""
+def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
+    model.fit(X_train,y_train)  
+    P=log_loss(y_valid,model.predict_proba(X_valid))
+    return P
+
+# import an algorithm !  
+from zoofs import HarrisHawkOptimization
+
+# create object of algorithm
+algo_object=HarrisHawkOptimization(objective_function_topass,
+                                   n_iteration=20,
+                                   population_size=20,
+                                   minimize=True)
+import lightgbm as lgb
+lgb_model = lgb.LGBMClassifier()       
+
+# fit the algorithm
+algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,verbose=True)
+
+#plot your results
+algo_object.plot_history()
+
+# extract the best  feature set
+algo_object.best_feature_list 
+```
+
+## Methods
+
 ::: zoofs.harrishawkoptimization.HarrisHawkOptimization
     selection:
         docstring_style : numpy

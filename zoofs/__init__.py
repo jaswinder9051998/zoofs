@@ -6,3 +6,4 @@ from zoofs.greywolfoptimization import GreyWolfOptimization
 from zoofs.gravitationaloptimization import GravitationalOptimization
 from zoofs.baseoptimizationalgorithm import BaseOptimizationAlgorithm
 from zoofs.harrishawkoptimization import HarrisHawkOptimization
+

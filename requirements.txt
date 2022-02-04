@@ -2,3 +2,4 @@ pandas
 numpy
 scipy
 plotly
+colorlog

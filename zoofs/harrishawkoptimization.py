@@ -9,14 +9,6 @@ import warnings
 import math
 
 class HarrisHawkOptimization(BaseOptimizationAlgorithm):
-
-    """      
-        Attributes
-        ----------
-        best_feature_list : ndarray of shape (n_features)
-            list of features with the best result of the entire run
-
-    """
     def __init__(self,
                  objective_function,
                  n_iteration: int = 1000,
@@ -45,7 +37,11 @@ class HarrisHawkOptimization(BaseOptimizationAlgorithm):
 
         beta: float, default=0.5
             beta value for random levy walk
-
+            
+        Attributes
+        ----------
+        best_feature_list : ndarray of shape (n_features)
+            list of features with the best result of the entire run
         """
         super().__init__(objective_function, n_iteration, timeout, population_size, minimize)
         self.beta=beta

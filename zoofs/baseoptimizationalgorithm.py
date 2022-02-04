@@ -4,6 +4,9 @@ import numpy as np
 import pandas as pd
 import logging as log
 import scipy
+import colorlog
+import logging
+
 
 
 class BaseOptimizationAlgorithm(ABC):
@@ -152,14 +155,45 @@ class BaseOptimizationAlgorithm(ABC):
                                                                                     (self.individuals[self.individuals.sum(axis=1) == 0].shape[0],
                                                                                      self.individuals[self.individuals.sum(axis=1) == 0].shape[1]))
 
-    def verbose_results(self, verbose, i):
+
+    def _setup_logger(self):
+        logger = logging.getLogger()
+
+        # Logging info level to stdout with colors
+        terminal_handler = colorlog.StreamHandler()
+        color_formatter = colorlog.ColoredFormatter(
+            "%(green)s [ %(asctime)s ] %(reset)s%(message)s",
+            datefmt=None,
+            reset=True,
+            log_colors={
+                'DEBUG':    'cyan',
+                'INFO':     'green',
+                'WARNING':  'yellow',
+                'ERROR':    'red',
+                'CRITICAL': 'red,bg_white',
+            },
+            secondary_log_colors={},
+            style='%'
+        )
+        terminal_handler.setLevel(logging.DEBUG)
+        terminal_handler.setFormatter(color_formatter)
+
+        # Add handlers to logger
+        logger.addHandler(terminal_handler)
+
+        return logger
+
+    
+    def verbose_results(self,verbose, i):
         if verbose:
-            if i == 0:
-                print(
-                    "\t\t Best value of metric across iteration \t Best value of metric across population  ")
-            if self.minimize:
-                print(
-                    f"Iteration {i} \t {np.array(self.fitness_scores).min()} \t\t\t\t\t {self.best_score} ")
-            else:
-                print(
-                    f"Iteration {i} \t {-np.array(self.fitness_scores).min()} \t\t\t\t\t {-self.best_score} ")
+            if i==0:
+                self.my_logger = self._setup_logger()
+
+            fitness_scores = np.array(self.fitness_scores).min() if self.minimize else -np.array(self.fitness_scores).min()
+            best_score = self.best_score if self.minimize else -self.best_score
+
+            self.my_logger.warning(f"Finished iteration #{i} with objective value {fitness_scores}. Current best value is {best_score} ")
+
+        
+
+

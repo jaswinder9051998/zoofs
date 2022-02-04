@@ -4,16 +4,30 @@ repo_url: https://github.com/jaswinder9051998/zoofs/
 
 nav:
   - Introduction: 'index.md'
+  - Algorithms:
+    - Harris Hawk Optimization : 'Harris Hawk Optimization.md'
+    - Particle Swarm Optimization : 'Particle Swarm Optimization Class.md'
+    - Grey Wolf Optimization : 'Grey Wolf Optimization Class.md'
+    - Dragon Fly Optimization : 'Dragon Fly Optimization Class.md'
+    - Genetic Optimization : 'Genetic Optimization Class.md'
+    - Gravitational Algorithm : 'Gravitational Algorithm Class.md'
   - Examples:
     - Particle Swarm : Particle_swarm_optimization_example.ipynb
     - Grey Wolf : Grey_wolf_optimization_example.ipynb
     - Dragon Fly: Dragon_Fly_optimization_example.ipynb
     - Genetic algo : Genetic_optimization_example.ipynb
 
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 
-
-theme:
+theme: 
   name: material
+  features:
+    - content.code.annotate 
 
 plugins:
   - mkdocstrings
