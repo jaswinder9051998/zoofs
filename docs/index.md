@@ -9,6 +9,9 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5638846.svg)](https://doi.org/10.5281/zenodo.5638846)
 [![PyPI version](https://badge.fury.io/py/zoofs.svg)](https://badge.fury.io/py/zoofs)
 [![Downloads](https://pepy.tech/badge/zoofs)](https://pepy.tech/project/zoofs)
+[![codecov](https://codecov.io/gh/jaswinder9051998/zoofs/branch/master/graph/badge.svg?token=TMFNF6Y7A2)](https://codecov.io/gh/jaswinder9051998/zoofs)
+[![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/12LYc67hIuy7PKSa8J_75bQUZ62EBJz4J?usp=sharing) 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jaswinder9051998/zoofs/HEAD)
 # An open-source Library for feature selection
 
 ## Installation
