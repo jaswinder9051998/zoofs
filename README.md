@@ -1,6 +1,6 @@
 ![zoofs Logo Header](https://github.com/jaswinder9051998/zoofs/blob/master/asserts/zoofsedited.png)
 
-# zoofs ( Zoo Feature Selection )
+# 🐾 zoofs ( Zoo Feature Selection )
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=security_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
@@ -8,20 +8,24 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5638846.svg)](https://doi.org/10.5281/zenodo.5638846)
 [![PyPI version](https://badge.fury.io/py/zoofs.svg)](https://badge.fury.io/py/zoofs)
 [![Downloads](https://pepy.tech/badge/zoofs)](https://pepy.tech/project/zoofs)
+[![codecov](https://codecov.io/gh/jaswinder9051998/zoofs/branch/master/graph/badge.svg?token=TMFNF6Y7A2)](https://codecov.io/gh/jaswinder9051998/zoofs)
+[![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/12LYc67hIuy7PKSa8J_75bQUZ62EBJz4J?usp=sharing) 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jaswinder9051998/zoofs/HEAD)
  
 ``zoofs`` is a Python library for performing feature selection using a variety of nature inspired wrapper algorithms. The algorithms range from swarm-intelligence to physics based to Evolutionary.
 It's an easy to use, flexible and powerful tool to reduce your feature size.  
-
-## Documentation
+ 
+🌟 Like this Project? Give us a star !
+ 
+## 📘 Documentation
 https://jaswinder9051998.github.io/zoofs/
 
-## Whats new in V0.1.4
+## 🔗 Whats new in V0.1.4
 - added harris hawk algorithm
 - now you can pass ``timeout`` as a parameter to stop operation after the given number of second(s). An amazing alternative to passing number of iterations
 - Feature score hashing of visited feature sets to increase the overall performance
  
-## Installation
-[![PyPi version](https://badgen.net/pypi/v/zoofs/)](https://pypi.com/project/zoofs)
+## 🛠 Installation
 
 ### Using pip
 
@@ -31,7 +35,7 @@ Use the package manager to install zoofs.
 pip install zoofs
 ```
 
-## Available Algorithms
+## 📜 Available Algorithms
 | Algorithm Name | Class Name | Description | References doi |
 |----------|-------------|-------------|-------------|
 | Particle Swarm Algorithm  | ParticleSwarmOptimization | Utilizes swarm behaviour | [https://doi.org/10.1007/978-3-319-13563-2_51](https://doi.org/10.1007/978-3-319-13563-2_51) |
@@ -44,7 +48,7 @@ pip install zoofs
 More algos soon, stay tuned !
 * [Try It Now?] [![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/12LYc67hIuy7PKSa8J_75bQUZ62EBJz4J?usp=sharing)
 
-## Usage
+## ⚡️ Usage
 Define your own objective function for optimization !
 ```python
 from sklearn.metrics import log_loss
