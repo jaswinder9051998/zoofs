@@ -23,4 +23,5 @@ jobs:
       - run: pip install mkdocs-jupyter
       - run: pip install mkdocs-meta-descriptions-plugin
       - run: pip install jupyter_contrib_nbextensions
+      - run: pip install colorlog
 

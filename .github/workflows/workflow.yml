@@ -28,6 +28,7 @@ jobs:
         pip install scikit-learn
         pip install mkdocs-meta-descriptions-plugin
         pip install jupyter_contrib_nbextensions
+        pip install colorlog
         coverage run -m unittest
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
