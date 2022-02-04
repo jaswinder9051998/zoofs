@@ -29,9 +29,15 @@ jobs:
         pip install mkdocs-meta-descriptions-plugin
         pip install jupyter_contrib_nbextensions
         pip install colorlog
-        pytest --cov=./ --cov-report=xml
+        coverage erase
+        coverage run -m pytest
+        coverage report -m -i
+        coverage xml -i
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
+        file: ./coverage.xml
         flags: unittests
-        fail_ci_if_error: true
+        env_vars: OS,PYTHON
+        name: codecov-umbrella
+        fail_ci_if_error: false
