@@ -87,7 +87,9 @@ algo_object.plot_history()
 
 ## Algorithms
 
-### _Particle Swarm Algorithm_
+<details>
+<summary markdown="span"> Particle Swarm Algorithm </summary>
+ 
 ![Particle Swarm](https://media.giphy.com/media/tBRQNyh6fKBpSy2oif/giphy.gif)
 
 ------------------------------------------
@@ -140,8 +142,11 @@ algo_object.plot_history()
 ```  
 <br/>
 <br/>
-
-### _Grey Wolf Algorithm_
+</details>
+ 
+<details>
+<summary markdown="span"> Grey Wolf Algorithm </summary>
+ 
 ![Grey Wolf](https://media.giphy.com/media/CvgezXSuQTMTC/giphy.gif)
 
 ------------------------------------------
@@ -193,8 +198,10 @@ algo_object.plot_history()
 ```  
 <br/>
 <br/>
-
-### _Dragon Fly Algorithm_
+</details>
+ 
+<details>
+<summary markdown="span"> Dragon Fly Algorithm </summary>
 ![Dragon Fly](https://media.giphy.com/media/xTiTnozh5piv13iFBC/giphy.gif)
 
 ------------------------------------------
@@ -246,8 +253,10 @@ algo_object.plot_history()
 ```  
 <br/>
 <br/>
-
-### _Harris Hawk Optimization_
+</details>
+ 
+<details>
+<summary markdown="span"> Harris Hawk Optimization </summary>
 ![Harris Hawk](https://media.giphy.com/media/lq2hmYpAAomgT3dyh3/giphy.gif)
 
 ------------------------------------------
@@ -300,8 +309,10 @@ algo_object.plot_history()
 ```  
 <br/>
 <br/>
-
-### _Genetic Algorithm_
+</details>
+ 
+<details>
+<summary markdown="span"> Genetic Algorithm </summary>
 ![Dragon Fly](https://media.giphy.com/media/3o85xGrC7nPVbA2y3K/giphy.gif)
 
 ------------------------------------------
@@ -352,7 +363,10 @@ algo_object.fit(lgb_model,X_train, y_train,X_valid, y_valid, verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
-### _Gravitational Algorithm_
+</details>
+ 
+<details>
+<summary markdown="span"> Gravitational Algorithm </summary>
 ![Gravitational Algorithm](https://media.giphy.com/media/d1zp7XeNrzpWo/giphy.gif)
 
 ------------------------------------------
@@ -402,8 +416,7 @@ algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid, verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
-
-----------------------------
+ </details>
 
 ## Support `zoofs`
 
