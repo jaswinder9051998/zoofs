@@ -50,7 +50,12 @@ More algos soon, stay tuned !
 * [Try It Now?] [![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/12LYc67hIuy7PKSa8J_75bQUZ62EBJz4J?usp=sharing)
 
 ## ⚡️ Usage
+ 
+
 Define your own objective function for optimization !
+ 
+### Classification Example
+ 
 ```python
 from sklearn.metrics import log_loss
 # define your own objective function, make sure the function receives four parameters,
@@ -73,6 +78,32 @@ algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,verbose=True)
 algo_object.plot_history()
 
 ```
+ 
+### Regression Example
+ 
+```python
+from sklearn.metrics import mean_squared_error
+# define your own objective function, make sure the function receives four parameters,
+#  fit your model and return the objective value !
+def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
+    model.fit(X_train,y_train)  
+    P=mean_squared_error(y_valid,model.predict(X_valid))
+    return P
+
+# import an algorithm !  
+from zoofs import ParticleSwarmOptimization
+# create object of algorithm
+algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,
+                                       population_size=20,minimize=True)
+import lightgbm as lgb
+lgb_model = lgb.LGBMRegressor()                                       
+# fit the algorithm
+algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,verbose=True)
+#plot your results
+algo_object.plot_history()
+
+```
+ 
 ### Suggestions for Usage
 - As available algorithms are wrapper algos, it is better to use ml models that build quicker, e.g lightgbm, catboost.
 - Take sufficient amount for 'population_size' , as this will determine the extent of exploration and exploitation of the algo.
