@@ -1,6 +1,9 @@
 ![zoofs Logo Header](https://github.com/jaswinder9051998/zoofs/blob/master/asserts/zoofsedited.png)
 
-# 🐾 zoofs ( Zoo Feature Selection )
+<div align="center">
+ 
+<h1> 🐾 zoofs ( Zoo Feature Selection ) </h1>
+
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=security_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
@@ -12,14 +15,17 @@
 [![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/12LYc67hIuy7PKSa8J_75bQUZ62EBJz4J?usp=sharing) 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jaswinder9051998/zoofs/HEAD)
  
+ </div>
+ 
 ``zoofs`` is a Python library for performing feature selection using a variety of nature inspired wrapper algorithms. The algorithms range from swarm-intelligence to physics based to Evolutionary.
 It's an easy to use, flexible and powerful tool to reduce your feature size.  
  
 🌟 Like this Project? Give us a star !
  
-## 📘 Documentation
+## 📘 Documentation 
 https://jaswinder9051998.github.io/zoofs/
 
+ 
 ## 🔗 Whats new in V0.1.7
 - improved logger for results 
 - added harris hawk algorithm
