@@ -12,6 +12,7 @@ def list_reqs(fname='requirements.txt'):
     with open(fname) as fd:
         return fd.read().splitlines()
 
+#setup
 setup(name='zoofs',
       version='0.1.7',
       url='https://github.com/jaswinder9051998/zoofs',
