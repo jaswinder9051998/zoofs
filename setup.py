@@ -14,7 +14,7 @@ def list_reqs(fname='requirements.txt'):
 
 #setup initialization
 setup(name='zoofs',
-      version='0.1.7',
+      version='0.1.8',
       url='https://github.com/jaswinder9051998/zoofs',
       author='JaswinderSingh',
       author_email='jaswinder9051998@gmail.com',
