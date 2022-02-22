@@ -1,6 +1,9 @@
 ![zoofs Logo Header](https://github.com/jaswinder9051998/zoofs/blob/master/asserts/zoofsedited.png)
 
-# 🐾 zoofs ( Zoo Feature Selection )
+<div align="center">
+ 
+<h1> 🐾 zoofs ( Zoo Feature Selection ) </h1>
+
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jaswinder9051998_zoofs&metric=security_rating)](https://sonarcloud.io/dashboard?id=jaswinder9051998_zoofs)
@@ -12,15 +15,19 @@
 [![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/12LYc67hIuy7PKSa8J_75bQUZ62EBJz4J?usp=sharing) 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jaswinder9051998/zoofs/HEAD)
  
+ </div>
+ 
 ``zoofs`` is a Python library for performing feature selection using a variety of nature inspired wrapper algorithms. The algorithms range from swarm-intelligence to physics based to Evolutionary.
 It's an easy to use, flexible and powerful tool to reduce your feature size.  
  
 🌟 Like this Project? Give us a star !
  
-## 📘 Documentation
+## 📘 Documentation 
 https://jaswinder9051998.github.io/zoofs/
 
-## 🔗 Whats new in V0.1.4
+ 
+## 🔗 Whats new in V0.1.7
+- improved logger for results 
 - added harris hawk algorithm
 - now you can pass ``timeout`` as a parameter to stop operation after the given number of second(s). An amazing alternative to passing number of iterations
 - Feature score hashing of visited feature sets to increase the overall performance
@@ -49,7 +56,12 @@ More algos soon, stay tuned !
 * [Try It Now?] [![Open In Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/12LYc67hIuy7PKSa8J_75bQUZ62EBJz4J?usp=sharing)
 
 ## ⚡️ Usage
+ 
+
 Define your own objective function for optimization !
+ 
+### Classification Example
+ 
 ```python
 from sklearn.metrics import log_loss
 # define your own objective function, make sure the function receives four parameters,
@@ -72,6 +84,32 @@ algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,verbose=True)
 algo_object.plot_history()
 
 ```
+ 
+### Regression Example
+ 
+```python
+from sklearn.metrics import mean_squared_error
+# define your own objective function, make sure the function receives four parameters,
+#  fit your model and return the objective value !
+def objective_function_topass(model,X_train, y_train, X_valid, y_valid):      
+    model.fit(X_train,y_train)  
+    P=mean_squared_error(y_valid,model.predict(X_valid))
+    return P
+
+# import an algorithm !  
+from zoofs import ParticleSwarmOptimization
+# create object of algorithm
+algo_object=ParticleSwarmOptimization(objective_function_topass,n_iteration=20,
+                                       population_size=20,minimize=True)
+import lightgbm as lgb
+lgb_model = lgb.LGBMRegressor()                                       
+# fit the algorithm
+algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,verbose=True)
+#plot your results
+algo_object.plot_history()
+
+```
+ 
 ### Suggestions for Usage
 - As available algorithms are wrapper algos, it is better to use ml models that build quicker, e.g lightgbm, catboost.
 - Take sufficient amount for 'population_size' , as this will determine the extent of exploration and exploitation of the algo.
@@ -86,9 +124,13 @@ algo_object.plot_history()
 
 ## Algorithms
 
-### _Particle Swarm Algorithm_
+<details>
+<summary markdown="span"> Particle Swarm Algorithm </summary>
+ 
 ![Particle Swarm](https://media.giphy.com/media/tBRQNyh6fKBpSy2oif/giphy.gif)
 
+In computational science, particle swarm optimization (PSO) is a computational method that optimizes a problem by iteratively trying to improve a candidate solution with regard to a given measure of quality. It solves a problem by having a population of candidate solutions, here dubbed particles, and moving these particles around in the search-space according to simple mathematical formula over the particle's position and velocity. Each particle's movement is influenced by its local best known position, but is also guided toward the best known positions in the search-space, which are updated as better positions are found by other particles. This is expected to move the swarm toward the best solutions.
+ 
 ------------------------------------------
 #### class zoofs.ParticleSwarmOptimization(objective_function,n_iteration=50,population_size=50,minimize=True,c1=2,c2=2,w=0.9)
 ------------------------------------------
@@ -139,10 +181,15 @@ algo_object.plot_history()
 ```  
 <br/>
 <br/>
-
-### _Grey Wolf Algorithm_
+</details>
+ 
+<details>
+<summary markdown="span"> Grey Wolf Algorithm </summary>
+ 
 ![Grey Wolf](https://media.giphy.com/media/CvgezXSuQTMTC/giphy.gif)
 
+The Grey Wolf Optimizer (GWO) mimics the leadership hierarchy and hunting mechanism of grey wolves in nature. Four types of grey wolves such as alpha, beta, delta, and omega are employed for simulating the leadership hierarchy. In addition, three main steps of hunting, searching for prey, encircling prey, and attacking prey, are implemented to perform optimization.
+ 
 ------------------------------------------
 #### class zoofs.GreyWolfOptimization(objective_function,n_iteration=50,population_size=50,minimize=True)
 ------------------------------------------
@@ -192,10 +239,15 @@ algo_object.plot_history()
 ```  
 <br/>
 <br/>
-
-### _Dragon Fly Algorithm_
+</details>
+ 
+<details>
+<summary markdown="span"> Dragon Fly Algorithm </summary>
+ 
 ![Dragon Fly](https://media.giphy.com/media/xTiTnozh5piv13iFBC/giphy.gif)
 
+The main inspiration of the Dragonfly Algorithm (DA) algorithm originates from static and dynamic swarming behaviours. These two swarming behaviours are very similar to the two main phases of optimization using meta-heuristics: exploration and exploitation. Dragonflies create sub swarms and fly over different areas in a static swarm, which is the main objective of the exploration phase. In the static swarm, however, dragonflies fly in bigger swarms and along one direction, which is favourable in the exploitation phase.
+ 
 ------------------------------------------
 #### class zoofs.DragonFlyOptimization(objective_function,n_iteration=50,population_size=50,minimize=True)
 ------------------------------------------
@@ -245,10 +297,15 @@ algo_object.plot_history()
 ```  
 <br/>
 <br/>
-
-### _Harris Hawk Optimization_
+</details>
+ 
+<details>
+<summary markdown="span"> Harris Hawk Optimization </summary>
+ 
 ![Harris Hawk](https://media.giphy.com/media/lq2hmYpAAomgT3dyh3/giphy.gif)
 
+HHO is a popular swarm-based, gradient-free optimization algorithm with several active and time-varying phases of exploration and exploitation. This algorithm initially published by the prestigious Journal of Future Generation Computer Systems (FGCS) in 2019, and from the first day, it has gained increasing attention among researchers due to its flexible structure, high performance, and high-quality results. The main logic of the HHO method is designed based on the cooperative behaviour and chasing styles of Harris' hawks in nature called "surprise pounce". Currently, there are many suggestions about how to enhance the functionality of HHO, and there are also several enhanced variants of the HHO in the leading Elsevier and IEEE transaction journals.
+ 
 ------------------------------------------
 #### class zoofs.HarrisHawkOptimization(objective_function,n_iteration=50,population_size=50,minimize=True,beta=0.5)
 ------------------------------------------
@@ -299,10 +356,15 @@ algo_object.plot_history()
 ```  
 <br/>
 <br/>
-
-### _Genetic Algorithm_
+</details>
+ 
+<details>
+<summary markdown="span"> Genetic Algorithm </summary>
+ 
 ![Dragon Fly](https://media.giphy.com/media/3o85xGrC7nPVbA2y3K/giphy.gif)
 
+In computer science and operations research, a genetic algorithm (GA) is a metaheuristic inspired by the process of natural selection that belongs to the larger class of evolutionary algorithms (EA). Genetic algorithms are commonly used to generate high-quality solutions to optimization and search problems by relying on biologically inspired operators such as mutation, crossover and selection. Some examples of GA applications include optimizing decision trees for better performance, automatically solve sudoku puzzles, hyperparameter optimization, etc.
+ 
 ------------------------------------------
 #### class zoofs.GeneticOptimization(objective_function,n_iteration=20,population_size=20,selective_pressure=2,elitism=2,mutation_rate=0.05,minimize=True)
 ------------------------------------------
@@ -351,9 +413,15 @@ algo_object.fit(lgb_model,X_train, y_train,X_valid, y_valid, verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
-### _Gravitational Algorithm_
+</details>
+ 
+<details>
+<summary markdown="span"> Gravitational Algorithm </summary>
+ 
 ![Gravitational Algorithm](https://media.giphy.com/media/d1zp7XeNrzpWo/giphy.gif)
 
+ Gravitational Algorithm is based on the law of gravity and mass interactions is introduced. In the algorithm, the searcher agents are a collection of masses which interact with each other based on the Newtonian gravity and the laws of motion.
+ 
 ------------------------------------------
 #### class zoofs.GravitationalOptimization(self,objective_function,n_iteration=50,population_size=50,g0=100,eps=0.5,minimize=True)
 ------------------------------------------
@@ -401,8 +469,7 @@ algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid, verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
-
-----------------------------
+ </details>
 
 ## Support `zoofs`
 
