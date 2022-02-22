@@ -1,6 +1,17 @@
-from setuptools import setup
+from pathlib import Path
+
+from setuptools import find_packages, setup
+
+# description
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
+
+
+# Packages required for this module to be executed
+def list_reqs(fname='requirements.txt'):
+    with open(fname) as fd:
+        return fd.read().splitlines()
+
 setup(name='zoofs',
       version='0.1.7',
       url='https://github.com/jaswinder9051998/zoofs',
@@ -12,12 +23,6 @@ setup(name='zoofs',
 	description="zoofs is a Python library for performing feature selection using an variety of nature inspired wrapper algorithms..",
       long_description=long_description  ,
 	long_description_content_type='text/markdown',
-	  install_requires=[
-		"pandas",
-		"numpy",
-		"scipy",
-            "plotly",
-            "colorlog"
-		],
+	  install_requires=list_reqs(),
 
       )
