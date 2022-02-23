@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 import scipy
 import warnings
 
+
 class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
     def __init__(self,
                  objective_function,
@@ -17,7 +18,6 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
                  c1=2,
                  c2=2,
                  w=0.9):
-
         """       
         Parameters
         ----------
@@ -56,8 +56,8 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
         self.c2 = c2
         self.w = w
 
-    def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid,particle_swarm_flag=0,dragon_fly_flag=0):
-        return super()._evaluate_fitness(model, x_train, y_train, x_valid, y_valid,particle_swarm_flag,dragon_fly_flag)
+    def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid, particle_swarm_flag=0, dragon_fly_flag=0):
+        return super()._evaluate_fitness(model, x_train, y_train, x_valid, y_valid, particle_swarm_flag, dragon_fly_flag)
 
     def fit(self, model, X_train, y_train, X_valid, y_valid, verbose=True):
         """
@@ -114,7 +114,7 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
             self._check_individuals()
 
             self.fitness_scores = self._evaluate_fitness(
-                model, X_train, y_train, X_valid, y_valid,1,0)
+                model, X_train, y_train, X_valid, y_valid, 1, 0)
 
             self.gbest_individual = self.best_dim
 
@@ -137,4 +137,3 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
             self.best_feature_list = list(
                 self.feature_list[np.where(self.best_dim)[0]])
         return self.best_feature_list
-
