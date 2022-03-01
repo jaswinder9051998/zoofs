@@ -9,7 +9,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 #setup initialization
 setup(name='zoofs',
-      version='0.1.20',
+      version='0.1.21',
       url='https://github.com/jaswinder9051998/zoofs',
       author='JaswinderSingh',
       author_email='jaswinder9051998@gmail.com',
