@@ -51,7 +51,7 @@ class GravitationalOptimization(BaseOptimizationAlgorithm):
         best_feature_list : ndarray of shape (n_features)
             list of features with the best result of the entire run
         """
-        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, **self.kwargs)
+        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, **kwargs)
         self.g0 = g0
         self.eps = eps
 
