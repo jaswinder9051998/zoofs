@@ -26,7 +26,7 @@ It's an easy to use, flexible and powerful tool to reduce your feature size.
 https://jaswinder9051998.github.io/zoofs/
 
  
-## 🔗 Whats new in V0.1.20
+## 🔗 Whats new in V0.1.21
 - pass kwargs through objective function
 - improved logger for results 
 - added harris hawk algorithm
