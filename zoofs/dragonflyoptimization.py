@@ -13,7 +13,8 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
                  n_iteration: int = 1000,
                  timeout: int = None,
                  population_size=50,
-                 minimize=True):
+                 minimize=True,
+                 **kwargs):
         """ 
         Parameters
         ----------
@@ -33,12 +34,15 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
         minimize : bool, default=True
             Defines if the objective value is to be maximized or minimized
 
+        **kwargs
+            Any extra keyword argument for objective_function
+
         Attributes
         ----------
         best_feature_list : ndarray of shape (n_features)
             list of features with the best result of the entire run
         """
-        super().__init__(objective_function, n_iteration, timeout, population_size, minimize)
+        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, **kwargs)
 
     def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid,particle_swarm_flag=0,dragon_fly_flag=0):
         return super()._evaluate_fitness(model, x_train, y_train, x_valid, y_valid,particle_swarm_flag,dragon_fly_flag)

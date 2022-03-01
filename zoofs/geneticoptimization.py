@@ -16,7 +16,8 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
                  selective_pressure=2,
                  elitism=2,
                  mutation_rate=0.05,
-                 minimize=True):
+                 minimize=True,
+                 **kwargs):
         """
         Parameters
         ----------
@@ -45,12 +46,15 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
         minimize : bool, default=True
             Defines if the objective value is to be maximized or minimized
 
+        **kwargs
+            Any extra keyword argument for objective_function
+
         Attributes
         ----------
         best_feature_list : ndarray of shape (n_features)
             list of features with the best result of the entire run
         """
-        super().__init__(objective_function, n_iteration, timeout, population_size, minimize)
+        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, **kwargs)
         self.n_generations = n_iteration
         self.selective_pressure = selective_pressure
         self.elitism = elitism
@@ -69,7 +73,7 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
                 score = self.feature_score_hash[feature_hash]
             else:
                 score = self.objective_function(
-                    model, x_train_copy, y_train, x_valid_copy, y_valid)
+                    model, x_train_copy, y_train, x_valid_copy, y_valid, **self.kwargs)
                 if self.minimize:
                     score = -score
                 self.feature_score_hash[feature_hash] = score

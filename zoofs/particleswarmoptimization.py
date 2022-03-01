@@ -11,13 +11,14 @@ import warnings
 class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
     def __init__(self,
                  objective_function,
-                 n_iteration: int = 1000,
+                 n_iteration: int = 20,
                  timeout: int = None,
                  population_size=50,
                  minimize=True,
                  c1=2,
                  c2=2,
-                 w=0.9):
+                 w=0.9,
+                 **kwargs):
         """       
         Parameters
         ----------
@@ -27,7 +28,7 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
         population_size: int, default=50
             Total size of the population , default=50
 
-        n_iteration: int, default=1000
+        n_iteration: int, default=20
             Number of time the Particle Swarm Optimization algorithm will run
 
         timeout: int = None
@@ -46,12 +47,15 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
         w: float, default=0.9
             Velocity weight factor
 
+        **kwargs
+            Any extra keyword argument for objective_function
+
         Attributes
         ----------
         best_feature_list : ndarray of shape (n_features)
             list of features with the best result of the entire run
         """
-        super().__init__(objective_function, n_iteration, timeout, population_size, minimize)
+        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, **kwargs)
         self.c1 = c1
         self.c2 = c2
         self.w = w

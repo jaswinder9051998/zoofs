@@ -16,7 +16,8 @@ class GravitationalOptimization(BaseOptimizationAlgorithm):
                  population_size=50,
                  g0=100,
                  eps=0.5,
-                 minimize=True):
+                 minimize=True,
+                 **kwargs):
         """
         Parameters
         ----------
@@ -42,12 +43,15 @@ class GravitationalOptimization(BaseOptimizationAlgorithm):
         minimize : bool, default=True
             Defines if the objective value is to be maximized or minimized
 
+        **kwargs
+            Any extra keyword argument for objective_function
+
         Attributes
         ----------
         best_feature_list : ndarray of shape (n_features)
             list of features with the best result of the entire run
         """
-        super().__init__(objective_function, n_iteration, timeout, population_size, minimize)
+        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, **self.kwargs)
         self.g0 = g0
         self.eps = eps
 
@@ -64,7 +68,7 @@ class GravitationalOptimization(BaseOptimizationAlgorithm):
                 score = self.feature_score_hash[feature_hash]
             else:
                 score = self.objective_function(
-                    model, X_train_copy, y_train, X_valid_copy, y_valid)
+                    model, X_train_copy, y_train, X_valid_copy, y_valid, **self.kwargs)
                 if not(self.minimize):
                   score = -score
                 self.feature_score_hash[feature_hash] = score

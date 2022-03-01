@@ -16,7 +16,9 @@ class BaseOptimizationAlgorithm(ABC):
                  n_iteration: int = 1000,
                  timeout: int = None,
                  population_size=50,
-                 minimize=True):
+                 minimize=True,
+                 **kwargs):
+        self.kwargs=kwargs
         self.objective_function = objective_function
         self.minimize = minimize
         self.population_size = population_size
@@ -44,7 +46,7 @@ class BaseOptimizationAlgorithm(ABC):
                 score = self.feature_score_hash[feature_hash]
             else:
                 score = self.objective_function(
-                    model, x_train_copy, y_train, x_valid_copy, y_valid)
+                    model, x_train_copy, y_train, x_valid_copy, y_valid, **self.kwargs)
                 if not(self.minimize):
                     score = -score
                 self.feature_score_hash[feature_hash] = score
@@ -122,7 +124,7 @@ class BaseOptimizationAlgorithm(ABC):
                 f"requires X_valid to be passed, but the target y_valid is None.")
 
         return_val = self.objective_function(
-            model, x_train, y_train, x_valid, y_valid)
+            model, x_train, y_train, x_valid, y_valid, **self.kwargs)
         if (not (isinstance(return_val, (int, float)))):
             raise TypeError(
                 f"objective_function should return int/float value , got {type(return_val)} instead.")
