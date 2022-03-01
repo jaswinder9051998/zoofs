@@ -594,7 +594,7 @@
 
 
 <h2 id="zoofs.particleswarmoptimization.ParticleSwarmOptimization.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">c1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">c1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
@@ -632,7 +632,7 @@
         <td><code>n_iteration</code></td>
         <td><code>int</code></td>
         <td><p>Number of time the Particle Swarm Optimization algorithm will run</p></td>
-        <td><code>1000</code></td>
+        <td><code>20</code></td>
       </tr>
       <tr>
         <td><code>timeout</code></td>
@@ -665,6 +665,12 @@ If this argument is set to None, the operation is executed without time limitati
         <td><p>Velocity weight factor</p></td>
         <td><code>0.9</code></td>
       </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code>None</code></td>
+        <td><p>Any extra keyword argument for objective_function</p></td>
+        <td><code>{}</code></td>
+      </tr>
   </tbody>
 </table>
 <p><strong>Attributes:</strong></p>
@@ -688,14 +694,14 @@ If this argument is set to None, the operation is executed without time limitati
           <summary>Source code in <code>zoofs\particleswarmoptimization.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
              <span class="n">objective_function</span><span class="p">,</span>
-             <span class="n">n_iteration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+             <span class="n">n_iteration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
              <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
              <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
              <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
              <span class="n">c1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
              <span class="n">c2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-             <span class="n">w</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
-
+             <span class="n">w</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+             <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;       </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -705,7 +711,7 @@ If this argument is set to None, the operation is executed without time limitati
 <span class="sd">    population_size: int, default=50</span>
 <span class="sd">        Total size of the population , default=50</span>
 
-<span class="sd">    n_iteration: int, default=1000</span>
+<span class="sd">    n_iteration: int, default=20</span>
 <span class="sd">        Number of time the Particle Swarm Optimization algorithm will run</span>
 
 <span class="sd">    timeout: int = None</span>
@@ -724,12 +730,15 @@ If this argument is set to None, the operation is executed without time limitati
 <span class="sd">    w: float, default=0.9</span>
 <span class="sd">        Velocity weight factor</span>
 
+<span class="sd">    **kwargs</span>
+<span class="sd">        Any extra keyword argument for objective_function</span>
+
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    best_feature_list : ndarray of shape (n_features)</span>
 <span class="sd">        list of features with the best result of the entire run</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">population_size</span><span class="p">,</span> <span class="n">minimize</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">population_size</span><span class="p">,</span> <span class="n">minimize</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">c1</span> <span class="o">=</span> <span class="n">c1</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">c2</span> <span class="o">=</span> <span class="n">c2</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span>
@@ -862,7 +871,7 @@ regression).</p></td>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_individuals</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">fitness_scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evaluate_fitness</span><span class="p">(</span>
-            <span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">gbest_individual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_dim</span>
 

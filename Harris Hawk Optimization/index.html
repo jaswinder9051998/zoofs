@@ -590,7 +590,7 @@
 
 
 <h2 id="zoofs.harrishawkoptimization.HarrisHawkOptimization.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
@@ -649,6 +649,12 @@ If this argument is set to None, the operation is executed without time limitati
         <td><p>beta value for random levy walk</p></td>
         <td><code>0.5</code></td>
       </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code>None</code></td>
+        <td><p>Any extra keyword argument for objective_function</p></td>
+        <td><code>{}</code></td>
+      </tr>
   </tbody>
 </table>
 <p><strong>Attributes:</strong></p>
@@ -676,7 +682,8 @@ If this argument is set to None, the operation is executed without time limitati
              <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
              <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
              <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-             <span class="n">beta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+             <span class="n">beta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+             <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;       </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -699,12 +706,15 @@ If this argument is set to None, the operation is executed without time limitati
 <span class="sd">    beta: float, default=0.5</span>
 <span class="sd">        beta value for random levy walk</span>
 
+<span class="sd">    **kwargs</span>
+<span class="sd">        Any extra keyword argument for objective_function</span>
+
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    best_feature_list : ndarray of shape (n_features)</span>
 <span class="sd">        list of features with the best result of the entire run</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">population_size</span><span class="p">,</span> <span class="n">minimize</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">population_size</span><span class="p">,</span> <span class="n">minimize</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">=</span><span class="n">beta</span>
 </code></pre></div>
         </details>
