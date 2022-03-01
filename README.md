@@ -26,7 +26,8 @@ It's an easy to use, flexible and powerful tool to reduce your feature size.
 https://jaswinder9051998.github.io/zoofs/
 
  
-## 🔗 Whats new in V0.1.7
+## 🔗 Whats new in V0.1.20
+- pass kwargs through objective function
 - improved logger for results 
 - added harris hawk algorithm
 - now you can pass ``timeout`` as a parameter to stop operation after the given number of second(s). An amazing alternative to passing number of iterations
