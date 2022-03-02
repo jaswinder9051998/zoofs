@@ -14,6 +14,7 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
                  n_iteration: int = 1000,
                  timeout: int = None,
                  population_size=50,
+                 method=1,
                  minimize=True,
                  logger=None,
                  **kwargs):
@@ -33,6 +34,9 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
         population_size : int, default=50
             Total size of the population
 
+        method : {1, 2}, default=1
+            Choose the between the two methods of grey wolf optimization
+            
         minimize : bool, default=True
             Defines if the objective value is to be maximized or minimized
 
@@ -48,13 +52,14 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
             list of features with the best result of the entire run
         """
         super().__init__(objective_function, n_iteration, timeout, population_size, minimize, logger, **kwargs)
+        self.method=method
 
     def _check_params(self, model, x_train, y_train, x_valid, y_valid, method=1):
         super()._check_params(model, x_train, y_train, x_valid, y_valid)
         if method not in [1, 2]:
             raise ValueError(f"method accepts only 1,2 ")
 
-    def fit(self, model, X_train, y_train, X_valid, y_valid, method=1, verbose=True):
+    def fit(self, model, X_train, y_train, X_valid, y_valid, verbose=True):
         """
         Parameters
         ----------      
@@ -73,13 +78,10 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
         y_valid : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
             The target values (class labels in classification, real numbers in regression).
 
-        method : {1, 2}, default=1
-            Choose the between the two methods of grey wolf optimization
-
         verbose : bool,default=True
              Print results for iterations
         """
-        self._check_params(model, X_train, y_train, X_valid, y_valid, method)
+        self._check_params(model, X_train, y_train, X_valid, y_valid, self.method)
 
         self.feature_score_hash = {}
         self.feature_list = np.array(list(X_train.columns))
@@ -138,7 +140,7 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
                     self.delta_wolf_fitness = fit
                     self.delta_wolf_dimension = dim
 
-            if (method == 1) | (method == 2):
+            if (self.method == 1) | (self.method == 2):
                 C1 = 2 * \
                     np.random.random((self.population_size, X_train.shape[1]))
                 A1 = 2*a * \
@@ -160,14 +162,14 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
                         (self.population_size, X_train.shape[1]))-a
                 d_delta = abs(C3*self.delta_wolf_dimension - self.individuals)
 
-            if method == 2:
+            if self.method == 2:
                 X1 = abs(self.alpha_wolf_dimension - A1*d_alpha)
                 X2 = abs(self.beta_wolf_dimension - A2*d_beta)
                 X3 = abs(self.delta_wolf_dimension - A3*d_delta)
                 self.individuals = np.where(np.random.uniform(size=(
                     self.population_size, X_train.shape[1])) <= self.sigmoid((X1+X2+X3)/3), 1, 0)
 
-            if method == 1:
+            if self.method == 1:
                 Y1 = np.where((self.alpha_wolf_dimension + np.where(self.sigmoid(A1*d_alpha) >
                               np.random.uniform(size=(self.population_size, X_train.shape[1])), 1, 0)) >= 1, 1, 0)
                 Y2 = np.where((self.beta_wolf_dimension + np.where(self.sigmoid(A1*d_beta) >

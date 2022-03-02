@@ -13,6 +13,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
                  n_iteration: int = 1000,
                  timeout: int = None,
                  population_size=50,
+                 method='sinusoidal',
                  minimize=True,
                  logger=None,
                  **kwargs):
@@ -32,6 +33,9 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
             Stop operation after the given number of second(s).
             If this argument is set to None, the operation is executed without time limitation and n_iteration is followed
 
+        method : {'linear','random','quadraic','sinusoidal'}, default='sinusoidal'
+            Choose the between the three methods of Dragon Fly optimization
+
         minimize : bool, default=True
             Defines if the objective value is to be maximized or minimized
 
@@ -47,6 +51,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
             list of features with the best result of the entire run
         """
         super().__init__(objective_function, n_iteration, timeout, population_size, minimize, logger, **kwargs)
+        self.method=method
 
     def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid,particle_swarm_flag=0,dragon_fly_flag=0):
         return super()._evaluate_fitness(model, x_train, y_train, x_valid, y_valid,particle_swarm_flag,dragon_fly_flag)
@@ -57,7 +62,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
             raise ValueError(
                 f"method accepts only linear,random,quadraic types ")
 
-    def fit(self, model, X_train, y_train, X_valid, y_valid, method='sinusoidal', verbose=True):
+    def fit(self, model, X_train, y_train, X_valid, y_valid, verbose=True):
         """
         Parameters
         ----------
@@ -76,14 +81,11 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
         y_valid : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
             The target values (class labels in classification, real numbers in regression).
 
-        method : {'linear','random','quadraic','sinusoidal'}, default='sinusoidal'
-            Choose the between the three methods of Dragon Fly optimization
-
         verbose : bool,default=True
              Print results for iterations
 
         """
-        self._check_params(model, X_train, y_train, X_valid, y_valid, method)
+        self._check_params(model, X_train, y_train, X_valid, y_valid, self.method)
 
         self.feature_score_hash = {}
         kbest = self.population_size-1
@@ -116,7 +118,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
 
             self.iteration_objective_score_monitor(i)
 
-            if method == 'linear':
+            if self.method == 'linear':
                 s = 0.2-(0.2*((i+1)/self.n_iteration))
                 e = 0.1-(0.1*((i+1)/self.n_iteration))
                 a = 0.0+(0.2*((i+1)/self.n_iteration))
@@ -124,7 +126,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
                 f = 0.0+(2*((i+1)/self.n_iteration))
                 w = 0.9-(i+1)*(0.5)/(self.n_iteration)
 
-            if method == 'random':
+            if self.method == 'random':
                 if 2*(i+1) <= self.n_iteration:
                     pct = 0.1-(0.2*(i+1)/self.n_iteration)
                 else:
@@ -136,7 +138,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
                 f = 2*np.random.random()
                 e = pct
 
-            if method == 'quadraic':
+            if self.method == 'quadraic':
                 w = 0.9-(i+1)*(0.5)/(self.n_iteration)
                 s = 0.2-(0.2*((i+1)/self.n_iteration))**2
                 e = 0.1-(0.1*((i+1)/self.n_iteration))**2
@@ -144,7 +146,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
                 c = 0.0+(0.2*((i+1)/self.n_iteration))**2
                 f = 0.0+(2*(i+1)/self.n_iteration)**2
 
-            if method == 'sinusoidal':
+            if self.method == 'sinusoidal':
                 beta = 0.5
                 w = 0.9-(i+1)*(0.5)/(self.n_iteration)
                 s = 0.10+0.10 * \
