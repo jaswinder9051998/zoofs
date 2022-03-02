@@ -593,7 +593,7 @@
 
 
 <h2 id="zoofs.gravitationaloptimization.GravitationalOptimization.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">g0</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">g0</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
@@ -659,6 +659,14 @@ If this argument is set to None, the operation is executed without time limitati
         <td><code>True</code></td>
       </tr>
       <tr>
+        <td><code>logger</code></td>
+        <td><code>Logger or None, optional (default=None)</code></td>
+        <td><ul>
+<li>accepts <code>logging.Logger</code> instance.</li>
+</ul></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
         <td><code>**kwargs</code></td>
         <td><code>None</code></td>
         <td><p>Any extra keyword argument for objective_function</p></td>
@@ -693,6 +701,7 @@ If this argument is set to None, the operation is executed without time limitati
              <span class="n">g0</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
              <span class="n">eps</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
              <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+             <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters</span>
@@ -719,6 +728,9 @@ If this argument is set to None, the operation is executed without time limitati
 <span class="sd">    minimize : bool, default=True</span>
 <span class="sd">        Defines if the objective value is to be maximized or minimized</span>
 
+<span class="sd">    logger: Logger or None, optional (default=None)</span>
+<span class="sd">        - accepts `logging.Logger` instance.</span>
+
 <span class="sd">    **kwargs</span>
 <span class="sd">        Any extra keyword argument for objective_function</span>
 
@@ -727,7 +739,7 @@ If this argument is set to None, the operation is executed without time limitati
 <span class="sd">    best_feature_list : ndarray of shape (n_features)</span>
 <span class="sd">        list of features with the best result of the entire run</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">population_size</span><span class="p">,</span> <span class="n">minimize</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">population_size</span><span class="p">,</span> <span class="n">minimize</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">g0</span> <span class="o">=</span> <span class="n">g0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span>
 </code></pre></div>
