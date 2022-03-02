@@ -14,6 +14,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
                  timeout: int = None,
                  population_size=50,
                  minimize=True,
+                 logger=None,
                  **kwargs):
         """ 
         Parameters
@@ -34,6 +35,9 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
         minimize : bool, default=True
             Defines if the objective value is to be maximized or minimized
 
+        logger: Logger or None, optional (default=None)
+            - accepts `logging.Logger` instance.
+            
         **kwargs
             Any extra keyword argument for objective_function
 
@@ -42,7 +46,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
         best_feature_list : ndarray of shape (n_features)
             list of features with the best result of the entire run
         """
-        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, **kwargs)
+        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, logger, **kwargs)
 
     def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid,particle_swarm_flag=0,dragon_fly_flag=0):
         return super()._evaluate_fitness(model, x_train, y_train, x_valid, y_valid,particle_swarm_flag,dragon_fly_flag)

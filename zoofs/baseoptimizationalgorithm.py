@@ -17,6 +17,7 @@ class BaseOptimizationAlgorithm(ABC):
                  timeout: int = None,
                  population_size=50,
                  minimize=True,
+                 logger=None,
                  **kwargs):
         self.kwargs=kwargs
         self.objective_function = objective_function
@@ -24,6 +25,7 @@ class BaseOptimizationAlgorithm(ABC):
         self.population_size = population_size
         self.n_iteration = n_iteration
         self.timeout = timeout
+        self.my_logger=logger
 
     @abstractmethod
     def fit(self):
@@ -192,7 +194,8 @@ class BaseOptimizationAlgorithm(ABC):
     def verbose_results(self,verbose, i):
         if verbose:
             if i==0:
-                self.my_logger = self._setup_logger()
+                if self.logger==None:
+                    self.my_logger = self._setup_logger()
 
             fitness_scores = np.array(self.fitness_scores).min() if self.minimize else -np.array(self.fitness_scores).min()
             best_score = self.best_score if self.minimize else -self.best_score

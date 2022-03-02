@@ -17,6 +17,7 @@ class GravitationalOptimization(BaseOptimizationAlgorithm):
                  g0=100,
                  eps=0.5,
                  minimize=True,
+                 logger=None,
                  **kwargs):
         """
         Parameters
@@ -43,6 +44,9 @@ class GravitationalOptimization(BaseOptimizationAlgorithm):
         minimize : bool, default=True
             Defines if the objective value is to be maximized or minimized
 
+        logger: Logger or None, optional (default=None)
+            - accepts `logging.Logger` instance.
+
         **kwargs
             Any extra keyword argument for objective_function
 
@@ -51,7 +55,7 @@ class GravitationalOptimization(BaseOptimizationAlgorithm):
         best_feature_list : ndarray of shape (n_features)
             list of features with the best result of the entire run
         """
-        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, **kwargs)
+        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, logger, **kwargs)
         self.g0 = g0
         self.eps = eps
 

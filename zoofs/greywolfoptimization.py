@@ -15,6 +15,7 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
                  timeout: int = None,
                  population_size=50,
                  minimize=True,
+                 logger=None,
                  **kwargs):
         """
         Parameters
@@ -35,6 +36,9 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
         minimize : bool, default=True
             Defines if the objective value is to be maximized or minimized
 
+        logger: Logger or None, optional (default=None)
+            - accepts `logging.Logger` instance.
+
         **kwargs
             Any extra keyword argument for objective_function
 
@@ -43,7 +47,7 @@ class GreyWolfOptimization(BaseOptimizationAlgorithm):
         best_feature_list : ndarray of shape (n_features)
             list of features with the best result of the entire run
         """
-        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, **kwargs)
+        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, logger, **kwargs)
 
     def _check_params(self, model, x_train, y_train, x_valid, y_valid, method=1):
         super()._check_params(model, x_train, y_train, x_valid, y_valid)

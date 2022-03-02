@@ -18,6 +18,7 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
                  c1=2,
                  c2=2,
                  w=0.9,
+                 logger=None,
                  **kwargs):
         """       
         Parameters
@@ -47,6 +48,9 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
         w: float, default=0.9
             Velocity weight factor
 
+        logger: Logger or None, optional (default=None)
+            - accepts `logging.Logger` instance.
+
         **kwargs
             Any extra keyword argument for objective_function
 
@@ -55,7 +59,7 @@ class ParticleSwarmOptimization(BaseOptimizationAlgorithm):
         best_feature_list : ndarray of shape (n_features)
             list of features with the best result of the entire run
         """
-        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, **kwargs)
+        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, logger, **kwargs)
         self.c1 = c1
         self.c2 = c2
         self.w = w

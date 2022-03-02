@@ -16,6 +16,7 @@ class HarrisHawkOptimization(BaseOptimizationAlgorithm):
                  population_size=50,
                  minimize=True,
                  beta=0.5,
+                 logger=None,
                  **kwargs):
         """       
         Parameters
@@ -38,7 +39,10 @@ class HarrisHawkOptimization(BaseOptimizationAlgorithm):
 
         beta: float, default=0.5
             beta value for random levy walk
-        
+
+        logger: Logger or None, optional (default=None)
+            - accepts `logging.Logger` instance.
+       
         **kwargs
             Any extra keyword argument for objective_function
             
@@ -47,7 +51,7 @@ class HarrisHawkOptimization(BaseOptimizationAlgorithm):
         best_feature_list : ndarray of shape (n_features)
             list of features with the best result of the entire run
         """
-        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, **kwargs)
+        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, logger, **kwargs)
         self.beta=beta
 
     def _exploration_phase(self):
