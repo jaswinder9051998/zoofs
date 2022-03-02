@@ -26,14 +26,14 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 from zoofs import DragonFlyOptimization
 # create object of algorithm
 algo_object=DragonFlyOptimization(objective_function_topass,n_iteration=20,
-                                    population_size=20,minimize=True)
+                                    population_size=20,method='sinusoidal',minimize=True)
 
 import lightgbm as lgb
 lgb_model = lgb.LGBMClassifier()       
 
 # fit the algorithm
 algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,
-                method='sinusoidal', verbose=True)
+                 verbose=True)
 
 # plot your results
 algo_object.plot_history()
