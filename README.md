@@ -26,7 +26,7 @@ It's an easy to use, flexible and powerful tool to reduce your feature size.
 https://jaswinder9051998.github.io/zoofs/
 
  
-## 🔗 Whats new in V0.1.23
+## 🔗 Whats new in V0.1.24
 - pass kwargs through objective function
 - improved logger for results 
 - added harris hawk algorithm
@@ -196,7 +196,7 @@ The Grey Wolf Optimizer (GWO) mimics the leadership hierarchy and hunting mechan
 ------------------------------------------
 |  |  |
 |----------|-------------|
-|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration ``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``timeout``: int = None <br/> <dl> <dd> Stop operation after the given number of second(s). If this argument is set to None, the operation is executed without time limitation and n_iteration is followed </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``minimize ``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl>|
+|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration ``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``timeout``: int = None <br/> <dl> <dd> Stop operation after the given number of second(s). If this argument is set to None, the operation is executed without time limitation and n_iteration is followed </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``method`` : {1, 2}, default=1 <br/> <dl> <dd> Choose the between the two methods of grey wolf optimization </dd> </dl> ``minimize ``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl>|
 | Attributes | ``best_feature_list`` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### Methods
@@ -210,7 +210,7 @@ The Grey Wolf Optimizer (GWO) mimics the leadership hierarchy and hunting mechan
 
 |  |  |
 |----------|-------------|
-|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The Validation target values . </dd> </dl> ``method`` : {1, 2}, default=1 <br/> <dl> <dd> Choose the between the two methods of grey wolf optimization </dd> </dl>``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>|
+|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The Validation target values . </dd> </dl> ``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>|
 | Returns  | ``best_feature_list `` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### plot_history()
@@ -229,12 +229,12 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 # import an algorithm !  
 from zoofs import GreyWolfOptimization
 # create object of algorithm
-algo_object=GreyWolfOptimization(objective_function_topass,n_iteration=20,
+algo_object=GreyWolfOptimization(objective_function_topass,n_iteration=20,method=1,
                                     population_size=20,minimize=True)
 import lightgbm as lgb
 lgb_model = lgb.LGBMClassifier()                                       
 # fit the algorithm
-algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,method=1,verbose=True)
+algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
@@ -254,7 +254,7 @@ The main inspiration of the Dragonfly Algorithm (DA) algorithm originates from s
 ------------------------------------------
 |  |  |
 |----------|-------------|
-|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration ``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``timeout``: int = None <br/> <dl> <dd> Stop operation after the given number of second(s). If this argument is set to None, the operation is executed without time limitation and n_iteration is followed </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``minimize ``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl>|
+|  Parameters  | ``objective_function`` :  user made function of the signature 'func(model,X_train,y_train,X_test,y_test)'. <br/> <dl> <dd> The function must return a value, that needs to be minimized/maximized. </dd> </dl> ``n_iteration ``: int, default=50 <br/> <dl> <dd> Number of time the algorithm will run  </dd> </dl> ``timeout``: int = None <br/> <dl> <dd> Stop operation after the given number of second(s). If this argument is set to None, the operation is executed without time limitation and n_iteration is followed </dd> </dl> ``population_size`` : int, default=50 <br/> <dl> <dd> Total size of the population  </dd> </dl> ``method`` : {'linear','random','quadraic','sinusoidal'}, default='sinusoidal' <br/> <dl> <dd> Choose the between the three methods of Dragon Fly optimization </dd> </dl> ``minimize ``: bool, default=True <br/> <dl> <dd> Defines if the objective value is to be maximized or minimized </dd> </dl>|
 | Attributes | ``best_feature_list`` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### Methods
@@ -268,7 +268,7 @@ The main inspiration of the Dragonfly Algorithm (DA) algorithm originates from s
 
 |  |  |
 |----------|-------------|
-|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The Validation target values . </dd> </dl> ``method`` : {'linear','random','quadraic','sinusoidal'}, default='sinusoidal' <br/> <dl> <dd> Choose the between the three methods of Dragon Fly optimization </dd> </dl>``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>|
+|   Parameters | ``model`` : <br/> <dl> <dd> machine learning model's object </dd> </dl> ``X_train`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/><dl> <dd> Training input samples to be used for machine learning model </dd> </dl> ``y_train`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples) <br/> <dl> <dd> The target values (class labels in classification, real numbers in regression). </dd> </dl> ``X_valid`` : pandas.core.frame.DataFrame of shape (n_samples, n_features)  <br/> <dl> <dd> Validation input samples </dd> </dl> ``y_valid`` : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)  <br/> <dl> <dd> The Validation target values . </dd> </dl> ``verbose`` : bool,default=True  <br/> <dl> <dd> Print results for iterations </dd> </dl>|
 | Returns  | ``best_feature_list `` :  array-like <br/> <dl> <dd> Final best set of features  </dd> </dl> |
 
 #### plot_history()
@@ -287,12 +287,12 @@ def objective_function_topass(model,X_train, y_train, X_valid, y_valid):
 # import an algorithm !  
 from zoofs import DragonFlyOptimization
 # create object of algorithm
-algo_object=DragonFlyOptimization(objective_function_topass,n_iteration=20,
+algo_object=DragonFlyOptimization(objective_function_topass,n_iteration=20,method='sinusoidal',
                                     population_size=20,minimize=True)
 import lightgbm as lgb
 lgb_model = lgb.LGBMClassifier()                                     
 # fit the algorithm
-algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid, method='sinusoidal', verbose=True)
+algo_object.fit(lgb_model,X_train, y_train, X_valid, y_valid,  verbose=True)
 #plot your results
 algo_object.plot_history()
 ```  
