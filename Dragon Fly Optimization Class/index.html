@@ -549,14 +549,14 @@
 <a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="kn">from</span> <span class="nn">zoofs</span> <span class="kn">import</span> <span class="n">DragonFlyOptimization</span>
 <a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="c1"># create object of algorithm</span>
 <a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="n">algo_object</span><span class="o">=</span><span class="n">DragonFlyOptimization</span><span class="p">(</span><span class="n">objective_function_topass</span><span class="p">,</span><span class="n">n_iteration</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17"></a>                                    <span class="n">population_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a>                                    <span class="n">population_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;sinusoidal&#39;</span><span class="p">,</span><span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <a id="__codelineno-1-18" name="__codelineno-1-18"></a>
 <a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span>
 <a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="n">lgb_model</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">LGBMClassifier</span><span class="p">()</span>       
 <a id="__codelineno-1-21" name="__codelineno-1-21"></a>
 <a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="c1"># fit the algorithm</span>
 <a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="n">algo_object</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">lgb_model</span><span class="p">,</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span>
-<a id="__codelineno-1-24" name="__codelineno-1-24"></a>                <span class="n">method</span><span class="o">=</span><span class="s1">&#39;sinusoidal&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a>                 <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <a id="__codelineno-1-25" name="__codelineno-1-25"></a>
 <a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="c1"># plot your results</span>
 <a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="n">algo_object</span><span class="o">.</span><span class="n">plot_history</span><span class="p">()</span>
@@ -591,7 +591,7 @@
 
 
 <h2 id="zoofs.dragonflyoptimization.DragonFlyOptimization.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;sinusoidal&#39;</span><span class="p">,</span> <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
@@ -639,6 +639,12 @@ If this argument is set to None, the operation is executed without time limitati
         <td><code>None</code></td>
       </tr>
       <tr>
+        <td><code>method</code></td>
+        <td><code>{&#39;linear&#39;,&#39;random&#39;,&#39;quadraic&#39;,&#39;sinusoidal&#39;}, default=&#39;sinusoidal&#39;</code></td>
+        <td><p>Choose the between the three methods of Dragon Fly optimization</p></td>
+        <td><code>&#39;sinusoidal&#39;</code></td>
+      </tr>
+      <tr>
         <td><code>minimize</code></td>
         <td><code>bool, default=True</code></td>
         <td><p>Defines if the objective value is to be maximized or minimized</p></td>
@@ -684,6 +690,7 @@ If this argument is set to None, the operation is executed without time limitati
              <span class="n">n_iteration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
              <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
              <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+             <span class="n">method</span><span class="o">=</span><span class="s1">&#39;sinusoidal&#39;</span><span class="p">,</span>
              <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
              <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -703,6 +710,9 @@ If this argument is set to None, the operation is executed without time limitati
 <span class="sd">        Stop operation after the given number of second(s).</span>
 <span class="sd">        If this argument is set to None, the operation is executed without time limitation and n_iteration is followed</span>
 
+<span class="sd">    method : {&#39;linear&#39;,&#39;random&#39;,&#39;quadraic&#39;,&#39;sinusoidal&#39;}, default=&#39;sinusoidal&#39;</span>
+<span class="sd">        Choose the between the three methods of Dragon Fly optimization</span>
+
 <span class="sd">    minimize : bool, default=True</span>
 <span class="sd">        Defines if the objective value is to be maximized or minimized</span>
 
@@ -718,6 +728,7 @@ If this argument is set to None, the operation is executed without time limitati
 <span class="sd">        list of features with the best result of the entire run</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">population_size</span><span class="p">,</span> <span class="n">minimize</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">=</span><span class="n">method</span>
 </code></pre></div>
         </details>
     </div>
@@ -731,7 +742,7 @@ If this argument is set to None, the operation is executed without time limitati
 
 
 <h2 id="zoofs.dragonflyoptimization.DragonFlyOptimization.fit" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;sinusoidal&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 
 </h2>
@@ -781,12 +792,6 @@ If this argument is set to None, the operation is executed without time limitati
         <td><em>required</em></td>
       </tr>
       <tr>
-        <td><code>method</code></td>
-        <td><code>{&#39;linear&#39;,&#39;random&#39;,&#39;quadraic&#39;,&#39;sinusoidal&#39;}, default=&#39;sinusoidal&#39;</code></td>
-        <td><p>Choose the between the three methods of Dragon Fly optimization</p></td>
-        <td><code>&#39;sinusoidal&#39;</code></td>
-      </tr>
-      <tr>
         <td><code>verbose</code></td>
         <td><code>bool,default=True</code></td>
         <td><p>Print results for iterations</p></td>
@@ -796,7 +801,7 @@ If this argument is set to None, the operation is executed without time limitati
 </table>
         <details class="quote">
           <summary>Source code in <code>zoofs\dragonflyoptimization.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;sinusoidal&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -815,14 +820,11 @@ If this argument is set to None, the operation is executed without time limitati
 <span class="sd">    y_valid : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)</span>
 <span class="sd">        The target values (class labels in classification, real numbers in regression).</span>
 
-<span class="sd">    method : {&#39;linear&#39;,&#39;random&#39;,&#39;quadraic&#39;,&#39;sinusoidal&#39;}, default=&#39;sinusoidal&#39;</span>
-<span class="sd">        Choose the between the three methods of Dragon Fly optimization</span>
-
 <span class="sd">    verbose : bool,default=True</span>
 <span class="sd">         Print results for iterations</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_check_params</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_check_params</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">feature_score_hash</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">kbest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">population_size</span><span class="o">-</span><span class="mi">1</span>
@@ -855,7 +857,7 @@ If this argument is set to None, the operation is executed without time limitati
 
         <span class="bp">self</span><span class="o">.</span><span class="n">iteration_objective_score_monitor</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;linear&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;linear&#39;</span><span class="p">:</span>
             <span class="n">s</span> <span class="o">=</span> <span class="mf">0.2</span><span class="o">-</span><span class="p">(</span><span class="mf">0.2</span><span class="o">*</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="p">))</span>
             <span class="n">e</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">-</span><span class="p">(</span><span class="mf">0.1</span><span class="o">*</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="p">))</span>
             <span class="n">a</span> <span class="o">=</span> <span class="mf">0.0</span><span class="o">+</span><span class="p">(</span><span class="mf">0.2</span><span class="o">*</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="p">))</span>
@@ -863,7 +865,7 @@ If this argument is set to None, the operation is executed without time limitati
             <span class="n">f</span> <span class="o">=</span> <span class="mf">0.0</span><span class="o">+</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="p">))</span>
             <span class="n">w</span> <span class="o">=</span> <span class="mf">0.9</span><span class="o">-</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;random&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;random&#39;</span><span class="p">:</span>
             <span class="k">if</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="p">:</span>
                 <span class="n">pct</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">-</span><span class="p">(</span><span class="mf">0.2</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -875,7 +877,7 @@ If this argument is set to None, the operation is executed without time limitati
             <span class="n">f</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
             <span class="n">e</span> <span class="o">=</span> <span class="n">pct</span>
 
-        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;quadraic&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;quadraic&#39;</span><span class="p">:</span>
             <span class="n">w</span> <span class="o">=</span> <span class="mf">0.9</span><span class="o">-</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="p">)</span>
             <span class="n">s</span> <span class="o">=</span> <span class="mf">0.2</span><span class="o">-</span><span class="p">(</span><span class="mf">0.2</span><span class="o">*</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
             <span class="n">e</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">-</span><span class="p">(</span><span class="mf">0.1</span><span class="o">*</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
@@ -883,7 +885,7 @@ If this argument is set to None, the operation is executed without time limitati
             <span class="n">c</span> <span class="o">=</span> <span class="mf">0.0</span><span class="o">+</span><span class="p">(</span><span class="mf">0.2</span><span class="o">*</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
             <span class="n">f</span> <span class="o">=</span> <span class="mf">0.0</span><span class="o">+</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
 
-        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;sinusoidal&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;sinusoidal&#39;</span><span class="p">:</span>
             <span class="n">beta</span> <span class="o">=</span> <span class="mf">0.5</span>
             <span class="n">w</span> <span class="o">=</span> <span class="mf">0.9</span><span class="o">-</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iteration</span><span class="p">)</span>
             <span class="n">s</span> <span class="o">=</span> <span class="mf">0.10</span><span class="o">+</span><span class="mf">0.10</span> <span class="o">*</span> \

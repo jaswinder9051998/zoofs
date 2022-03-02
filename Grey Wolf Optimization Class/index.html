@@ -591,7 +591,7 @@
 
 
 <h2 id="zoofs.greywolfoptimization.GreyWolfOptimization.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
@@ -639,6 +639,12 @@ If this argument is set to None, the operation is executed without time limitati
         <td><code>50</code></td>
       </tr>
       <tr>
+        <td><code>method</code></td>
+        <td><code>{1, 2}, default=1</code></td>
+        <td><p>Choose the between the two methods of grey wolf optimization</p></td>
+        <td><code>1</code></td>
+      </tr>
+      <tr>
         <td><code>minimize</code></td>
         <td><code>bool, default=True</code></td>
         <td><p>Defines if the objective value is to be maximized or minimized</p></td>
@@ -684,6 +690,7 @@ If this argument is set to None, the operation is executed without time limitati
              <span class="n">n_iteration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
              <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
              <span class="n">population_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+             <span class="n">method</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
              <span class="n">minimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
              <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -703,6 +710,9 @@ If this argument is set to None, the operation is executed without time limitati
 <span class="sd">    population_size : int, default=50</span>
 <span class="sd">        Total size of the population</span>
 
+<span class="sd">    method : {1, 2}, default=1</span>
+<span class="sd">        Choose the between the two methods of grey wolf optimization</span>
+
 <span class="sd">    minimize : bool, default=True</span>
 <span class="sd">        Defines if the objective value is to be maximized or minimized</span>
 
@@ -718,6 +728,7 @@ If this argument is set to None, the operation is executed without time limitati
 <span class="sd">        list of features with the best result of the entire run</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">objective_function</span><span class="p">,</span> <span class="n">n_iteration</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">population_size</span><span class="p">,</span> <span class="n">minimize</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">=</span><span class="n">method</span>
 </code></pre></div>
         </details>
     </div>
@@ -731,7 +742,7 @@ If this argument is set to None, the operation is executed without time limitati
 
 
 <h2 id="zoofs.greywolfoptimization.GreyWolfOptimization.fit" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 
 </h2>
@@ -781,12 +792,6 @@ If this argument is set to None, the operation is executed without time limitati
         <td><em>required</em></td>
       </tr>
       <tr>
-        <td><code>method</code></td>
-        <td><code>{1, 2}, default=1</code></td>
-        <td><p>Choose the between the two methods of grey wolf optimization</p></td>
-        <td><code>1</code></td>
-      </tr>
-      <tr>
         <td><code>verbose</code></td>
         <td><code>bool,default=True</code></td>
         <td><p>Print results for iterations</p></td>
@@ -796,7 +801,7 @@ If this argument is set to None, the operation is executed without time limitati
 </table>
         <details class="quote">
           <summary>Source code in <code>zoofs\greywolfoptimization.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------      </span>
@@ -815,13 +820,10 @@ If this argument is set to None, the operation is executed without time limitati
 <span class="sd">    y_valid : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)</span>
 <span class="sd">        The target values (class labels in classification, real numbers in regression).</span>
 
-<span class="sd">    method : {1, 2}, default=1</span>
-<span class="sd">        Choose the between the two methods of grey wolf optimization</span>
-
 <span class="sd">    verbose : bool,default=True</span>
 <span class="sd">         Print results for iterations</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_check_params</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_check_params</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">feature_score_hash</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">feature_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
@@ -880,7 +882,7 @@ If this argument is set to None, the operation is executed without time limitati
                 <span class="bp">self</span><span class="o">.</span><span class="n">delta_wolf_fitness</span> <span class="o">=</span> <span class="n">fit</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">delta_wolf_dimension</span> <span class="o">=</span> <span class="n">dim</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">method</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">method</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>
             <span class="n">C1</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> \
                 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">population_size</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
             <span class="n">A1</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span> <span class="o">*</span> \
@@ -902,14 +904,14 @@ If this argument is set to None, the operation is executed without time limitati
                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">population_size</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span><span class="o">-</span><span class="n">a</span>
             <span class="n">d_delta</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">C3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_wolf_dimension</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">X1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha_wolf_dimension</span> <span class="o">-</span> <span class="n">A1</span><span class="o">*</span><span class="n">d_alpha</span><span class="p">)</span>
             <span class="n">X2</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_wolf_dimension</span> <span class="o">-</span> <span class="n">A2</span><span class="o">*</span><span class="n">d_beta</span><span class="p">)</span>
             <span class="n">X3</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_wolf_dimension</span> <span class="o">-</span> <span class="n">A3</span><span class="o">*</span><span class="n">d_delta</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">individuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">population_size</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">((</span><span class="n">X1</span><span class="o">+</span><span class="n">X2</span><span class="o">+</span><span class="n">X3</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">Y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha_wolf_dimension</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">A1</span><span class="o">*</span><span class="n">d_alpha</span><span class="p">)</span> <span class="o">&gt;</span>
                           <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">population_size</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="n">Y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_wolf_dimension</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">A1</span><span class="o">*</span><span class="n">d_beta</span><span class="p">)</span> <span class="o">&gt;</span>
