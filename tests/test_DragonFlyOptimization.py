@@ -35,11 +35,14 @@ def test_fit(df_model, df_X_train, df_y_train, df_X_valid, df_y_valid):
     best_feature_list=algo_object.fit(df_model, df_X_train, df_y_train, df_X_valid, df_y_valid,verbose=False)
     assert len(best_feature_list)<=df_X_train.shape[1]
 
-    best_feature_list=algo_object.fit(df_model, df_X_train, df_y_train, df_X_valid, df_y_valid,verbose=False,method = 'linear')
+    algo_object=DragonFlyOptimization(objective_function_topass,n_iteration=5,timeout=60*60,method = 'linear')
+    best_feature_list=algo_object.fit(df_model, df_X_train, df_y_train, df_X_valid, df_y_valid,verbose=False)
     assert len(best_feature_list)<=df_X_train.shape[1]
 
-    best_feature_list=algo_object.fit(df_model, df_X_train, df_y_train, df_X_valid, df_y_valid,verbose=False,method = 'random')
+    algo_object=DragonFlyOptimization(objective_function_topass,n_iteration=5,timeout=60*60,method = 'random')
+    best_feature_list=algo_object.fit(df_model, df_X_train, df_y_train, df_X_valid, df_y_valid,verbose=False)
     assert len(best_feature_list)<=df_X_train.shape[1]
 
-    best_feature_list=algo_object.fit(df_model, df_X_train, df_y_train, df_X_valid, df_y_valid,verbose=False,method = 'quadraic')
+    algo_object=DragonFlyOptimization(objective_function_topass,n_iteration=5,timeout=60*60,method = 'quadraic')
+    best_feature_list=algo_object.fit(df_model, df_X_train, df_y_train, df_X_valid, df_y_valid,verbose=False)
     assert len(best_feature_list)<=df_X_train.shape[1]

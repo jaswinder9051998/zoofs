@@ -41,6 +41,7 @@ def test_fit(df_model, df_X_train, df_y_train, df_X_valid, df_y_valid):
     best_feature_list=algo_object.fit(df_model, df_X_train, df_y_train, df_X_valid, df_y_valid,verbose=False)
     assert len(best_feature_list)<=df_X_train.shape[1]
 
-    best_feature_list=algo_object.fit(df_model, df_X_train, df_y_train, df_X_valid, df_y_valid,method=2,verbose=False)
+    algo_object=GreyWolfOptimization(objective_function_topass,n_iteration=10,timeout=60*60,method=2)
+    best_feature_list=algo_object.fit(df_model, df_X_train, df_y_train, df_X_valid, df_y_valid,verbose=False)
     assert len(best_feature_list)<=df_X_train.shape[1]
 
