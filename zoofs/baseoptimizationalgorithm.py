@@ -194,7 +194,7 @@ class BaseOptimizationAlgorithm(ABC):
     def verbose_results(self,verbose, i):
         if verbose:
             if i==0:
-                if self.logger==None:
+                if self.my_logger==None:
                     self.my_logger = self._setup_logger()
 
             fitness_scores = np.array(self.fitness_scores).min() if self.minimize else -np.array(self.fitness_scores).min()
