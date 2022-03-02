@@ -161,6 +161,9 @@ class BaseOptimizationAlgorithm(ABC):
     def _setup_logger(self):
         logger = logging.getLogger()
 
+        if (logger.hasHandlers()):
+            logger.handlers.clear()
+
         # Logging info level to stdout with colors
         terminal_handler = colorlog.StreamHandler()
         color_formatter = colorlog.ColoredFormatter(
