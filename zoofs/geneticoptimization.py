@@ -69,29 +69,30 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
     def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid):
         scores = []
         for individual in self.individuals:
-            chosen_features = [index for index in range(x_train.shape[1]) if individual[index] == 1]
+            chosen_features = [index for index in range(
+                x_train.shape[1]) if individual[index] == 1]
             x_train_copy = x_train.iloc[:, chosen_features]
             x_valid_copy = x_valid.iloc[:, chosen_features]
-            feature_hash = "_*_".join(sorted(self.feature_list[chosen_features]))
+            feature_hash = '_*_'.join(
+                sorted(self.feature_list[chosen_features]))
             if feature_hash in self.feature_score_hash.keys():
                 score = self.feature_score_hash[feature_hash]
             else:
                 score = self.objective_function(
-                    model, x_train_copy, y_train, x_valid_copy, y_valid, **self.kwargs
-                )
+                    model, x_train_copy, y_train, x_valid_copy, y_valid, **self.kwargs)
                 if self.minimize:
                     score = -score
                 self.feature_score_hash[feature_hash] = score
-
+            
+            if score > self.best_score:
+                self.best_score = score
+                self.best_dim = individual
+   
             scores.append(score)
 
         self.fitness_scores = scores
-        current_best_score = np.max(self.fitness_scores)
-        if current_best_score > self.best_score:
-            self.best_score = current_best_score
-            self.best_feature_set = self.individuals[np.argmax(self.fitness_scores), :]
 
-        ranks = scipy.stats.rankdata(scores, method="average")
+        ranks = scipy.stats.rankdata(scores, method='average')
         self.fitness_ranks = self.selective_pressure * ranks
 
     def _select_individuals(self, model, x_train, y_train, x_valid, y_valid):
@@ -150,20 +151,22 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
             new_population[i + 1] = self._mutate(new_population[i + 1])
         self.individuals = new_population
 
-    def _verbose_results(self, verbose, i):
-        if verbose:
-            if i == 0:
-                print(
-                    "\t\t Best value of metric across iteration \t Best value of metric across population  "
-                )
-            if self.minimize:
-                print(
-                    f"Iteration {i} \t {-np.array(self.fitness_scores).max()} \t\t\t\t\t {-self.best_score} "
-                )
-            else:
-                print(
-                    f"Iteration {i} \t {np.array(self.fitness_scores).max()} \t\t\t\t\t {self.best_score} "
-                )
+    def _verbose_results(self, verbose, i):        
+        if (verbose):
+            if (i == 0) and (self.my_logger is None):
+                self.my_logger = self._setup_logger()
+
+            fitness_scores = (
+                -np.array(self.fitness_scores).max()
+                if self.minimize
+                else np.array(self.fitness_scores).max()
+            )
+            best_score = -self.best_score if self.minimize else self.best_score
+
+            self.my_logger.warning(
+                f"Finished iteration #{i} with objective value {fitness_scores}. Current best value is {best_score} "
+            )
+
 
     def _iteration_objective_score_monitor(self, i):
         if self.minimize:
