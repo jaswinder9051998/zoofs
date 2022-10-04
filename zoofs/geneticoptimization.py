@@ -1,24 +1,24 @@
 from zoofs.baseoptimizationalgorithm import BaseOptimizationAlgorithm
 import numpy as np
 import scipy
-import plotly.graph_objects as go
-import scipy
 import time
 import warnings
 
 
 class GeneticOptimization(BaseOptimizationAlgorithm):
-    def __init__(self,
-                 objective_function,
-                 n_iteration: int = 1000,
-                 timeout: int = None,
-                 population_size=20,
-                 selective_pressure=2,
-                 elitism=2,
-                 mutation_rate=0.05,
-                 minimize=True,
-                 logger=None,
-                 **kwargs):
+    def __init__(
+        self,
+        objective_function,
+        n_iteration: int = 1000,
+        timeout: int = None,
+        population_size=20,
+        selective_pressure=2,
+        elitism=2,
+        mutation_rate=0.05,
+        minimize=True,
+        logger=None,
+        **kwargs,
+    ):
         """
         Parameters
         ----------
@@ -30,7 +30,7 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
 
         timeout: int = None
             Stop operation after the given number of second(s).
-            If this argument is set to None, the operation is executed without time limitation and n_iteration is followed
+            If argument is set to None, the operation is executed without time limitation and n_iteration is followed
 
         population_size : int, default=50
             Total size of the population
@@ -49,7 +49,7 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
 
         logger: Logger or None, optional (default=None)
             - accepts `logging.Logger` instance.
-            
+
         **kwargs
             Any extra keyword argument for objective_function
 
@@ -58,7 +58,9 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
         best_feature_list : ndarray of shape (n_features)
             list of features with the best result of the entire run
         """
-        super().__init__(objective_function, n_iteration, timeout, population_size, minimize, logger, **kwargs)
+        super().__init__(
+            objective_function, n_iteration, timeout, population_size, minimize, logger, **kwargs
+        )
         self.n_generations = n_iteration
         self.selective_pressure = selective_pressure
         self.elitism = elitism
@@ -81,16 +83,14 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
                 if self.minimize:
                     score = -score
                 self.feature_score_hash[feature_hash] = score
-
             
+            if score > self.best_score:
+                self.best_score = score
+                self.best_dim = individual
+   
             scores.append(score)
 
         self.fitness_scores = scores
-        current_best_score = np.max(self.fitness_scores)
-        if current_best_score > self.best_score:
-            self.best_score = current_best_score
-            self.best_feature_set = self.individuals[np.argmax(
-                self.fitness_scores), :]
 
         ranks = scipy.stats.rankdata(scores, method='average')
         self.fitness_ranks = self.selective_pressure * ranks
@@ -99,23 +99,28 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
         self._evaluate_fitness(model, x_train, y_train, x_valid, y_valid)
 
         sorted_individuals_fitness = sorted(
-            zip(self.individuals, self.fitness_ranks), key=lambda x: x[1], reverse=True)
+            zip(self.individuals, self.fitness_ranks), key=lambda x: x[1], reverse=True
+        )
         elite_individuals = np.array(
-            [individual for individual, fitness in sorted_individuals_fitness[:self.elitism]])
+            [individual for individual, fitness in sorted_individuals_fitness[: self.elitism]]
+        )
 
         non_elite_individuals = np.array(
-            [individual[0] for individual in sorted_individuals_fitness[self.elitism:]])
+            [individual[0] for individual in sorted_individuals_fitness[self.elitism:]]
+        )
 
         non_elite_individuals_fitness = [
-            individual[1] for individual in sorted_individuals_fitness[self.elitism:]]
-        selection_probability = non_elite_individuals_fitness / \
-            np.sum(non_elite_individuals_fitness)
+            individual[1] for individual in sorted_individuals_fitness[self.elitism:]
+        ]
+        selection_probability = non_elite_individuals_fitness / np.sum(
+            non_elite_individuals_fitness
+        )
 
-        selected_indices = np.random.choice(range(
-            len(non_elite_individuals)), self.population_size//2, p=selection_probability)
+        selected_indices = np.random.choice(
+            range(len(non_elite_individuals)), self.population_size // 2, p=selection_probability
+        )
         selected_individuals = non_elite_individuals[selected_indices, :]
-        self.fit_individuals = np.vstack(
-            (elite_individuals, selected_individuals))
+        self.fit_individuals = np.vstack((elite_individuals, selected_individuals))
 
     # Make me a mutant!
     def _mutate(self, array):
@@ -128,48 +133,67 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
 
     def _produce_next_generation(self):
         new_population = np.empty(
-            shape=(self.population_size, self.individuals.shape[1]), dtype=np.int32)
+            shape=(self.population_size, self.individuals.shape[1]), dtype=np.int32
+        )
         for i in range(0, self.population_size, 2):
-            parents = self.fit_individuals[np.random.choice(
-                self.fit_individuals.shape[0], 2, replace=False), :]
+            parents = self.fit_individuals[
+                np.random.choice(self.fit_individuals.shape[0], 2, replace=False), :
+            ]
             crossover_index = np.random.randint(0, len(self.individuals[0]))
             new_population[i] = np.hstack(
-                (parents[0][:crossover_index], parents[1][crossover_index:]))
-            new_population[i+1] = np.hstack(
-                (parents[1][:crossover_index], parents[0][crossover_index:]))
+                (parents[0][:crossover_index], parents[1][crossover_index:])
+            )
+            new_population[i + 1] = np.hstack(
+                (parents[1][:crossover_index], parents[0][crossover_index:])
+            )
 
             new_population[i] = self._mutate(new_population[i])
-            new_population[i+1] = self._mutate(new_population[i+1])
+            new_population[i + 1] = self._mutate(new_population[i + 1])
         self.individuals = new_population
 
-    def _verbose_results(self, verbose, i):
-        if verbose:
-            if i == 0:
-                print(
-                    "\t\t Best value of metric across iteration \t Best value of metric across population  ")
-            if self.minimize:
-                print(
-                    f"Iteration {i} \t {-np.array(self.fitness_scores).max()} \t\t\t\t\t {-self.best_score} ")
-            else:
-                print(
-                    f"Iteration {i} \t {np.array(self.fitness_scores).max()} \t\t\t\t\t {self.best_score} ")
+    def _verbose_results(self, verbose, i):        
+        if (verbose):
+            if (i == 0) and (self.my_logger is None):
+                self.my_logger = self._setup_logger()
+
+            fitness_scores = (
+                -np.array(self.fitness_scores).max()
+                if self.minimize
+                else np.array(self.fitness_scores).max()
+            )
+            best_score = -self.best_score if self.minimize else self.best_score
+
+            self.my_logger.warning(
+                f"Finished iteration #{i} with objective value {fitness_scores}. Current best value is {best_score} "
+            )
+
 
     def _iteration_objective_score_monitor(self, i):
         if self.minimize:
-            self.best_results_per_iteration[i] = {'best_score': -self.best_score,
-                                                  'objective_score': -np.array(self.fitness_scores).max(),
-                                                  'selected_features': list(self.feature_list[
-                                                      np.where(self.individuals[np.array(self.fitness_scores).argmin()])[0]])}
+            self.best_results_per_iteration[i] = {
+                "best_score": -self.best_score,
+                "objective_score": -np.array(self.fitness_scores).max(),
+                "selected_features": list(
+                    self.feature_list[
+                        np.where(self.individuals[np.array(self.fitness_scores).argmin()])[0]
+                    ]
+                ),
+            }
         else:
-            self.best_results_per_iteration[i] = {'best_score': self.best_score,
-                                                  'objective_score': np.array(self.fitness_scores).max(),
-                                                  'selected_features': list(self.feature_list[
-                                                      np.where(self.individuals[np.array(self.fitness_scores).argmin()])[0]])}
+            self.best_results_per_iteration[i] = {
+                "best_score": self.best_score,
+                "objective_score": np.array(self.fitness_scores).max(),
+                "selected_features": list(
+                    self.feature_list[
+                        np.where(self.individuals[np.array(self.fitness_scores).argmin()])[0]
+                    ]
+                ),
+            }
 
     def fit(self, model, X_train, y_train, X_valid, y_valid, verbose=True):
         """
         Parameters
-        ----------      
+        ----------
         model : machine learning model's object
            machine learning model's object
 
@@ -183,7 +207,7 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
            Validation input samples
 
         y_valid : pandas.core.frame.DataFrame or pandas.core.series.Series of shape (n_samples)
-            The target values (class labels in classification, real numbers in regression).                
+            The target values (class labels in classification, real numbers in regression).
 
         verbose : bool,default=True
              Print results for iterations
@@ -200,7 +224,7 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
         self.best_score = -1 * float(np.inf)
         self.best_scores = []
 
-        if (self.timeout is not None):
+        if self.timeout is not None:
             timeout_upper_limit = time.time() + self.timeout
         else:
             timeout_upper_limit = time.time()
@@ -215,8 +239,5 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
 
             self._iteration_objective_score_monitor(i)
             self._verbose_results(verbose, i)
-            self.best_feature_list = list(
-                self.feature_list[np.where(self.best_dim)[0]])
+            self.best_feature_list = list(self.feature_list[np.where(self.best_dim)[0]])
         return self.best_feature_list
-
-
