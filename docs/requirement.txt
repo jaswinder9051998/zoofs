@@ -7,3 +7,4 @@ jupyter_contrib_nbextensions
 ipython>=7.16.3 # not directly required, pinned by Snyk to avoid a vulnerability
 pygments>=2.7.4 # not directly required, pinned by Snyk to avoid a vulnerability
 mistune>=2.0.1 # not directly required, pinned by Snyk to avoid a vulnerability
+wheel>=0.38.0 # not directly required, pinned by Snyk to avoid a vulnerability
