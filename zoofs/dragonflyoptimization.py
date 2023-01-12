@@ -32,7 +32,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
             Stop operation after the given number of second(s).
             If argument is set to None, the operation is executed without time limitation and n_iteration is followed
 
-        method : {'linear','random','quadraic','sinusoidal'}, default='sinusoidal'
+        method : {'linear','random','quadratic','sinusoidal'}, default='sinusoidal'
             Choose the between the three methods of Dragon Fly optimization
 
         minimize : bool, default=True
@@ -63,8 +63,8 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
 
     def _check_params(self, model, x_train, y_train, x_valid, y_valid, method):
         super()._check_params(model, x_train, y_train, x_valid, y_valid)
-        if method not in ["linear", "random", "quadraic", "sinusoidal"]:
-            raise ValueError("method accepts only linear,random,quadraic types ")
+        if method not in ["linear", "random", "quadratic", "sinusoidal"]:
+            raise ValueError("method accepts only linear,random,quadratic types ")
 
     def fit(self, model, X_train, y_train, X_valid, y_valid, verbose=True):
         """
@@ -142,7 +142,7 @@ class DragonFlyOptimization(BaseOptimizationAlgorithm):
                 f = 2 * np.random.random()
                 e = pct
 
-            if self.method == "quadraic":
+            if self.method == "quadratic":
                 w = 0.9 - (i + 1) * (0.5) / (self.n_iteration)
                 s = 0.2 - (0.2 * ((i + 1) / self.n_iteration)) ** 2
                 e = 0.1 - (0.1 * ((i + 1) / self.n_iteration)) ** 2
