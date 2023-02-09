@@ -66,6 +66,12 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
         self.elitism = elitism
         self.mutation_rate = mutation_rate
 
+    def _get_bestScore(self):
+        if self.minimize:
+            return -(self.best_score)
+        else:
+            return self.best_score
+
     def _evaluate_fitness(self, model, x_train, y_train, x_valid, y_valid):
         scores = []
         for individual in self.individuals:
@@ -83,11 +89,11 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
                 if self.minimize:
                     score = -score
                 self.feature_score_hash[feature_hash] = score
-            
+
             if score > self.best_score:
                 self.best_score = score
                 self.best_dim = individual
-   
+
             scores.append(score)
 
         self.fitness_scores = scores
@@ -151,7 +157,7 @@ class GeneticOptimization(BaseOptimizationAlgorithm):
             new_population[i + 1] = self._mutate(new_population[i + 1])
         self.individuals = new_population
 
-    def _verbose_results(self, verbose, i):        
+    def _verbose_results(self, verbose, i):
         if (verbose):
             if (i == 0) and (self.my_logger is None):
                 self.my_logger = self._setup_logger()
