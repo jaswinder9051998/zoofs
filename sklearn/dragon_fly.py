@@ -9,11 +9,11 @@ from sklearn.base import is_classifier, is_regressor, BaseEstimator, MetaEstimat
 from sklearn.feature_selection import SelectorMixin
 from sklearn.utils import check_X_y
 from sklearn.utils.validation import check_is_fitted
-from sklearn.utils.metaestimators import available_if
+# from sklearn.utils.metaestimators import available_if
 # from sklearn.feature_selection._from_model import _estimator_has
 from sklearn.metrics import check_scoring
 from sklearn.exceptions import NotFittedError
-from sklearn.model_selection._search import BaseSearchCV
+# from sklearn.model_selection._search import BaseSearchCV
 from sklearn.model_selection._split import check_cv
 from sklearn.metrics._scorer import _check_multimetric_scoring
 
@@ -22,14 +22,7 @@ from sklearn.metrics._scorer import _check_multimetric_scoring
 # from .algorithms import algorithms_factory
 # from .callbacks.validations import check_callback
 # from .schedules.validations import check_adapter
-"""
-from .utils.cv_scores import (
-    create_gasearch_cv_results_,
-    create_feature_selection_cv_results_,
-)
-from .utils.random import weighted_bool_individual
-from .utils.tools import cxUniform, mutFlipBit
-"""
+
 class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimator):
     """
     Evolutionary optimization for feature selection.
@@ -91,7 +84,7 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
 
         - a list or tuple of unique strings;
         - a callable returning a dictionary where the keys are the metric
-          names and the values are the metric scores;
+            names and the values are the metric scores;
         - a dictionary with metric names as keys and callables a values.
 
     n_jobs : int, default=None
@@ -229,21 +222,20 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
         self.estimator_ = None
         self.cv = cv
         self.scoring = scoring
-        self.max_features = max_features
-
-        self.verbose = verbose
-        self.criteria = criteria
         self.population_size = population_size
         self.generations = generations
         self.n_iteration = n_iteration
         self.algorithm = algorithm
-
-
+        self.max_features = max_features
+        self.verbose = verbose
+        self.criteria = criteria
         self.refit = refit
         self.n_jobs = n_jobs
         self.pre_dispatch = pre_dispatch
         self.error_score = error_score
         self.return_train_score = return_train_score
+        self.timeout = timeout
+
         self.n_features = None
         self.X_ = None
         self.y_ = None
@@ -259,13 +251,11 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
         self.refit_metric = "score"
         self.metrics_list = None
         self.multimetric_ = False
-        self.timeout = timeout
-        # self.history = None
 
         # Check that the estimator is compatible with scikit-learn
         if not is_classifier(self.estimator) and not is_regressor(self.estimator):
             raise ValueError(f"{self.estimator} is not a valid Sklearn classifier or regressor")
-
+        
     def evaluate(self, individual):
         """
         Compute the cross-validation scores and record the logbook and mlflow (if specified)
@@ -275,7 +265,7 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
             The individual (set of features) that is being evaluated
 
         Returns
-        -------
+        ----------
         fitness: List
             Returns a list with two values.
             The first one is the corresponding to the cv-score
@@ -326,12 +316,6 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
             if self.return_train_score:
                 current_generation_params[f"train_{metric}"] = cv_results[f"train_{metric}"]
 
-        index = len(self.logbook.chapters["parameters"])
-        current_generation_features = {"index": index, **current_generation_params}
-
-        # Log the features and the cv-score
-        # self.logbook.record(parameters=current_generation_features)
-
         # Penalize individuals with more features than the max_features parameter
 
         if self.max_features and (
@@ -341,8 +325,7 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
 
         return [score, n_selected_features]
 
-
-    def fit(self, X, y, callbacks=None):
+    def fit(self, X, y, sample_weight=None, callbacks=None):
         """
         Main method of GAFeatureSelectionCV, starts the optimization
         procedure with to find the best features set
@@ -355,6 +338,8 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
             default=None
             The target variable to try to predict in the case of
             supervised learning.
+        sample_weight : array-like of shape (n_samples,), default=None
+            Ignored.            
         callbacks: list or callable
             One or a list of the callbacks methods available in
             :class:`~sklearn_genetic.callbacks`.
@@ -399,8 +384,6 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
 
         self.best_score_dimension = np.ones(X.shape[1])
         delta_x = np.random.randint(0, 2, size=(self.population_size, X.shape[1]))
-        # replace
-        # self.initialize_population(X)
         self.individuals = np.random.randint(0, 2, size=(self.population_size, self.X_.shape[1]))
 
         if self.timeout is not None:
@@ -413,17 +396,6 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
             if (self.timeout is not None) & (time.time() > timeout_upper_limit):
                 warnings.warn("Timeout occured")
                 break
-            # self._check_individuals()
-
-            # self.fitness_scores = self._evaluate_fitness(
-            #    model, X, y, X_valid, y_valid, 0, 1
-            # )
-            # self.fitness_scores = self.evaluate_fitness(
-            #    model, X, y, X_valid, y_valid, 0, 1
-            # )
-
-
-            # self.iteration_objective_score_monitor(i)
 
             if self.algorithm == "linear":
                 s = 0.2 - (0.2 * ((i + 1) / self.n_iteration))
@@ -501,15 +473,9 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
                 np.logical_not(self.individuals).astype(int),
                 individuals,
             )
-
-            # self.verbose_results(verbose, i)
-            # self.best_feature_list = list(self.feature_list[np.where(self.best_dim)[0]])
         
         self.best_features_ = np.where(self.best_dim)[0]        
         self.support_ = self.best_features_
-        print("self.best_features_")
-        print(self.best_features_)
-
 
         if self.refit:
             bool_individual = np.array(self.best_features_, dtype=bool)
