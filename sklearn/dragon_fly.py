@@ -254,7 +254,7 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
         # Check that the estimator is compatible with scikit-learn
         if not is_classifier(self.estimator) and not is_regressor(self.estimator):
             raise ValueError(f"{self.estimator} is not a valid Sklearn classifier or regressor")
-        
+
     def evaluate(self, individual):
         """
         Compute the cross-validation scores and record the logbook and mlflow (if specified)
@@ -338,7 +338,7 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
             The target variable to try to predict in the case of
             supervised learning.
         sample_weight : array-like of shape (n_samples,), default=None
-            Ignored.            
+            Ignored.
         callbacks: list or callable
             One or a list of the callbacks methods available in
             :class:`~sklearn_genetic.callbacks`.
@@ -473,7 +473,7 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
                 individuals,
             )
         
-        self.best_features_ = np.where(self.best_dim)[0]        
+        self.best_features_ = np.where(self.best_dim)[0]
         self.support_ = self.best_features_
 
         if self.refit:
@@ -584,9 +584,9 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
     def _get_support_mask(self):
         if not self._fitted:
             raise NotFittedError(
-                f"This GAFeatureSelectionCV instance is not fitted yet "
-                f"or used refit=False. Call 'fit' with appropriate "
-                f"arguments before using this estimator."
+                "This GAFeatureSelectionCV instance is not fitted yet "
+                "or used refit=False. Call 'fit' with appropriate "
+                "arguments before using this estimator."
             )
         return self.best_features_
 
