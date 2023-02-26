@@ -364,8 +364,6 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
         self._n_iterations = self.generations
         self.feature_score_hash = {}
         kbest = self.population_size - 1
-        
-        # self.feature_list = np.array(list(X.columns))
         self.best_results_per_iteration = {}
         self.best_score = np.inf
         self.worst_score = -np.inf
