@@ -8,19 +8,10 @@ from sklearn.base import is_classifier, is_regressor, BaseEstimator, MetaEstimat
 from sklearn.feature_selection import SelectorMixin
 from sklearn.utils import check_X_y
 from sklearn.utils.validation import check_is_fitted
-# from sklearn.utils.metaestimators import available_if
-# from sklearn.feature_selection._from_model import _estimator_has
 from sklearn.metrics import check_scoring
 from sklearn.exceptions import NotFittedError
-# from sklearn.model_selection._search import BaseSearchCV
 from sklearn.model_selection._split import check_cv
 from sklearn.metrics._scorer import _check_multimetric_scoring
-
-# from .parameters import Algorithms, Criteria
-# from .space import Space
-# from .algorithms import algorithms_factory
-# from .callbacks.validations import check_callback
-# from .schedules.validations import check_adapter
 
 class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimator):
     """
