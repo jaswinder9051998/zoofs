@@ -1,4 +1,3 @@
-import random
 import time
 import warnings
 
@@ -531,7 +530,7 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
 
         else:
             raise ValueError(
-                f"The algorithm {self.algorithm} is not supported, "
+                f"The algorithm is not supported, "
                 f"please select one from {Algorithms.list()}"
             )
 
@@ -546,6 +545,7 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
             check_is_fitted(self.estimator)
             is_fitted = True
         except Exception as e:
+            print(e)
             is_fitted = False
 
         # has_history = bool(self.history)
@@ -564,9 +564,9 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
         """
         if not self._fitted:
             raise NotFittedError(
-                f"This GAFeatureSelectionCV instance is not fitted yet "
-                f"or used refit=False. Call 'fit' with appropriate "
-                f"arguments before using this estimator."
+                "This GAFeatureSelectionCV instance is not fitted yet "
+                "or used refit=False. Call 'fit' with appropriate "
+                "arguments before using this estimator."
             )
 
         return {
