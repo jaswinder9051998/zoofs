@@ -461,7 +461,7 @@ class DragonFlyFeatureSelectionCV(MetaEstimatorMixin, SelectorMixin, BaseEstimat
                 np.logical_not(self.individuals).astype(int),
                 individuals,
             )
-        
+
         self.best_features_ = np.where(self.best_dim)[0]
         self.support_ = self.best_features_
 
