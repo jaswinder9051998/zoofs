@@ -1,20 +1,3 @@
-# sklearn-genetic - Genetic feature selection module for scikit-learn
-# Copyright (C) 2016-2022  Manuel Calzolari
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License as published by
-# the Free Software Foundation, version 3 of the License.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Lesser General Public License for more details.
-#
-# You should have received a copy of the GNU Lesser General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-"""Genetic algorithm for feature selection"""
-
 import numbers
 import multiprocess
 import numpy as np
@@ -49,20 +32,84 @@ def _eval_function(
     scorer,
     fit_params,
     max_features_to_select,
+    min_features_to_select,
     caching,
-    scores_cache={},
+    scores_cache=None,
+    auto_n_components=False,
+    n_jobs=None,
 ):
+    """
+    Evaluate the fitness of an individual genome in the population for feature selection.
+    
+    Parameters
+    ----------
+    individual : array-like
+        Binary array representing the selected features.
+    estimator : object
+        The base estimator to evaluate the fitness of the genome.
+    X : array-like
+        The input data.
+    y : array-like
+        The target labels.
+    groups : array-like, optional
+        Group labels for the samples used while splitting the dataset into train/test set.
+    cv : int, cross-validation generator or an iterable
+        Determines the cross-validation splitting strategy.
+    scorer : string or callable
+        Scoring metric to evaluate the fitness.
+    fit_params : dict
+        Additional fitting parameters for the estimator.
+    max_features_to_select : int
+        Maximum number of features to select.
+    min_features_to_select : int
+        Minimum number of features to select.
+    caching : bool
+        Enable result caching for optimization.
+    scores_cache : dict, optional
+        A cache to store previous evaluation results, default is None.
+    auto_n_components : bool, optional
+        Automatically adjust the number of components for the estimator if applicable, default is False.
+    n_jobs : int or None, optional
+        Number of jobs to run in parallel, default is None.
+        
+    Returns
+    -------
+    scores_mean : float
+        Mean cross-validation score for the individual.
+    individual_sum : int
+        The total number of features selected by the individual.
+    scores_std : float
+        Standard deviation of the cross-validation score for the individual.
+    """
+    
+    if scores_cache is None:
+        scores_cache = {}
+
     individual_sum = np.sum(individual, axis=0)
-    if individual_sum == 0 or individual_sum > max_features_to_select:
-        return -10000, individual_sum, 10000
+    if (
+        individual_sum < min_features_to_select
+        or individual_sum > max_features_to_select
+    ):
+        return -np.inf, individual_sum, np.inf
+
     individual_tuple = tuple(individual)
+
     if caching and individual_tuple in scores_cache:
         return (
             scores_cache[individual_tuple][0],
             individual_sum,
             scores_cache[individual_tuple][1],
         )
+
     X_selected = X[:, np.array(individual, dtype=bool)]
+
+    if hasattr(estimator, "n_components") and (auto_n_components == True):
+        setattr(
+            estimator,
+            "n_components",
+            min(np.linalg.matrix_rank(X_selected), estimator.n_components),
+        )
+
     scores = cross_val_score(
         estimator=estimator,
         X=X_selected,
@@ -71,11 +118,15 @@ def _eval_function(
         scoring=scorer,
         cv=cv,
         fit_params=fit_params,
+        n_jobs=n_jobs
     )
+
     scores_mean = np.mean(scores)
     scores_std = np.std(scores)
+
     if caching:
         scores_cache[individual_tuple] = [scores_mean, scores_std]
+
     return scores_mean, individual_sum, scores_std
 
 
@@ -88,6 +139,65 @@ def _estimator_has(attr):
 
 
 class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
+    """Perform feature selection using a genetic algorithm with Dragonfly optimization.
+
+    This class is a scikit-learn compatible estimator that applies Dragonfly-based
+    genetic algorithm to perform feature selection. The algorithm aims to find the
+    best subset of features that maximizes the performance of a given estimator.
+
+    Parameters
+    ----------
+    estimator : object
+        The base estimator from which the transformer is built.
+    cv : int, cross-validation generator or an iterable, default=None
+        Determines the cross-validation splitting strategy.
+    scoring : string, callable or None, default=None
+        Scoring metric to use for evaluation.
+    fit_params : dict, default=None
+        Additional fit parameters for the estimator.
+    max_features_to_select : int, default=None
+        Maximum number of features to select.
+    min_features_to_select : int, default=None
+        Minimum number of features to select.
+    n_population : int, default=300
+        Number of individuals in the population.
+    n_iteration : int, default=40
+        Number of iterations for the genetic algorithm.
+    method : string, default='sinusoidal'
+        Method to use for controlling parameters.
+    auto_n_components : bool, default=False
+        Automatically adjust the number of components for the estimator.
+    verbose : int, default=0
+        Verbosity level.
+    n_jobs : int or None, default=None
+        Number of jobs to run in parallel.
+    caching : bool, default=False
+        Enable caching of results.
+
+    Attributes
+    ----------
+    support_ : array of bool
+        The mask of selected features.
+    feature_list : array
+        List of features considered in the algorithm.
+    estimator_ : object
+        The fitted base estimator.
+
+    Methods
+    -------
+    fit(X, y) :
+        Fit the estimator and perform feature selection.
+    predict(X) :
+        Reduce X to selected features and predict using the underlying estimator.
+    score(X, y) :
+        Reduce X to selected features and return the score of the underlying estimator.
+    decision_function(X) :
+        Apply decision function of the fitted estimator on the selected features.
+    predict_proba(X) :
+        Compute probabilities of possible outcomes for samples in X.
+    predict_log_proba(X) :
+        Compute log probabilities of possible outcomes for samples in X.
+    """
     def __init__(
         self,
         estimator,
@@ -122,68 +232,6 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
     def _estimator_type(self):
         return self.estimator._estimator_type
 
-    def _eval_function(
-        self,
-        individual,
-        estimator,
-        X,
-        y,
-        groups,
-        cv,
-        scorer,
-        fit_params,
-        max_features_to_select,
-        min_features_to_select,
-        caching,
-        scores_cache=None,
-        auto_n_components=False,
-    ):
-        if scores_cache is None:
-            scores_cache = {}
-
-        individual_sum = np.sum(individual, axis=0)
-        if (
-            individual_sum < min_features_to_select
-            or individual_sum > max_features_to_select
-        ):
-            return -np.inf, individual_sum, np.inf
-
-        individual_tuple = tuple(individual)
-
-        if caching and individual_tuple in scores_cache:
-            return (
-                scores_cache[individual_tuple][0],
-                individual_sum,
-                scores_cache[individual_tuple][1],
-            )
-
-        X_selected = X[:, np.array(individual, dtype=bool)]
-
-        if hasattr(estimator, "n_components") and (auto_n_components == True):
-            setattr(
-                estimator,
-                "n_components",
-                min(np.linalg.matrix_rank(X_selected), estimator.n_components),
-            )
-
-        scores = cross_val_score(
-            estimator=estimator,
-            X=X_selected,
-            y=y,
-            groups=groups,
-            scoring=scorer,
-            cv=cv,
-            fit_params=fit_params,
-        )
-
-        scores_mean = np.mean(scores)
-        scores_std = np.std(scores)
-
-        if caching:
-            scores_cache[individual_tuple] = [scores_mean, scores_std]
-
-        return scores_mean, individual_sum, scores_std
-
     def fit(self, X, y, groups=None):
         return self._fit(X, y, groups)
 
@@ -193,7 +241,7 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
         cv = check_cv(self.cv, y, classifier=is_classifier(self.estimator))
         scorer = check_scoring(self.estimator, scoring=self.scoring)
         kbest = self.n_population - 1
-        self.best_dim = np.ones(X.shape[1])
+
         if isinstance(X, pd.DataFrame):
             self.feature_list = np.array(list(X.columns))
         elif isinstance(X, np.ndarray):
@@ -253,14 +301,8 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
             max_features_to_select = min_features_to_select
 
         for i in range(self.n_iteration):
-            """
-            if (self.timeout is not None) & (time.time() > timeout_upper_limit):
-                warnings.warn("Timeout occured")
-                break
-            """
-
             self.fitness_scores = [
-                self._eval_function(
+                _eval_function(
                     individual,
                     estimator,
                     X,
@@ -274,11 +316,19 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
                     self.caching,
                     scores_cache=None,
                     auto_n_components=False,
+                    n_jobs=self.n_jobs,
                 )
                 for individual in self.individuals
             ]
 
-            # self.iteration_objective_score_monitor(i)
+            for (
+                each_scores_mean,
+                _,
+                _,
+            ), each_individual in zip(self.fitness_scores, self.individuals):
+                if each_scores_mean < self.best_score:
+                    self.best_score = each_scores_mean
+                    self.best_dim = each_individual
 
             if self.method == "linear":
                 s = 0.2 - (0.2 * ((i + 1) / self.n_iteration))
@@ -288,7 +338,7 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
                 f = 0.0 + (2 * ((i + 1) / self.n_iteration))
                 w = 0.9 - (i + 1) * (0.5) / (self.n_iteration)
 
-            if self.method == "random":
+            elif self.method == "random":
                 if 2 * (i + 1) <= self.n_iteration:
                     pct = 0.1 - (0.2 * (i + 1) / self.n_iteration)
                 else:
@@ -300,7 +350,7 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
                 f = 2 * np.random.random()
                 e = pct
 
-            if self.method == "quadraic":
+            elif self.method == "quadraic":
                 w = 0.9 - (i + 1) * (0.5) / (self.n_iteration)
                 s = 0.2 - (0.2 * ((i + 1) / self.n_iteration)) ** 2
                 e = 0.1 - (0.1 * ((i + 1) / self.n_iteration)) ** 2
@@ -308,7 +358,7 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
                 c = 0.0 + (0.2 * ((i + 1) / self.n_iteration)) ** 2
                 f = 0.0 + (2 * (i + 1) / self.n_iteration) ** 2
 
-            if self.method == "sinusoidal":
+            elif self.method == "sinusoidal":
                 beta = 0.5
                 w = 0.9 - (i + 1) * (0.5) / (self.n_iteration)
                 s = 0.10 + 0.10 * np.abs(
