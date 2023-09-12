@@ -4,7 +4,6 @@ import numpy as np
 import pandas as pd
 from sklearn.utils import check_X_y
 from sklearn.utils.metaestimators import available_if
-from sklearn.utils.validation import _num_features
 from sklearn.base import BaseEstimator
 from sklearn.base import MetaEstimatorMixin
 from sklearn.base import clone
@@ -12,14 +11,6 @@ from sklearn.base import is_classifier
 from sklearn.model_selection import check_cv, cross_val_score
 from sklearn.metrics import check_scoring
 from sklearn.feature_selection import SelectorMixin
-from sklearn.utils._joblib import cpu_count
-
-
-def _createIndividual(icls, n, max_features_to_select):
-    n_features = np.random.randint(1, max_features_to_select + 1)
-    genome = ([1] * n_features) + ([0] * (n - n_features))
-    np.random.shuffle(genome)
-    return icls(genome)
 
 
 def _eval_function(
@@ -235,6 +226,7 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
     def fit(self, X, y, groups=None):
         return self._fit(X, y, groups)
 
+    
     def _fit(self, X, y, groups=None):
         X, y = check_X_y(X, y, "csr")
         # Initialization
@@ -300,7 +292,30 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
         if max_features_to_select < min_features_to_select:
             max_features_to_select = min_features_to_select
 
-        for i in range(self.n_iteration):
+        # Dragonfly Algorithm
+        # This algorithm is inspired by the swarming behavior of dragonflies. The algorithm aims to find an optimal solution
+        # by simulating the behavior of dragonflies in a search space.
+
+        # Update equation for position vectors (DX) is defined as follows:
+        # DX_{t+1} = (s * Si + a * Ai + c * Ci + f * Fi + e * Ei) + w * DX_t
+
+        # Variables:
+        # s: Separation weight, controls how much individuals avoid others in their neighborhood.
+        # a: Alignment weight, controls how much individuals try to align their velocity with their neighbors.
+        # c: Cohesion weight, controls how much individuals try to move toward the center of mass of their neighborhood.
+        # f: Food factor, controls how much individuals are attracted towards food sources.
+        # e: Enemy factor, controls how much individuals are distracted by enemies.
+        # w: Inertia weight, controls the resistance to change in the dragonfly's movement direction.
+
+        # Si: Separation of the iter_-th individual
+        # Ai: Alignment of the iter_-th individual
+        # Ci: Cohesion of the iter_-th individual
+        # Fi: Food source of the iter_-th individual
+        # Ei: Position of enemy of the iter_-th individual
+
+        # The algorithm uses these variables to balance between explorative and exploitative behaviors.
+        
+        for iter_ in range(self.n_iteration):
             self.fitness_scores = [
                 _eval_function(
                     individual,
@@ -331,19 +346,19 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
                     self.best_dim = each_individual
 
             if self.method == "linear":
-                s = 0.2 - (0.2 * ((i + 1) / self.n_iteration))
-                e = 0.1 - (0.1 * ((i + 1) / self.n_iteration))
-                a = 0.0 + (0.2 * ((i + 1) / self.n_iteration))
-                c = 0.0 + (0.2 * ((i + 1) / self.n_iteration))
-                f = 0.0 + (2 * ((i + 1) / self.n_iteration))
-                w = 0.9 - (i + 1) * (0.5) / (self.n_iteration)
+                s = 0.2 - (0.2 * ((iter_ + 1) / self.n_iteration))
+                e = 0.1 - (0.1 * ((iter_ + 1) / self.n_iteration))
+                a = 0.0 + (0.2 * ((iter_ + 1) / self.n_iteration))
+                c = 0.0 + (0.2 * ((iter_ + 1) / self.n_iteration))
+                f = 0.0 + (2 * ((iter_ + 1) / self.n_iteration))
+                w = 0.9 - (iter_ + 1) * (0.5) / (self.n_iteration)
 
             elif self.method == "random":
-                if 2 * (i + 1) <= self.n_iteration:
-                    pct = 0.1 - (0.2 * (i + 1) / self.n_iteration)
+                if 2 * (iter_ + 1) <= self.n_iteration:
+                    pct = 0.1 - (0.2 * (iter_ + 1) / self.n_iteration)
                 else:
                     pct = 0
-                w = 0.9 - (i + 1) * (0.5) / (self.n_iteration)
+                w = 0.9 - (iter_ + 1) * (0.5) / (self.n_iteration)
                 s = 2 * np.random.random() * pct
                 a = 2 * np.random.random() * pct
                 c = 2 * np.random.random() * pct
@@ -351,30 +366,30 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
                 e = pct
 
             elif self.method == "quadraic":
-                w = 0.9 - (i + 1) * (0.5) / (self.n_iteration)
-                s = 0.2 - (0.2 * ((i + 1) / self.n_iteration)) ** 2
-                e = 0.1 - (0.1 * ((i + 1) / self.n_iteration)) ** 2
-                a = 0.0 + (0.2 * ((i + 1) / self.n_iteration)) ** 2
-                c = 0.0 + (0.2 * ((i + 1) / self.n_iteration)) ** 2
-                f = 0.0 + (2 * (i + 1) / self.n_iteration) ** 2
+                w = 0.9 - (iter_ + 1) * (0.5) / (self.n_iteration)
+                s = 0.2 - (0.2 * ((iter_ + 1) / self.n_iteration)) ** 2
+                e = 0.1 - (0.1 * ((iter_ + 1) / self.n_iteration)) ** 2
+                a = 0.0 + (0.2 * ((iter_ + 1) / self.n_iteration)) ** 2
+                c = 0.0 + (0.2 * ((iter_ + 1) / self.n_iteration)) ** 2
+                f = 0.0 + (2 * (iter_ + 1) / self.n_iteration) ** 2
 
             elif self.method == "sinusoidal":
                 beta = 0.5
-                w = 0.9 - (i + 1) * (0.5) / (self.n_iteration)
+                w = 0.9 - (iter_ + 1) * (0.5) / (self.n_iteration)
                 s = 0.10 + 0.10 * np.abs(
-                    np.cos(((i + 1) / self.n_iteration) * (4 * np.pi - beta * np.pi))
+                    np.cos(((iter_ + 1) / self.n_iteration) * (4 * np.pi - beta * np.pi))
                 )
                 e = 0.05 + 0.05 * np.abs(
-                    np.cos(((i + 1) / self.n_iteration) * (4 * np.pi - beta * np.pi))
+                    np.cos(((iter_ + 1) / self.n_iteration) * (4 * np.pi - beta * np.pi))
                 )
                 a = 0.10 - 0.05 * np.abs(
-                    np.cos(((i + 1) / self.n_iteration) * (4 * np.pi - beta * np.pi))
+                    np.cos(((iter_ + 1) / self.n_iteration) * (4 * np.pi - beta * np.pi))
                 )
                 c = 0.10 - 0.05 * np.abs(
-                    np.cos(((i + 1) / self.n_iteration) * (4 * np.pi - beta * np.pi))
+                    np.cos(((iter_ + 1) / self.n_iteration) * (4 * np.pi - beta * np.pi))
                 )
                 f = 2 - 1 * np.abs(
-                    np.cos(((i + 1) / self.n_iteration) * (4 * np.pi - beta * np.pi))
+                    np.cos(((iter_ + 1) / self.n_iteration) * (4 * np.pi - beta * np.pi))
                 )
 
             temp = individuals = self.individuals
@@ -414,7 +429,7 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
                 individuals,
             )
 
-            # self.verbose_results(verbose, i)
+            # self.verbose_results(verbose, iter_)
             self.best_feature_list = list(self.feature_list[np.where(self.best_dim)[0]])
 
         if self.verbose > 0:
