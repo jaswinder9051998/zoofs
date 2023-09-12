@@ -1,5 +1,5 @@
-from .dragon_fly import  DragonFlyFeatureSelectionCV
+from .dragonfly import  DragonFlySelectionCV
 
 __all__ = [
-    "DragonFlyFeatureSelectionCV",
+    "DragonFlySelectionCV",
 ]
