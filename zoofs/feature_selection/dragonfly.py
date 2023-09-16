@@ -1,5 +1,4 @@
 import numbers
-import multiprocess
 import numpy as np
 import pandas as pd
 from sklearn.utils import check_X_y
@@ -28,6 +27,7 @@ def _eval_function(
     scores_cache=None,
     auto_n_components=False,
     n_jobs=None,
+    verbose=None,
 ):
     """
     Evaluate the fitness of an individual genome in the population for feature selection.
@@ -112,11 +112,15 @@ def _eval_function(
         n_jobs=n_jobs
     )
 
-    scores_mean = np.mean(scores)
+    scores_mean = -np.mean(scores)
     scores_std = np.std(scores)
 
     if caching:
         scores_cache[individual_tuple] = [scores_mean, scores_std]
+
+    if verbose >= 3:
+        print(f"X_selected.shape {X_selected.shape}")
+        print(f"scores_mean:{scores_mean:.2f}, scores_std:{scores_std:.3f}")
 
     return scores_mean, individual_sum, scores_std
 
@@ -130,10 +134,10 @@ def _estimator_has(attr):
 
 
 class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
-    """Perform feature selection using a genetic algorithm with Dragonfly optimization.
+    """Perform feature selection using a Dragonfly algorithm
 
-    This class is a scikit-learn compatible estimator that applies Dragonfly-based
-    genetic algorithm to perform feature selection. The algorithm aims to find the
+    This class is a scikit-learn compatible estimator that applies Dragonfly algorithm
+     to perform feature selection. The algorithm aims to find the
     best subset of features that maximizes the performance of a given estimator.
 
     Parameters
@@ -153,7 +157,7 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
     n_population : int, default=300
         Number of individuals in the population.
     n_iteration : int, default=40
-        Number of iterations for the genetic algorithm.
+        Number of iterations for the dragonfly algorithm.
     method : string, default='sinusoidal'
         Method to use for controlling parameters.
     auto_n_components : bool, default=False
@@ -188,7 +192,34 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
         Compute probabilities of possible outcomes for samples in X.
     predict_log_proba(X) :
         Compute log probabilities of possible outcomes for samples in X.
+
+    Notes
+    -------
+    # Dragonfly Algorithm
+    # This algorithm is inspired by the swarming behavior of dragonflies. The algorithm aims to find an optimal solution
+    # by simulating the behavior of dragonflies in a search space.
+
+    # Update equation for position vectors (DX) is defined as follows:
+    # DX_{t+1} = (s * Si + a * Ai + c * Ci + f * Fi + e * Ei) + w * DX_t
+
+    # Variables:
+    # s: Separation weight, controls how much individuals avoid others in their neighborhood.
+    # a: Alignment weight, controls how much individuals try to align their velocity with their neighbors.
+    # c: Cohesion weight, controls how much individuals try to move toward the center of mass of their neighborhood.
+    # f: Food factor, controls how much individuals are attracted towards food sources.
+    # e: Enemy factor, controls how much individuals are distracted by enemies.
+    # w: Inertia weight, controls the resistance to change in the dragonfly's movement direction.
+
+    # Si: Separation of the iter_-th individual
+    # Ai: Alignment of the iter_-th individual
+    # Ci: Cohesion of the iter_-th individual
+    # Fi: Food source of the iter_-th individual
+    # Ei: Position of enemy of the iter_-th individual
+
+    # The algorithm uses these variables to balance between explorative and exploitative behaviors.
+
     """
+
     def __init__(
         self,
         estimator,
@@ -292,49 +323,43 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
         if max_features_to_select < min_features_to_select:
             max_features_to_select = min_features_to_select
 
-        # Dragonfly Algorithm
-        # This algorithm is inspired by the swarming behavior of dragonflies. The algorithm aims to find an optimal solution
-        # by simulating the behavior of dragonflies in a search space.
-
-        # Update equation for position vectors (DX) is defined as follows:
-        # DX_{t+1} = (s * Si + a * Ai + c * Ci + f * Fi + e * Ei) + w * DX_t
-
-        # Variables:
-        # s: Separation weight, controls how much individuals avoid others in their neighborhood.
-        # a: Alignment weight, controls how much individuals try to align their velocity with their neighbors.
-        # c: Cohesion weight, controls how much individuals try to move toward the center of mass of their neighborhood.
-        # f: Food factor, controls how much individuals are attracted towards food sources.
-        # e: Enemy factor, controls how much individuals are distracted by enemies.
-        # w: Inertia weight, controls the resistance to change in the dragonfly's movement direction.
-
-        # Si: Separation of the iter_-th individual
-        # Ai: Alignment of the iter_-th individual
-        # Ci: Cohesion of the iter_-th individual
-        # Fi: Food source of the iter_-th individual
-        # Ei: Position of enemy of the iter_-th individual
-
-        # The algorithm uses these variables to balance between explorative and exploitative behaviors.
-        
+        hof = []
         for iter_ in range(self.n_iteration):
             self.fitness_scores = [
                 _eval_function(
-                    individual,
-                    estimator,
-                    X,
-                    y,
-                    groups,
-                    cv,
-                    scorer,
-                    self.fit_params,
-                    max_features_to_select,
-                    min_features_to_select,
-                    self.caching,
+                    individual=individual,
+                    estimator=estimator,
+                    X=X,
+                    y=y,
+                    groups=groups,
+                    cv=cv,
+                    scorer=scorer,
+                    fit_params=self.fit_params,
+                    max_features_to_select=max_features_to_select,
+                    min_features_to_select=min_features_to_select,
+                    caching=self.caching,
                     scores_cache=None,
                     auto_n_components=False,
                     n_jobs=self.n_jobs,
+                    verbose=self.verbose
                 )
                 for individual in self.individuals
             ]
+
+            min_fitness_score = min(self.fitness_scores, key=lambda x: x[0])  # x[0]は各個体の適応度スコア
+
+            if self.verbose >= 2:
+                # 最小のself.fitness_scoresを表示
+                print(f"Minimum fitness score in iteration {iter_ + 1}: {min_fitness_score[0]}")
+
+
+            if not hof or min_fitness_score[0] < min(hof, key=lambda x: x[0])[0]:
+                hof.append(min_fitness_score)
+
+                if self.verbose >= 1:
+                    # 最小のself.fitness_scoresを表示
+                    print(f"[HOF Updated] Minimum fitness score in iteration {iter_ + 1}: {min_fitness_score[0]}")
+                    print(f"[HOF Updated] Best fitness score in HOF: {min(hof, key=lambda x: x[0])[0]}")
 
             for (
                 each_scores_mean,
@@ -392,6 +417,9 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
                     np.cos(((iter_ + 1) / self.n_iteration) * (4 * np.pi - beta * np.pi))
                 )
 
+            else:
+                raise ValueError("Invalid method specified. Accepted methods are 'linear', 'random', 'quadraic', and 'sinusoidal'.")
+
             temp = individuals = self.individuals
             temp_2 = (
                 temp.reshape(temp.shape[0], 1, temp.shape[1])
@@ -433,7 +461,7 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
             self.best_feature_list = list(self.feature_list[np.where(self.best_dim)[0]])
 
         if self.verbose > 0:
-            print("Selecting features with genetic algorithm.")
+            print("Selecting features with dragonfly algorithm.")
 
         # Set final attributes
         support_ = self.best_dim.astype(bool)
