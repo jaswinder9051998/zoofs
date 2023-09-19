@@ -253,6 +253,31 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
     @property
     def _estimator_type(self):
         return self.estimator._estimator_type
+    def check_features(self, max_features, min_features, n_features):
+        if max_features < min_features:
+            return min_features
+        return max_features
+    
+    def set_method_params(self, iter_):
+        if self.method == "linear":
+            return method_linear(iter_, self.n_iteration)
+        elif self.method == "random":
+            return method_random(iter_, self.n_iteration)
+        elif self.method == "quadraic":
+            return method_quadraic(iter_, self.n_iteration)
+        elif self.method == "sinusoidal":
+            return method_sinusoidal(iter_, self.n_iteration)
+        else:
+            raise ValueError("Invalid method specified. Accepted methods are 'linear', 'random', 'quadraic', and 'sinusoidal'.")
+    
+    def method_linear(iter_, n_iteration):
+        s = 0.2 - (0.2 * ((iter_ + 1) / n_iteration))
+        e = 0.1 - (0.1 * ((iter_ + 1) / n_iteration))
+        a = 0.0 + (0.2 * ((iter_ + 1) / n_iteration))
+        c = 0.0 + (0.2 * ((iter_ + 1) / n_iteration))
+        f = 0.0 + (2 * ((iter_ + 1) / n_iteration))
+        w = 0.9 - (iter_ + 1) * (0.5) / (n_iteration)
+        return s, e, a, c, f, w
 
     def fit(self, X, y, groups=None):
         return self._fit(X, y, groups)
@@ -284,45 +309,9 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
         estimator = clone(self.estimator)
         self.individuals = np.random.randint(0, 2, size=(self.n_population, X.shape[1]))
 
-        if self.max_features_to_select is not None:
-            if not isinstance(self.max_features_to_select, numbers.Integral):
-                raise TypeError(
-                    "'max_features_to_select' should be an integer between 1 and {} features."
-                    " Got {!r} instead.".format(n_features, self.max_features_to_select)
-                )
-            elif (
-                self.max_features_to_select < 1
-                or self.max_features_to_select > n_features
-            ):
-                raise ValueError(
-                    "'max_features_to_select' should be between 1 and {} features."
-                    " Got {} instead.".format(n_features, self.max_features_to_select)
-                )
-            max_features_to_select = self.max_features_to_select
-        else:
-            max_features_to_select = n_features
-
-        if self.min_features_to_select is not None:
-            if not isinstance(self.min_features_to_select, numbers.Integral):
-                raise TypeError(
-                    "'min_features_to_select' should be an integer between 1 and {} features."
-                    " Got {!r} instead.".format(n_features, self.min_features_to_select)
-                )
-            elif (
-                self.min_features_to_select < 1
-                or self.min_features_to_select > n_features
-            ):
-                raise ValueError(
-                    "'min_features_to_select' should be between 1 and {} features."
-                    " Got {} instead.".format(n_features, self.min_features_to_select)
-                )
-            min_features_to_select = self.min_features_to_select
-        else:
-            min_features_to_select = 1
-
-        if max_features_to_select < min_features_to_select:
-            max_features_to_select = min_features_to_select
-
+        max_features_to_select = self.max_features_to_select or n_features
+        min_features_to_select = self.min_features_to_select or 1
+        max_features_to_select = check_features(max_features_to_select, min_features_to_select, n_features)
         hof = None
         hof_score = np.inf
         for iter_ in range(self.n_iteration):
