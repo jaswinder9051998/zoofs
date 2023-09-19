@@ -1,4 +1,3 @@
-import numbers
 import numpy as np
 import pandas as pd
 from sklearn.utils import check_X_y
@@ -257,27 +256,6 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
         if max_features < min_features:
             return min_features
         return max_features
-    
-    def set_method_params(self, iter_):
-        if self.method == "linear":
-            return method_linear(iter_, self.n_iteration)
-        elif self.method == "random":
-            return method_random(iter_, self.n_iteration)
-        elif self.method == "quadraic":
-            return method_quadraic(iter_, self.n_iteration)
-        elif self.method == "sinusoidal":
-            return method_sinusoidal(iter_, self.n_iteration)
-        else:
-            raise ValueError("Invalid method specified. Accepted methods are 'linear', 'random', 'quadraic', and 'sinusoidal'.")
-    
-    def method_linear(iter_, n_iteration):
-        s = 0.2 - (0.2 * ((iter_ + 1) / n_iteration))
-        e = 0.1 - (0.1 * ((iter_ + 1) / n_iteration))
-        a = 0.0 + (0.2 * ((iter_ + 1) / n_iteration))
-        c = 0.0 + (0.2 * ((iter_ + 1) / n_iteration))
-        f = 0.0 + (2 * ((iter_ + 1) / n_iteration))
-        w = 0.9 - (iter_ + 1) * (0.5) / (n_iteration)
-        return s, e, a, c, f, w
 
     def fit(self, X, y, groups=None):
         return self._fit(X, y, groups)
