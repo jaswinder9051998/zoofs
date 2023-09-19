@@ -131,7 +131,7 @@ def _estimator_has(attr):
         else hasattr(self.estimator, attr)
     )
 
-def check_features(self, max_features, min_features, n_features):
+def check_features(self, max_features, min_features):
     if max_features < min_features:
         return min_features
     return max_features
@@ -293,7 +293,7 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
 
         max_features_to_select = self.max_features_to_select or n_features
         min_features_to_select = self.min_features_to_select or 1
-        max_features_to_select = check_features(max_features_to_select, min_features_to_select, n_features)
+        max_features_to_select = check_features(max_features_to_select, min_features_to_select)
         hof = None
         hof_score = np.inf
         for iter_ in range(self.n_iteration):
