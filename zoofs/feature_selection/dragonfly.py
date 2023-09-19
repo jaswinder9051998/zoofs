@@ -72,7 +72,7 @@ def _eval_function(
     scores_std : float
         Standard deviation of the cross-validation score for the individual.
     """
-    
+
     if scores_cache is None:
         scores_cache = {}
 
