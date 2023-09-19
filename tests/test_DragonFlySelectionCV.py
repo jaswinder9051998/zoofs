@@ -31,13 +31,13 @@ def test_dragonfly_fit_transform(estimator, auto_n_components):
     """
     # Initialize DragonFlySelectionCV with the given parameters
     dragonfly = DragonFlySelectionCV(
-        estimator=estimator, 
+        estimator=estimator,
         auto_n_components=auto_n_components,
         n_population=15,
         n_iteration=15,
         n_jobs=-1
     )
-    
+
     # Test if the 'fit' method works without any errors
     dragonfly.fit(X, y)
     
