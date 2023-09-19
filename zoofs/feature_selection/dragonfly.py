@@ -288,7 +288,7 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
 
         max_features_to_select = self.max_features_to_select or n_features
         min_features_to_select = self.min_features_to_select or 1
-        max_features_to_select = check_features(max_features_to_select, min_features_to_select)
+        max_features_to_select = self.check_features(max_features_to_select, min_features_to_select)
         hof = None
         hof_score = np.inf
         for iter_ in range(self.n_iteration):
