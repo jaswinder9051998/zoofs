@@ -40,7 +40,6 @@ def test_dragonfly_fit_transform(estimator, auto_n_components):
 
     # Test if the 'fit' method works without any errors
     dragonfly.fit(X, y)
-    
     # Test if the 'transform' method works without any errors
     X_transformed = dragonfly.transform(X)
     
