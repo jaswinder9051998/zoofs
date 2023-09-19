@@ -131,11 +131,6 @@ def _estimator_has(attr):
         else hasattr(self.estimator, attr)
     )
 
-def check_features(self, max_features, min_features):
-    if max_features < min_features:
-        return min_features
-    return max_features
-
 class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
     """Perform feature selection using a Dragonfly algorithm
 
@@ -256,7 +251,7 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
     @property
     def _estimator_type(self):
         return self.estimator._estimator_type
-    def check_features(self, max_features, min_features, n_features):
+    def check_features(self, max_features, min_features):
         if max_features < min_features:
             return min_features
         return max_features
