@@ -42,6 +42,5 @@ def test_dragonfly_fit_transform(estimator, auto_n_components):
     dragonfly.fit(X, y)
     # Test if the 'transform' method works without any errors
     X_transformed = dragonfly.transform(X)
-    
     # Check if the transformed array has fewer or equal features than the original array
     assert X_transformed.shape[1] <= X.shape[1]
