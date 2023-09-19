@@ -257,8 +257,8 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
     def fit(self, X, y, groups=None):
         return self._fit(X, y, groups)
 
-    
     def _fit(self, X, y, groups=None):
+
         X, y = check_X_y(X, y, "csr")
         # Initialization
         cv = check_cv(self.cv, y, classifier=is_classifier(self.estimator))
@@ -323,7 +323,12 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
         if max_features_to_select < min_features_to_select:
             max_features_to_select = min_features_to_select
 
-        hof = []
+        hof = None
+        hof_score = np.inf
+
+        if self.verbose > 0:
+            print("Selecting features with dragonfly algorithm.")
+
         for iter_ in range(self.n_iteration):
             self.fitness_scores = [
                 _eval_function(
@@ -353,13 +358,14 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
                 print(f"Minimum fitness score in iteration {iter_ + 1}: {min_fitness_score[0]}")
 
 
-            if not hof or min_fitness_score[0] < min(hof, key=lambda x: x[0])[0]:
-                hof.append(min_fitness_score)
+            if min_fitness_score[0] < hof_score:
+                    hof = min_fitness_score[1]
+                    hof_score = min_fitness_score[0]
 
-                if self.verbose >= 1:
-                    # 最小のself.fitness_scoresを表示
-                    print(f"[HOF Updated] Minimum fitness score in iteration {iter_ + 1}: {min_fitness_score[0]}")
-                    print(f"[HOF Updated] Best fitness score in HOF: {min(hof, key=lambda x: x[0])[0]}")
+                    if self.verbose >= 1:
+                        # 最小のself.fitness_scoresを表示
+                        print(f"[HOF Updated] Minimum fitness score in iteration {iter_ + 1}: {min_fitness_score[0]}")
+                        print(f"[HOF Updated] Best fitness score in HOF: {hof_score}")
 
             for (
                 each_scores_mean,
@@ -460,8 +466,6 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
             # self.verbose_results(verbose, iter_)
             self.best_feature_list = list(self.feature_list[np.where(self.best_dim)[0]])
 
-        if self.verbose > 0:
-            print("Selecting features with dragonfly algorithm.")
 
         # Set final attributes
         support_ = self.best_dim.astype(bool)
@@ -479,6 +483,15 @@ class DragonFlySelectionCV(BaseEstimator, MetaEstimatorMixin, SelectorMixin):
         self.estimator_.fit(X[:, support_], y)
         self.n_features_ = support_.sum()
         self.support_ = support_
+        self.hof_ = hof
+
+        if self.verbose >= 1:
+            print("Selecting features with dragonfly algorithm.")
+            print("Final Hall of Fame (HOF):")
+            print("==========================")
+            print(f"Best Score: {hof_score}")
+            print(f"Features Mask: {hof}")
+
 
         return self
 
