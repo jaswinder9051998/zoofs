@@ -33,6 +33,12 @@ class BaseOptimizationAlgorithm(ABC):
     def sigmoid(self, x):
         return 1 / (1 + np.exp(-x))
 
+    def _get_bestScore(self):
+        if self.minimize:
+            return self.best_score
+        else:
+            return -(self.best_score)
+
     def _evaluate_fitness(
         self, model, x_train, y_train, x_valid, y_valid, particle_swarm_flag=0, dragon_fly_flag=0
     ):
